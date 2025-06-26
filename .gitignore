@@ -1,0 +1,55 @@
+# Archivos de entorno
+.env
+.env.local
+.env.*.local
+
+# Dependencias
+/vendor/
+/node_modules/
+
+# Cache y logs
+/storage/*
+!/storage/public/
+/storage/framework/cache/*
+/storage/framework/views/*
+/storage/framework/sessions/*
+/storage/logs/*
+
+# Archivos de desarrollo y testing
+.phpunit.result.cache
+.phpunit.cache
+/coverage/
+
+# Archivos de IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de composer
+composer.lock
+composer.phar
+
+# Archivos de despliegue
+build/
+.phploy
+
+# Archivos de sesión
+*.sess
+
+# Archivos temporales
+*.tmp
+
+# Archivos de usuario uploads (si no deben versionarse)
+/public/uploads/
+/public/storage/
+
+# Archivos de caché de frameworks
+bootstrap/cache/*
+
+#otros
+assets/js/fileupload/node_modules
