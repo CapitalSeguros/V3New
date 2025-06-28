@@ -1,4 +1,0 @@
-codeigniter
-===========
-
-Videotutorial de codeigniter
