@@ -1,0 +1,44 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VEVENT
+ORGANIZER;CN=COORDINADOR@CAPCAPITAL.COM.MX:mailto:COORDINADOR@CAPCAPITAL.COM.MX
+UID:aj11la9o2n9ucoprs7e654leok@google.com
+CLASS:PUBLIC
+DTSTAMP:20200921T201548Z
+DTSTART:2020-09-24T12:00Z
+DTEND:2020-09-24T14:00Z
+LOCATION:Sala Virtual Zoom
+STATUS:CONFIRMED
+SUMMARY:Comité Comercial Septiembre 2020
+ACTION:EMAIL
+DESCRIPTION:Buenas tardes, esperando se encuentren bien...
+
+Por este medio les extiendo la invitación para nuestro Comité Comercial, que se llevara acabo el día Jueves, agradezco de antemano tu participación.
+
+
+CAPITAL Seguros y Fianzas le está invitando a una reunión de Zoom programada.
+
+Tema: Reunión Zoom de CAPITAL Seguros y Fianzas
+Hora: 24 sep 2020 12:00 PM Ciudad de México
+
+Unirse a la reunión Zoom
+https://us02web.zoom.us/j/81043827585
+
+ID de reunión: 810 4382 7585
+Móvil con un toque
++13462487799,,81043827585# Estados Unidos de América (Houston)
++16699006833,,81043827585# Estados Unidos de América (San Jose)
+
+Marcar según su ubicación
+        +1 346 248 7799 Estados Unidos de América (Houston)
+        +1 669 900 6833 Estados Unidos de América (San Jose)
+        +1 929 205 6099 Estados Unidos de América (New York)
+        +1 253 215 8782 Estados Unidos de América (Tacoma)
+        +1 301 715 8592 Estados Unidos de América (Germantown)
+        +1 312 626 6799 Estados Unidos de América (Chicago)
+ID de reunión: 810 4382 7585
+Encuentre su número local: https://us02web.zoom.us/u/kdi9uX5Pxl  ->  Acceso al evento: https://capsys.com.mx/V3/accesoAEvento/habilitaEvento?q=aj11la9o2n9ucoprs7e654leok&r=145&p=interno
+END:VEVENT
+END:VCALENDAR

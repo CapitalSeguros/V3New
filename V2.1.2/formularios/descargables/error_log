@@ -1,0 +1,68 @@
+[21-Jul-2014 12:52:11 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php54/lib/php/extensions/no-debug-non-zts-20100525/imagick.so' - /opt/php54/lib/php/extensions/no-debug-non-zts-20100525/imagick.so: undefined symbol: zend_new_interned_string in Unknown on line 0
+[21-Jul-2014 12:52:11 America/Chicago] PHP Warning:  PHP Startup: SourceGuardian: Unable to initialize module
+Module compiled with module API=20100525
+PHP    compiled with module API=20090626
+These options need to match
+ in Unknown on line 0
+[22-Jul-2014 22:53:24 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php54/lib/php/extensions/no-debug-non-zts-20100525/imagick.so' - /opt/php54/lib/php/extensions/no-debug-non-zts-20100525/imagick.so: undefined symbol: zend_new_interned_string in Unknown on line 0
+[22-Jul-2014 22:53:24 America/Chicago] PHP Warning:  PHP Startup: SourceGuardian: Unable to initialize module
+Module compiled with module API=20100525
+PHP    compiled with module API=20090626
+These options need to match
+ in Unknown on line 0
+[24-Jul-2014 16:36:51 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php54/lib/php/extensions/no-debug-non-zts-20100525/imagick.so' - /opt/php54/lib/php/extensions/no-debug-non-zts-20100525/imagick.so: undefined symbol: zend_new_interned_string in Unknown on line 0
+[24-Jul-2014 16:36:51 America/Chicago] PHP Warning:  PHP Startup: SourceGuardian: Unable to initialize module
+Module compiled with module API=20100525
+PHP    compiled with module API=20090626
+These options need to match
+ in Unknown on line 0
+[24-Jul-2014 17:14:14 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php54/lib/php/extensions/no-debug-non-zts-20100525/imagick.so' - /opt/php54/lib/php/extensions/no-debug-non-zts-20100525/imagick.so: undefined symbol: zend_new_interned_string in Unknown on line 0
+[24-Jul-2014 17:14:14 America/Chicago] PHP Warning:  PHP Startup: SourceGuardian: Unable to initialize module
+Module compiled with module API=20100525
+PHP    compiled with module API=20090626
+These options need to match
+ in Unknown on line 0
+[24-Jul-2014 18:41:49 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php54/lib/php/extensions/no-debug-non-zts-20100525/imagick.so' - /opt/php54/lib/php/extensions/no-debug-non-zts-20100525/imagick.so: undefined symbol: zend_new_interned_string in Unknown on line 0
+[24-Jul-2014 18:41:49 America/Chicago] PHP Warning:  PHP Startup: SourceGuardian: Unable to initialize module
+Module compiled with module API=20100525
+PHP    compiled with module API=20090626
+These options need to match
+ in Unknown on line 0
+[13-Aug-2014 18:10:41 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php54/lib/php/extensions/no-debug-non-zts-20100525/imagick.so' - /opt/php54/lib/php/extensions/no-debug-non-zts-20100525/imagick.so: undefined symbol: zend_new_interned_string in Unknown on line 0
+[13-Aug-2014 18:10:41 America/Chicago] PHP Warning:  PHP Startup: SourceGuardian: Unable to initialize module
+Module compiled with module API=20100525
+PHP    compiled with module API=20090626
+These options need to match
+ in Unknown on line 0
+[20-Sep-2014 09:50:01 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[20-Sep-2014 09:50:01 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[20-Sep-2014 09:59:41 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[20-Sep-2014 09:59:41 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[20-Sep-2014 09:59:57 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[20-Sep-2014 09:59:57 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[22-Sep-2014 11:41:10 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[22-Sep-2014 11:41:10 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[22-Sep-2014 11:41:24 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[22-Sep-2014 11:41:24 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[22-Sep-2014 12:06:25 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[22-Sep-2014 12:06:25 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[22-Sep-2014 13:12:43 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[22-Sep-2014 13:12:44 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[22-Sep-2014 13:13:24 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[22-Sep-2014 13:13:24 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[22-Sep-2014 16:32:50 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[22-Sep-2014 16:32:50 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[22-Sep-2014 16:34:26 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[22-Sep-2014 16:34:26 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[25-Sep-2014 11:40:26 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[25-Sep-2014 11:40:26 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[25-Sep-2014 11:40:38 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[25-Sep-2014 11:40:38 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[30-Sep-2014 19:12:15 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[30-Sep-2014 19:12:15 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[30-Sep-2014 19:16:15 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[30-Sep-2014 19:16:15 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[01-Oct-2014 12:26:44 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[01-Oct-2014 12:26:44 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[01-Oct-2014 16:13:38 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_interbase.dll: cannot open shared object file: No such file or directory in Unknown on line 0
+[01-Oct-2014 16:13:38 America/Chicago] PHP Warning:  PHP Startup: Unable to load dynamic library '/opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll' - /opt/php53/lib/php/extensions/no-debug-non-zts-20090626/php_pgsql.dll: cannot open shared object file: No such file or directory in Unknown on line 0

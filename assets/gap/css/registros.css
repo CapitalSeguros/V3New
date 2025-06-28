@@ -1,0 +1,106 @@
+.error label{
+    color:red;
+}
+.box.first {
+        float: left;
+    }
+
+
+/* spiner */
+#nprogress {
+        pointer-events: none;
+        height: 100%;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1040;
+    }
+
+    #nprogress .spinner {
+        display: block;
+        position: fixed;
+        right: 50%;
+        top: 50%;
+        margin-left: -10px;
+        margin-top: -10px;
+        z-index: 1031;
+    }
+
+    #nprogress .spinner-icon {
+        border: solid 2px transparent;
+        border-left-color: #8AD703;
+        border-radius: 50%;
+        border-top-color: #8AD703;
+        box-sizing: border-box;
+        height: 20px;
+        width: 20px;
+        position: absolute;
+        -webkit-animation: nprogress-spinner 400ms linear infinite;
+        animation: nprogress-spinner 400ms linear infinite;
+    }
+
+    #nprogress .spinner-icon-bg {
+        border: solid 2px rgba(0, 0, 0, 0.2);
+        border-radius: 50%;
+        box-sizing: border-box;
+        height: 20px;
+        width: 20px;
+    }
+
+    #nprogress .overlay {
+        /*pointer-events: none;
+    cursor: not-allowed;*/
+        background-color: #000;
+        background-color: rgba(0, 0, 0, 0.4);
+        color: #fff;
+        display: block;
+        height: 100%;
+        position: fixed;
+        text-align: center;
+        top: 0;
+        width: 100%;
+        z-index: 1030;
+        /*  -webkit-transition: 0.3s all;
+        -moz-transition: 0.3s all;
+        -ms-transition: 0.3s all;
+        -o-transition: 0.3s all;
+            transition: 0.3s all;*/
+    }
+
+    .pagination {
+        margin: unset !important;
+        /* margin-top: 8px !important; */
+    }
+
+    .label-P {
+        margin-top: 10px;
+        font-weight: 700;
+    }
+
+    .btn-P {
+        margin-top: 30px;
+    }
+
+    .dis-li {
+        pointer-events: none;
+        opacity: 0.6;
+    }
+
+    .li-info {
+        cursor: pointer;
+    }
+
+    .blocker {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        height: 100%;
+        width: 100%;
+        /* hacemos que ocupe toda la pantalla a cualquier resolución*/
+        z-index: 50;
+        /* lo colocamos por encima del resto de componentes*/
+        /* background: url(b.png) repeat */
+        ;
+        /*Color de fondo semitransparente*/
+    }

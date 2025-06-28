@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "teak-serenity-113316",
+  "private_key_id": "7381acf6efe911151462ce96249480c3d5a2b621",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCbfWOPojgVm+HG\nsK8aJathfEn95oR16qtjWz8jh63Y7LmWDNx2xbnSsCaAqaLGf0FfSNovEhzKAoiu\nIFkllahLGhM64SNX2YC/q7sei+6DbXvLiksWuHVa3uFqXPBrISuNj47Y8OQvNOYB\n2CNiFSspoFNpXqb/88VylMJnvPfH9gwysLeK42LL23Vo12x6l12j5iJf10HTawGv\nkOOt0vlrewgXa0D4GoCrEw2FAOZ43dmYNLdnKQF5y2XDzPMRC7CDA/Pnx5lTTHxg\naPhPo69/ELJp0apQ8IgsFIrqYA0+iTPClTRRUzYOPiiQJQ2Sw5xDiGmR7jMuk+ns\nYtmoNWtPAgMBAAECggEAJVinmi8vY1lOkEeNty0HDeIpb3d3p07XHYUkFCeZhPnO\n1ZB/P3PcXxN6G/sioqScEgPQi+/AxHB5XcFdSB67DlbT+ZdrwsT2HJNl3T9k6WJZ\nkpjD0lA5t7rCz6ZFBKYx7M1nVQn+9Kuy9wxv6zYEaPoeLrfSSrXFXfEHBJ2psfgx\nyce+3dADdw+p96swzzUhuNPsurudc6eLBGOeMEn4PT73iP8Si+MwV3Er30o+C7FU\neepR9NVQv6ndSiS2A0uPmPoPXCliBZbtmDzosFBMSMElh4OtkeeLp7AegXSVJHPi\ngY+fMmhSA89NegOgZlXXiSuDb3MhLwyJwOFDkDWTGQKBgQDbwWBCfSdH5NnsvLIV\nlh1thQTEKFQFI+8e1fcjNEWv4sPjjU6ZBzmSfKuv1K1JTf7fiTVEq47F3uepG/ek\nVwM0uFVIqtn8ejzi6VvKePl61TslvRrTOrA6pe45+Qs4Wrr346QvdGZ5Q6coLxGR\nkSW23YI2kq/27awKlCr3JYesTQKBgQC1Io8TmFk4ThzrtdYQg872pJHyCgjzWZ0u\nr8suyj9k1ihfAatn9j/z8chB4yno00E0QsRh0Qh0rFSB1M0Xj8WYMeT/vQFrGVm1\nSe3THlIt4Xrkur78mMc64e1LRhPqSq/B1yIOgbIZ/nbozv9w+v5jW3fzbK+H/Res\nYo+7UxcUCwKBgB1QMCzuUN0QM9mWWhLzET3YrogT8RE2d+EfHXY+tMT/dK3X3ZIg\nGpfltWkg73SFyOe8f7SHReYzE6fFKUVsrerMY+PrlmRNUe3avvnFJVIzO06PaRKg\nE33fQGXPSKXdxG7omLAT0M+ALL35eVh3ihZYedQZwQspLPfER+7rvKtJAoGAF+09\nuxfnyTFATr6RTVMr9paclL1Qm1yeD7m2/DJJF3fWk140FyKHJiEtE87/DTtCpLWh\nHU6wcEEHVLMYeGFMd6M3nbSIyG3r1K+0U6vwrRDY2/fzHIjN4HBRmRzjqpI9Dzzs\nyb/GF/ruGCinw3PUQKmneadEtJDxHJtUYylBpisCgYBUW62bNerSuHtxDGjASAqs\nYnzI85mxx6KBidI+xzwLAJDnYiARjhcPmWFkgrQAx7ESvyoC+jAWo2pte6ydz0ry\nj7Bj9i4zhVMdt1QK+SJpu/sLXmeZW6e/70oD9pcs1o7zBIMI41V0Vkd6l1Cmel5W\nabd2JNkQvI6lMHU8GJDWKw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "teak-serenity-113316@appspot.gserviceaccount.com",
+  "client_id": "105798815060943868426",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/teak-serenity-113316%40appspot.gserviceaccount.com"
+}

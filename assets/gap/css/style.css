@@ -1,0 +1,212 @@
+:root{
+    --main-color:#003877;
+    --secondary-color:#AF7900;
+    --color-main:#D4EEF4;
+    --color-white:#fff;
+}
+.app-ticc{
+    font-family: 'Montserrat', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
+    font-family: 'Ubuntu Condensed', sans-serif;
+    font-size: 15px;
+}
+
+/*BOTONES*/
+.app-ticc .btn.btn-shadow.active {
+    box-shadow: 0 0 0 0 transparent!important
+}
+.app-ticc .btn-primary {
+    color: #fff;
+    background-color: #3f6ad8;
+    border-color: #3f6ad8
+}
+.app-ticc .btn-primary:hover {
+    color: #fff;
+    background-color: #2955c8;
+    border-color: #2651be
+}
+.app-ticc .btn-primary:focus,
+.app-ticc .btn-primary.focus {
+    box-shadow: 0 0 0 0 rgba(92, 128, 222, .5)
+}
+.app-ticc .btn-primary.disabled,
+.app-ticc .btn-primary:disabled {
+    color: #fff;
+    background-color: #3f6ad8;
+    border-color: #3f6ad8
+}
+.app-ticc .btn-primary:not(:disabled):not(.disabled):active,
+.app-ticc .btn-primary:not(:disabled):not(.disabled).active,
+.app-ticc .show>.btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #2651be;
+    border-color: #244cb3
+}
+.app-ticc .btn-primary:not(:disabled):not(.disabled):active:focus,
+.app-ticc .btn-primary:not(:disabled):not(.disabled).active:focus,
+.app-ticc .show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0 rgba(92, 128, 222, .5)
+}
+
+/*CARD*/
+.app-ticc .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid rgba(26,54,126,.125);
+    border-radius: .25rem;
+}
+.app-ticc .card {
+    box-shadow: 0 0.46875rem 2.1875rem rgba(4,9,20,.03), 0 0.9375rem 1.40625rem rgba(4,9,20,.03), 0 0.25rem 0.53125rem rgba(4,9,20,.05), 0 0.125rem 0.1875rem rgba(4,9,20,.03);
+    border-width: 0;
+    transition: all .2s;
+}
+.app-ticc .card-header:first-child {
+    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+}
+.app-ticc .card-header {
+    border-bottom: 1px solid rgba(26,54,126,.125);
+}
+
+/*CARD > TAB*/
+.app-ticc .card-body .nav .nav-item {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+.app-ticc .nav-justified .nav-item {
+    flex-basis: 0;
+    flex-grow: 1;
+    text-align: center;
+}
+.app-ticc .card-body .nav .nav-link {
+    text-transform: none;
+    width: 100%;
+    display: block;
+    color: #495057;
+}
+.app-ticc .card-body .nav .nav-link.active,
+.app-ticc .card-body .nav .nav-link:hover {
+    color: #3f6ad8;
+}
+
+.app-ticc .card-body .nav .nav-link::before {
+    content: '';
+    border-radius: 15px;
+    background: #3f6ad8;
+    transition: all .2s;
+    height: 4px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    opacity: 0;
+}
+.app-ticc .card-body .nav .nav-link.active::before {
+    opacity: 1;
+}
+.app-ticc .nav-tabs .nav-link, 
+.app-ticc .nav-tabs .nav-link:focus, 
+.app-ticc .nav-tabs .nav-link:hover {
+    border: 0px;
+    border-color:transparent;
+}
+/*DROPDOWN*/
+.app-ticc .btn-info, .btn-info:hover {
+    color: #fff;
+    background-color: var(--main-color) !important;
+    border-color: var(--main-color) !important;
+}
+/*.app-ticc .btn-info.btn-shadow {
+    box-shadow: 0 0.125rem 0.625rem rgba(22,170,255,.4), 
+    0 0.0625rem 0.125rem rgba(22,170,255,.5);
+}*/
+
+.app-ticc .dropdown-menu {
+    font-size: .88rem;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+}
+
+.app-ticc .nav-link .nav-link-icon {
+    color: var(--main-color);
+    font-size: 1rem;
+    width: 30px;
+    text-align: center;
+    opacity: .45;
+    margin-left: -10px;
+}
+/* BOTONES */
+.app-ticc .input-group-text {
+ background-color: var(--main-color);
+ color: var(--color-main);
+}
+/*TAB*/
+
+.app-ticc .dropdown-menu a.nav-link {
+    color: var(--main-color);
+    text-decoration: none;
+    background-color: transparent;
+    -webkit-text-decoration-skip: objects;
+}
+.app-ticc .dropdown-menu .nav-link:hover,
+.app-ticc .dropdown-menu .nav-link:hover .nav-link-icon{
+    color: var(--color-white);
+}
+.app-ticc .dropdown-menu a.nav-link:hover {
+    background-color: var(--main-color);
+    color: var(--color-white);
+}
+
+
+
+
+/*COMENTAR PARA VER OTRA VERSION*/
+.app-ticc label{
+    font-size: 12px;
+}
+.app-ticc label.no-show{
+    display: none;
+}
+
+.app-ticc .custom-date.no-show label{
+    width: 20%;
+    float: left;
+    padding-top: .4rem;
+    padding-bottom: .8rem;
+}
+.app-ticc .custom-date.no-show input[type="date"]{
+    width: 80%;
+    float: left;
+}
+
+
+.app-ticc .custom-date-2.no-show label{
+    width: 50%;
+    float: left;
+    padding-top: .4rem;
+    padding-bottom: .8rem;
+    font-size: 12px;
+}
+.app-ticc .custom-date-2.no-show input[type="date"]{
+    width: 50%;
+    float: left;
+    margin-bottom: 5px;
+}
+.app-ticc .custom-date-2.no-show input[type="text"]{
+    width: 50%;
+    float: left;
+    margin-bottom: 5px;
+}
+@media screen and (max-width:768px) {
+    .app-ticc .nav-justified {
+        list-style-type: none;
+    }
+}

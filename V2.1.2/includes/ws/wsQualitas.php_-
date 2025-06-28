@@ -1,0 +1,454 @@
+<?php
+/*
+function DigitoVerificadorQualitas($cAmis){
+	// Paso 1 Completado de Ceros Amis
+	if(strlen($cAmis) == 5)
+	{
+		$cAmis_Completo = $cAmis;
+	} else if(strlen($cAmis) <= 4)
+	{
+		$longitudAmis = strlen($cAmis);
+		$completoCeros = 5 - $longitudAmis;
+			$ceros[1] = "0";
+			$ceros[2] = "00";
+			$ceros[3] = "000";
+			$ceros[4] = "0000";
+		$cAmis_Completo = $ceros[$completoCeros].$cAmis;
+	}
+	
+	// Paso 1.2 Suma de Numeros impares desde la izquierda
+	$sumaNumerosImpares = $cAmis_Completo[0] + $cAmis_Completo[2] + $cAmis_Completo[4];
+	
+	// Paso 2 Multiplicar SumaNumerosImpares por 3
+	$multiplicacionImpar = $sumaNumerosImpares * 3;
+	
+	// Paso 3 Sumar las posiciones pares
+	$sumaNumerosPares = $cAmis_Completo[1] + $cAmis_Completo[3];
+	
+	// Paso 4 Sumar los resultados de los pasos 3  y 4 
+ 	$sumaPasos = $multiplicacionImpar + $sumaNumerosPares;
+	
+	// Paso 5 buscar el menor numero para llegar a multiplo de 10
+	$modulo10 = $sumaPasos % 10;
+	
+	if($modulo10 != 0 ){	
+    $digitoVerificador = 10- $modulo10;
+	} else {
+	$digitoVerificador = $modulo10;
+	}
+	
+	return $digitoVerificador;
+}
+*/
+function claveAmisQualitas($modelo, $year, $marca){
+	
+$client = new nusoap_client('http://201.151.239.108/wsTarifa/wsTarifa.asmx?WSDL', true);
+	$cMarca = $marca;
+	$cCAMIS = "";
+	$cModelo = $year;
+	$cVersion = substr($modelo, strpos($modelo, '**', 1)+2);
+$param = array(
+				'cUsuario' => 'linea'
+				,'cTarifa' => 'linea'
+				,'cMarca' => $cMarca
+				,'cTipo' => ''
+				,'cVersion' => $cVersion
+				,'cModelo'=> $cModelo
+				,'cCAMIS' => $cCAMIS
+				,'cCategoría' => ''
+				,'cNvaAMIS' => ''
+			  );
+$result = $client->call('listaTarifas', array('parameters' => $param), '', '', false, true);
+
+	// Proceso para presentacion del XML obtenido
+$respuestaXML = htmlspecialchars_decode($client->responseData, ENT_NOQUOTES);
+$cosasQuitaXml = array('<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body>','</soap:Body></soap:Envelope>');
+$cosasPonerXml = array('','');
+$respuestaXmlDepurada = str_replace($cosasQuitaXml, $cosasPonerXml, $respuestaXML);
+
+$datosSubMarca = simplexml_load_string($respuestaXmlDepurada);
+
+	foreach($datosSubMarca->listaTarifasResult->salida->datos->Elemento as $vehiculo){
+		 $CAMIS = $vehiculo->CAMIS;
+	}
+	
+	return
+			ltrim(rtrim($CAMIS));
+	
+}
+
+/*Formas Pago Qualitas*/
+$formaPagoArray['Contado'] = "C";
+$formaPagoArray['Semestral'] = "S";
+$formaPagoArray['Trimestral'] = "T";
+$formaPagoArray['Mensual'] = "M";
+/*---------------*/
+
+/*
+cIFactura
+cMarca 
+cModelo -
+cYear 
+cCP -
+cEstado -
+cVigencia - Anual/MultiAnual
+cAgencia 
+cEjecutivo 
+cProspecto -
+*/
+
+//Variables que recibimos para cotizar el vehiculo
+
+$numeroAgente = "16413"; // 16413   18634
+$numeroNegocio = "01970"; // 01970  01248
+
+$prospectoXML = $rowConsultaDatosCliente['RAZON_SOCIAL'];// "Herrera Espadas Juan Jose"; 
+$nombreProspecto = $rowConsultaDatosCliente['NOMBRES'];
+$apellidoPProspecto = $rowConsultaDatosCliente['APELLIDO_PATERNO'];
+$apellidoMProspecto = $rowConsultaDatosCliente['APELLIDO_MATERNO'];
+$direccionXML = $rowConsultaDatosCliente['CALLE']." ".$rowConsultaDatosCliente['NOEXTERIOR']." ".$rowConsultaDatosCliente['NOINTERIOR']." ".$rowConsultaDatosCliente['REFERENCIA']." ".$rowConsultaDatosCliente['REFERENCIA2'];
+$cononiaXML = $rowConsultaDatosCliente['COLONIA'];
+$problacionXML = $rowConsultaDatosCliente['MUNICIPIO'];
+
+$paisQualitas = "MEXICO";
+
+$estadoXML = idEstadoDre($estado);
+$cpXML = $codigo_postal;
+$formaPago = $FormaPago = $formaPagoArray[$forma_pago]; /* C-Contado S-Semestral T-Trimestral M-Mensual */
+$claveAmisXML = substr($wsModelo, strpos($wsModelo, '**', 1)+2); //claveAmisQualitas($wsModelo, $wsYear, $wsMarca); //"06048";
+$digitoVerificador = DigitoVerificadorQualitas($claveAmisXML); //"6";
+$modeloXML = $wsYear; // "2011";
+$descripcionVehiculoXML = $wsModelo; //"A5 3.2L ELITE MULTITRONIC V6 261HP AUT.,04"; //3.2L ELITE MULTITRONIC V6 261HP AUT.,04
+$fechaEmisionXML = date('Y-m-d'); // "2013-10-29";
+$fechaInicioXML = date('Y-m-d'); // "2013-10-29";
+$fechaTerminoXML = date ( 'Y-m-d' , strtotime ( '1 Year' , strtotime ( date('Y-m-d') ) ) ); //  "2014-10-29";
+$PorcentajeDescuento = $descuentoQualitas;
+if($sumaAsegurada == "vC"){ $sumaAsegurada = "0"; } else if($sumaAsegurada == "vF") { $sumaAsegurada = "01"; }
+if($valorFactura == ""){ $valorFactura = "0"; } else { $valorFactura = str_replace(',','',$valorFactura); }
+
+
+// XML que enviamos para cotizar el vehiculo
+$xml='<?xml version="1.0" encoding="utf-8"?>
+<Movimientos>
+	<Movimiento TipoMovimiento="2" NoPoliza="" NoCotizacion="" NoEndoso="" TipoEndoso="" NoOTra="" NoNegocio="'.$numeroNegocio.'">
+		<DatosAsegurado NoAsegurado="">
+			<Nombre/>
+			<Direccion/>
+			<Colonia/>
+			<Poblacion/>
+			<Estado>'.$estadoXML.'</Estado>
+			<CodigoPostal>'.$cpXML.'</CodigoPostal>
+			<NoEmpleado/>
+			<Agrupador/>
+			<ConsideracionesAdicionalesDA NoConsideracion="40">
+				<TipoRegla>1</TipoRegla>
+				<ValorRegla>1</ValorRegla>
+			</ConsideracionesAdicionalesDA>
+			<ConsideracionesAdicionalesDA NoConsideracion="40">
+				<TipoRegla>2</TipoRegla>
+				<ValorRegla>2</ValorRegla>
+			</ConsideracionesAdicionalesDA>
+			<ConsideracionesAdicionalesDA NoConsideracion="40">
+				<TipoRegla>3</TipoRegla>
+				<ValorRegla>'.$paisQualitas.'</ValorRegla>
+			</ConsideracionesAdicionalesDA>
+			<ConsideracionesAdicionalesDA NoConsideracion="40">
+				<TipoRegla>4</TipoRegla>
+				<ValorRegla>'.$nombreProspecto.'</ValorRegla>
+			</ConsideracionesAdicionalesDA>
+			<ConsideracionesAdicionalesDA NoConsideracion="40">
+				<TipoRegla>5</TipoRegla>
+				<ValorRegla>'.$apellidoPProspecto.'</ValorRegla>
+			</ConsideracionesAdicionalesDA>
+			<ConsideracionesAdicionalesDA NoConsideracion="40">
+				<TipoRegla>6</TipoRegla>
+				<ValorRegla>'.$apellidoMProspecto.'</ValorRegla>
+			</ConsideracionesAdicionalesDA>
+		</DatosAsegurado>		
+		<DatosVehiculo NoInciso="1">
+			<ClaveAmis>'.$claveAmisXML.'</ClaveAmis>
+			<Modelo>'.$modeloXML.'</Modelo>
+			<DescripcionVehiculo>'.$descripcionVehiculoXML.'</DescripcionVehiculo>
+			<Uso>1</Uso>
+			<Servicio>1</Servicio>
+			<Paquete>1</Paquete>
+			<Motor/>
+			<Serie/>
+
+			<Coberturas NoCobertura="01">
+				<SumaAsegurada>'.$valorFactura.'</SumaAsegurada> 
+				<TipoSuma>'.$sumaAsegurada.'</TipoSuma>           <!-- 0 Valor convenido , 01 Valor factura, 03 Valor comercial -->
+				<Deducible>5</Deducible>
+				<Prima>0</Prima>
+			</Coberturas>
+			<Coberturas NoCobertura="03">
+				<SumaAsegurada>'.$valorFactura.'</SumaAsegurada>
+				<TipoSuma>'.$sumaAsegurada.'</TipoSuma>           <!-- 0 Valor convenido , 01 Valor factura, 03 Valor comercial -->
+				<Deducible>10</Deducible>
+				<Prima>0</Prima>
+			</Coberturas>
+			<Coberturas NoCobertura="04">
+				<SumaAsegurada>3000000</SumaAsegurada>
+				<TipoSuma>0</TipoSuma>
+				<Deducible>0</Deducible>
+				<Prima>0</Prima>
+			</Coberturas>
+			<Coberturas NoCobertura="05">
+				<SumaAsegurada>300000</SumaAsegurada>
+				<TipoSuma>0</TipoSuma>
+				<Deducible>0</Deducible>
+				<Prima>0</Prima>
+			</Coberturas>
+			<Coberturas NoCobertura="07">
+				<SumaAsegurada/>
+				<TipoSuma>0</TipoSuma>
+				<Deducible>0</Deducible>
+				<Prima>0</Prima>
+			</Coberturas>
+			<Coberturas NoCobertura="14">
+				<SumaAsegurada>0</SumaAsegurada>
+				<TipoSuma> 0</TipoSuma>
+				<Deducible>0</Deducible>
+				<Prima>0</Prima>
+			</Coberturas>
+		</DatosVehiculo>
+		<DatosGenerales>
+			<FechaEmision>'.$fechaEmisionXML.'</FechaEmision>
+			<FechaInicio>'.$fechaInicioXML.'</FechaInicio>
+			<FechaTermino>'.$fechaTerminoXML.'</FechaTermino>
+			<Moneda>0</Moneda>
+			<Agente>'.$numeroAgente.'</Agente>
+			<FormaPago>'.$FormaPago.'</FormaPago>
+			<TarifaValores>linea</TarifaValores>
+			<TarifaCuotas>linea</TarifaCuotas>
+			<TarifaDerechos>linea</TarifaDerechos>
+			<Plazo/>
+			<Agencia/>
+			<Contrato/>
+			<PorcentajeDescuento>'.$PorcentajeDescuento.'</PorcentajeDescuento>
+			<ConsideracionesAdicionalesDG NoConsideracion="1">
+				<TipoRegla>1</TipoRegla>
+				<ValorRegla>'.$digitoVerificador.'</ValorRegla>
+			</ConsideracionesAdicionalesDG>
+			<ConsideracionesAdicionalesDG NoConsideracion="4">
+				<TipoRegla>1</TipoRegla> 
+				<ValorRegla>0</ValorRegla> <!-- 0:Produccion; 1:Pruebas; -->
+			</ConsideracionesAdicionalesDG>
+			<ConsideracionesAdicionalesDG NoConsideracion="5">
+				<TipoRegla>1</TipoRegla>
+				<ValorRegla>'.$plazoPago.'</ValorRegla>
+			</ConsideracionesAdicionalesDG>
+		</DatosGenerales>
+		<Primas>
+			<PrimaNeta/>
+			<Derecho>535</Derecho>
+			<Recargo/>
+			<Impuesto/>
+			<PrimaTotal/>
+			<Comision/>
+		</Primas>
+		<CodigoError/>
+	</Movimiento>
+</Movimientos>';
+//echo "<pre>";
+//echo htmlspecialchars($xml);
+//echo "</pre>";
+
+$client = new nusoap_client('http://sio.qualitas.com.mx/WsEmision/WsEmision.asmx?WSDL', 'wsdl'); //URL del WSDL
+
+// Definicion de Estructura Error
+$err = $client->getError(); // Error del cliente
+if ($err) {
+	echo '<h2>Constructor error</h2><pre>' . $err . '</pre>';
+}
+
+// Definicion arreglo de xml con parametros
+$arr=array('xmlEmision'=>$xml);
+
+//resultado al consumir WS
+$result = $client->call('obtenerNuevaEmision', $arr);
+
+//echo "<pre>";
+	//print_r($result);
+//echo "</pre>";
+//--> echo '<h2>Request</h2><pre>' . htmlspecialchars($client->request, ENT_QUOTES) . '</pre>';
+//echo '<h2>Response</h2><pre>' . htmlspecialchars($client->response, ENT_QUOTES) . '</pre>';
+
+// Proceso para almacenamiento del XML obtenido
+$respuestaXML = htmlspecialchars_decode($client->responseData, ENT_NOQUOTES);
+
+$cosasQuitaXml = array('<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><obtenerNuevaEmisionResponse xmlns="http://qualitas.com.mx/"><obtenerNuevaEmisionResult>','</obtenerNuevaEmisionResult></obtenerNuevaEmisionResponse></soap:Body></soap:Envelope>');
+$cosasPonerXml = array('','');
+
+$respuestaXmlDepurada = str_replace($cosasQuitaXml, $cosasPonerXml, $respuestaXML);
+$fileXML = "xmlTodos/qualitas/".$recId."_".date('dmY_Gis').'.xml';
+file_put_contents($fileXML, $respuestaXmlDepurada);
+
+/* Proceso Para Cuadro Comparativo */
+ if(file_exists($fileXML)){ // el archivo es necesario que se depuere hasta dejarlo lo mas limpio en Formato XML
+	//echo "<br>Si Existe el Archivo<br>";
+	
+	$datosCotizacion  =  simplexml_load_file($fileXML); 
+	if($datosCotizacion){
+		//echo "Si Cargamos el XML";
+
+		foreach($datosCotizacion->Movimiento as $cotizacion){
+//--> Guardamos Info en la Tabla Comparativa
+
+$idActividad = $idActividad;
+$idCliente = $idEmpresa;
+$idUsuario = $idUsuario;
+$descripcion = "[".$cotizacion->DatosVehiculo->ClaveAmis."]-".$cotizacion->DatosVehiculo->DescripcionVehiculo;//$wsMarca." - ".$wsModelo;
+$modelo = $wsYear;
+$uso = $tipo_uso;
+$aseguradora = "QUALITAS";
+$prima_danosMateriales = "Convenido";
+$prima_roboTotal = "Convenido";
+$prima_rc = "3000000";
+$prima_gastosMedicos = "200000";
+$prima_asesoriaJuridica = "AMPARADA";
+$prima_asistenciaVial = "AMPARADA";
+$prima_extensionRc = "EXCLUIDO";
+$prima_muertaAccConducto = "100000";
+$prima_rcMuerteTerceros = "AMPARADO EN  RC";
+
+$total = $primaTotal = $cotizacion->Primas->PrimaTotal;
+$primerRecibo = $cotizacion->Recibos[0]->PrimaTotal;
+$subSecuenteRecibo = $cotizacion->Recibos[1]->PrimaTotal;
+$NoCotizacion = $cotizacion['NoCotizacion'];
+
+/*
+if($forma_pago == "Contado"){ $total_contado = $primaTotal; }else{ $total_contado = "0.00";}
+if($forma_pago == "Mensual"){ $total_mensual = $primaTotal; }else{ $total_mensual = "0.00";}
+if($forma_pago == "Trimestral"){ $total_trimestral = $primaTotal; }else{ $total_trimestral = "0.00";}
+if($forma_pago == "Semestral"){ $total_semestral = $primaTotal; }else{ $total_semestral = "0.00";}
+*/
+
+
+
+$sqlComparativaInsert = "
+	Insert Into 
+		`ws_comparativo`
+			(
+				`idActividad`
+				,`idCliente`
+				,`idUsuario`
+				,`marca`
+				,`descripcion`
+				,`modelo`
+				,`estadoCirculacion`
+				,`codigoPostal`
+				,`uso`
+				,`cobertura`
+				,`aseguradora`
+				,`prima_danosMateriales`
+				,`prima_roboTotal`
+				,`prima_rc`
+				,`prima_gastosMedicos`
+				,`prima_asesoriaJuridica`
+				,`prima_asistenciaVial`
+				,`prima_extensionRc`
+				,`prima_muertaAccConducto`
+				,`prima_rcMuerteTerceros`
+				,`formaPago`
+				,`total`
+				,`primerRecibo`
+				,`subSecuenteRecibo`
+				,`NoCotizacion`
+			)
+			Values
+			(
+				'$idActividad'
+				,'$idCliente'
+				,'$idUsuario'
+				,'$wsMarca'
+				,'$descripcion'
+				,'$modelo'
+				,'$estado'
+				,'$codigo_postal'
+				,'$uso'
+				,'$cobertura_auto'
+				,'$aseguradora'
+				,'$prima_danosMateriales'
+				,'$prima_roboTotal'
+				,'$prima_rc'
+				,'$prima_gastosMedicos'
+				,'$prima_asesoriaJuridica'
+				,'$prima_asistenciaVial'
+				,'$prima_extensionRc'
+				,'$prima_muertaAccConducto'
+				,'$prima_rcMuerteTerceros'
+				,'$forma_pago'
+				,'$total'
+				,'$primerRecibo'
+				,'$subSecuenteRecibo'
+				,'$NoCotizacion'
+			)
+						";
+DreQueryDB($sqlComparativaInsert);
+
+		}// foreach $marcas
+	}// if $vehiculos
+	$sqlCambiamosBolita = "
+		Update 
+			`actividades`
+		Set
+			`usuarioBolita` = '".$_SESSION['WebDreTacticaWeb2']['Usuario']."'
+		Where
+			`recId` = '$recId' And `inicio` = '0'
+						  ";
+	DreQueryDB($sqlCambiamosBolita);
+}// if file_exists
+/*---------------*/
+
+
+// Definicion de la ruta para continuar a la siguiente a seguradora.
+$wsModelo = $_REQUEST['wsModelo'];
+$estado = $_REQUEST['estado'];
+$codigo_postal = $_REQUEST['codigo_postal'];
+$tipo_uso = $_REQUEST['tipo_uso'];
+$cobertura_auto = $_REQUEST['cobertura_auto'];
+$valor_factura = $_REQUEST['valor_factura'];
+$forma_pago = $_REQUEST['forma_pago'];
+$idEmpresa = $_REQUEST['idEmpresa'];
+$idUsuario = $_REQUEST['idUsuario'];
+$ramoInterno = $_REQUEST['ramoInterno'];
+$idInterno = $_REQUEST['idInterno'];
+$idActividad = $_REQUEST['idActividad'];
+$tipoLineaPersonal = $_REQUEST[''];
+$recId = $_REQUEST['recId'];
+$ver = $_REQUEST['ver'];
+$tipoForm = $_REQUEST['tipoForm'];
+$wsMarca = $_REQUEST['wsMarca'];
+$wsYear = $_REQUEST['wsYear'];
+$wsAseguradoraParticular = "ABA"; //ABA ANA FIN
+$valorFactura = $_REQUEST['valorFactura'];
+$sumaAsegurada = $_REQUEST['sumaAsegurada'];
+
+$urlReturnActividad = $_SERVER['PHP_SELF'];
+$urlReturnActividad .= "?wsModelo=".$wsModelo;
+$urlReturnActividad .= "&estado=".$estado;
+$urlReturnActividad .= "&codigo_postal=".$codigo_postal;
+$urlReturnActividad .= "&tipo_uso=".$tipo_uso;
+$urlReturnActividad .= "&cobertura_auto=".$cobertura_auto;
+$urlReturnActividad .= "&valor_factura=".$valor_factura;
+$urlReturnActividad .= "&forma_pago=".$forma_pago;
+$urlReturnActividad .= "&idEmpresa=".$idEmpresa;
+$urlReturnActividad .= "&idUsuario=".$idUsuario;
+$urlReturnActividad .= "&ramoInterno=".$ramoInterno;
+$urlReturnActividad .= "&idInterno=".$idInterno;
+$urlReturnActividad .= "&idActividad=".$idActividad;
+$urlReturnActividad .= "&tipoLineaPersonal=".$tipoLineaPersonal;
+$urlReturnActividad .= "&recId=".$recId;
+$urlReturnActividad .= "&ver=".$ver;
+$urlReturnActividad .= "&tipoForm=".$tipoForm;
+$urlReturnActividad .= "&wsMarca=".$wsMarca;
+$urlReturnActividad .= "&wsYear=".$wsYear;
+$urlReturnActividad .= "&wsAseguradoraParticular=".$wsAseguradoraParticular;
+$urlReturnActividad .= "&muestra=Formularios";
+$urlReturnActividad .= "&valorFactura=".$valorFactura;
+$urlReturnActividad .= "&sumaAsegurada=".$sumaAsegurada;
+?>
+<script>
+	window.open('<?php echo $urlReturnActividad; ?>', '_self');
+</script>

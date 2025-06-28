@@ -1,0 +1,21 @@
+{
+  "type": "service_account",
+  "project_id": "plugin-calendar-cenis",
+  "private_key_id": "b6043549bb4c1ca33aa5ece5db010310df9ad3e1",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCcW/Ks/sLdeq2u\nMIfvaBHznGYAh+7jBcIqKm43kPkLUt9wapXzCKTbpE7RRM47X3yWIUg4mQxmk6QN\nSx1NXNBErrgxdV2psTtxKrs9b/fw5gYcoQBFuKT2F9FtDegA85SNnWw2yS4OWeSu\nw8o8XObKaevhdo5a9N7aKNCK0RabVXhAIuK5jVoJmM21gl6ZQ1chKx2tY86xqAM2\n5fwPq3jPJEvXJuNbgmWmxLrdtN43YUYwA9yQKTqUQ1XY8S1dXoOAYewVmmgfy9Zz\nIq5NnpIR7VqwrLmgU0NJ7m2AdhvwQCrSLbd2f8F7Re2ZLI5LBAXHljR02u3IrDg/\nd9lxDwRXAgMBAAECggEABpSAA/O8s6FkCb6VGeghSUU9rawKy5cEcs3SUZhSQr28\nFXkG0nF8rpmdj4T7wNfl4FOKPIeEVBTGhKCynPzY7usDaWFtDaUdwUdxFcbOgl7L\nxwynfEem+YxLDfHV36Rgjg0f7rZMr+Hsk8Y9jojCVaZbfOOGXiGL91ZcYFsoPmUr\ngmSb2P8s1fgifcUG0n2YjUl1RTCgWdrPrQMM919KL0aSOs9UT5BJKoQdvtwfG2fU\nOba2bnK11z99+2JXh3e1CNhIKPAG1GgPKT8WYHVUHCBILdvde6ocHlSxtUj/xf9T\n2uo4cpbdurw9ZprPWiwGLzuMuq04bUnlsTnv/Ajf0QKBgQDZgw46wt7LjlzueLIz\nhBj27kb1fmWXrSPe7g+QBYExiE1jOgV0w+WDsswPzG7YGAHFoL0ciTBZwArEsveK\nPYyZyPoMrRIfsfmagj1P5tE1K3PcwFqGuNn+S56QunEGegMOU5zzcSQ26kNHujee\n6/P+Rw5xw5SN60979gtJ4BW7owKBgQC4BsT+UtnTnpnzHC9Y+yMJ+qQPD9CW8yTD\n8+6OtyjVnIkrsBtjL2mT6La9ugjD5HAO/UZdh4QVLw/MGeDcsOCINAjqnolrGpI6\nVa0nfmfzIpYNbUD+yFLcnzAdMXDX7ATgI2iKZZVuklAMREwwz84X6FQn2KK4vWba\n0Dv+9DZfvQKBgHmXhbDbluh74P9+gT/DLKF9ejVqPyiXJWJN+m0sZphl9bzuhnZL\nvFXu8ZwzUBOE+BieTplRJ7JEZMCouzCQT7T4YLANYABP4ZS6EcRE59atP8u7y99c\nHqDFbRLC5sQUGPk9TJPaP8BjHNFQDB/PD0qqNizqhHUBgiFt3cmidwO5AoGACP27\nrjlaDy7WkrwzzAMpKRmn3lyFcnqat0A5zZtBUX5+bTYDgIsWe3WJSCfIudl1aCYT\nxAoU9/v+p5g0FlRGBCGWte/dAvCfaF47QYy5g3WTI0DNRiV/duwIK8T4oHQVoOXZ\n+7kO3gIkCxVjK5dbmGtvgSrieGg4mERISiKgbXkCgYBY/ABt3NA43gFkT2qc7uVq\nhEczuqYbjGODayRtejNykmG2Qj0gznjccihI/PJrNhg9lYmctFC/1E5w/rgjgAb5\npF9w8VJQXdHayYHaTIuqvEtTYT5TwOgcEVADttQgPAP/bQm7dLvyi35F3EPHDDEq\nCkdluUw1Df0qlT7udkk5Mw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "cenis-oy@plugin-calendar-cenis.iam.gserviceaccount.com",
+  "client_id": "113717781481986324246",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/cenis-oy%40plugin-calendar-cenis.iam.gserviceaccount.com",
+  "web":{
+		"client_id":"1057389776087-pmo12ijvojvp01ij6d1gj475fhpj2i23.apps.googleusercontent.com",
+		"project_id":"plugin-calendar-cenis",
+		"auth_uri":"https://accounts.google.com/o/oauth2/auth",
+		"token_uri":"https://accounts.google.com/o/oauth2/token",
+		"auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs",
+		"client_secret":"fhX6u2VyHNz5gw_tF5y3N9Lm",
+		"redirect_uris":["http://localhost:8080/calendario/oauth2callback/"],
+		"javascript_origins":["http://localhost:8080"]}
+}

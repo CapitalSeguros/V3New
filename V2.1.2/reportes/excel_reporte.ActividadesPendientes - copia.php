@@ -1,0 +1,184 @@
+<?
+			$xls->OpenRow();
+				$xls->NewCell('Reporte De Actividades Pendientes',false,$xls_encabezado);
+			$xls->CloseRow();
+	
+			$xls->OpenRow();	
+			$xls->CloseRow();
+	
+			$xls->OpenRow();
+				$xls->NewCell('FECHA INICIO:',true,$xls_fondoAzul);
+				$xls->NewCell($fechaInicio,true,$xls_normal);
+			$xls->CloseRow();
+	
+			$xls->OpenRow();
+				$xls->NewCell('FECHA FINAL:',true,$xls_fondoAzul);
+				$xls->NewCell($fechaFin,true,$xls_normal);
+			$xls->CloseRow();
+
+			$xls->OpenRow();	
+			$xls->CloseRow();
+
+			$xls->OpenRow();	
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,'');
+				$xls->NewCell('',true,$xls_fondoAzulConcatenado);
+				$xls->NewCell('',true,$xls_fondoAzulConcatenado);
+				$xls->NewCell('PRIMA DE POLIZA',false,$xls_fondoAzulConcatenado);
+				$xls->NewCell('',true,$xls_fondoAzulConcatenado);
+				$xls->NewCell('',true,$xls_fondoAzulConcatenado);
+				$xls->NewCell('',true,$xls_fondoAzulConcatenado);
+				$xls->NewCell('',true,$xls_fondoAzulConcatenado);
+				$xls->NewCell('COMISION',true,$xls_fondoAzulConcatenado);
+				$xls->NewCell('',true,$xls_fondoAzulConcatenado);
+				$xls->NewCell('',true,$xls_fondoAzulConcatenado);
+				$xls->NewCell('',true,$xls_fondoAzulConcatenado);
+			$xls->CloseRow();
+	
+			$xls->OpenRow();
+				$xls->NewCell('SUCURSAL',true,$xls_fondoAzul);
+				$xls->NewCell('TIPO',true,$xls_fondoAzul);
+				$xls->NewCell('FECHA CAPTURA',true,$xls_fondoAzul);
+				$xls->NewCell('FECHA CANCELACION',true,$xls_fondoAzul);
+				$xls->NewCell('POLIZA',true,$xls_fondoAzul);
+				$xls->NewCell('ENDOSO',true,$xls_fondoAzul);
+				$xls->NewCell('RAMO',true,$xls_fondoAzul);
+				$xls->NewCell('SUBRAMO',true,$xls_fondoAzul);
+				$xls->NewCell('MOTIVO CANCELACION',true,$xls_fondoAzul);
+				$xls->NewCell('DESCRIPCION',true,$xls_fondoAzul);
+				$xls->NewCell('MODELO',true,$xls_fondoAzul);
+				$xls->NewCell('NO SERIE',true,$xls_fondoAzul);
+				$xls->NewCell('VENDEDOR',true,$xls_fondoAzul);
+				$xls->NewCell('PROMOTOR',true,$xls_fondoAzul);
+				$xls->NewCell('ASEGURADORA',true,$xls_fondoAzul);
+				$xls->NewCell('GRUPO',true,$xls_fondoAzul);
+				$xls->NewCell('SUBGRUPO',true,$xls_fondoAzul);
+				$xls->NewCell('CLIENTE',true,$xls_fondoAzul);
+				$xls->NewCell('PERSONA (F/M)',true,$xls_fondoAzul);
+				$xls->NewCell('COND. PAGO',true,$xls_fondoAzul);
+				$xls->NewCell('COND. COBRO',true,$xls_fondoAzul);
+				$xls->NewCell('INICIO',true,$xls_fondoAzul);
+				$xls->NewCell('FIN',true,$xls_fondoAzul);
+				$xls->NewCell('PAGADO',true,$xls_fondoAzul);
+				$xls->NewCell('MONEDA',true,$xls_fondoAzul);
+				$xls->NewCell('TC',true,$xls_fondoAzul);
+				$xls->NewCell('CAMBIO CONDUCTO',true,$xls_fondoAzul);
+				$xls->NewCell('PRIMA NETA',true,$xls_fondoAzul);
+				$xls->NewCell('RECARGO',true,$xls_fondoAzul);
+				$xls->NewCell('GASTOS',true,$xls_fondoAzul);
+				$xls->NewCell('IVA',true,$xls_fondoAzul);
+				$xls->NewCell('PRIMA TOTAL',true,$xls_fondoAzul);
+				$xls->NewCell('PRIMA NETA',true,$xls_fondoAzul);
+				$xls->NewCell('RECARGO',true,$xls_fondoAzul);
+				$xls->NewCell('GASTOS',true,$xls_fondoAzul);
+				$xls->NewCell('TOTAL',true,$xls_fondoAzul);
+				$xls->NewCell('%',true,$xls_fondoAzul);
+				$xls->NewCell('IMPORTE',true,$xls_fondoAzul);
+				$xls->NewCell('PRODUCTO',true,$xls_fondoAzul);
+			$xls->CloseRow();
+
+			$sqlComisionesPenLiq = "
+				Select * From
+					`produccion` 
+				Where
+					`SUCURSAL` Like '%".str_replace($quitarCosas, $ponerCosas, strstr($filtroSucursal, '[',0))."%'
+					And
+					`CONSULTOR` Like '%".str_replace($quitarCosas, $ponerCosas, strstr($filtroConsultor, '[',0))."%'
+					And
+					`VENDEDOR` Like '%".str_replace($quitarCosas, $ponerCosas, strstr($filtroVendedor, '[',0))."%'
+					And 
+					`ASEGURADORA` Like '%".str_replace($quitarCosas, $ponerCosas, strstr($filtroAseguradora, '[',0))."%'
+					And 
+					`RAMO` Like '%".str_replace($quitarCosas, $ponerCosas, strstr($filtroRamo, '[',1))."%'
+					And 
+					`SUBRAMO` Like '%".str_replace($quitarCosas, $ponerCosas, strstr($filtroSubRamo, '[',1))."%'
+					And 
+					`CLIENTE` Like '%".str_replace($quitarCosas, $ponerCosas, strstr($filtroCliente, '[',0))."%'
+					And
+					`GRUPO` Like '%".str_replace($quitarCosas, $ponerCosas, strstr($filtroGrupo, '[',1))."%'
+					And 
+					`SUBGRUPO` Like '%".str_replace($quitarCosas, $ponerCosas, strstr($filtroSubGrupo, '[',1))."%'
+							  ";
+//			echo "<pre>".$sqlComisionesPenLiq."</pre>";
+			$resComisionesPenLiq = DreQueryDB($sqlComisionesPenLiq);
+			while($rowComisionesPenLiq = mysql_fetch_assoc($resComisionesPenLiq)){
+				$FECHA_PAGOX = explode('-',$rowComisionesPenLiq['FECHA_PAGO']);
+				$FECHA_PAGOExcel = $FECHA_PAGOX[2]."/".$FECHA_PAGOX[1]."/".$FECHA_PAGOX[0];
+				
+				$INICIOX = explode('-',$rowComisionesPenLiq['INICIO']);
+				$INICIOExcel = $INICIOX[2]."/".$INICIOX[1]."/".$INICIOX[0];
+				
+				$FINX = explode('-',$rowComisionesPenLiq['FIN']);
+				$FINExcel = $FINX[2]."/".$FINX[1]."/".$FINX[0];
+				
+				extract($rowComisionesPenLiq);
+
+			$xls->OpenRow();
+				$xls->NewCell($SUCURSAL,true,$xls_fondoAzul);
+				$xls->NewCell($TIPO,true,$xls_fondoAzul);
+				$xls->NewCell($FECHA_CAPTURA,true,$xls_fondoAzul);
+				$xls->NewCell($FECHA_CANCELACION,true,$xls_fondoAzul);
+				$xls->NewCell($POLIZA,true,$xls_fondoAzul);
+				$xls->NewCell($ENDOSO,true,$xls_fondoAzul);
+				$xls->NewCell(DreNombreRamo($RAMO),true,$xls_fondoAzul);
+				$xls->NewCell(DreNombreSubRamo($SUBRAMO),true,$xls_fondoAzul);
+				$xls->NewCell($MOTIVO_CANCELACION,true,$xls_fondoAzul);
+				$xls->NewCell($DESCRIPCION,true,$xls_fondoAzul);
+				$xls->NewCell($MODELO,true,$xls_fondoAzul);
+				$xls->NewCell($NoSERIE,true,$xls_fondoAzul);
+				$xls->NewCell($VENDEDOR_NOMBRE,true,$xls_fondoAzul);
+				$xls->NewCell($CONSULTOR_NOMBRE,true,$xls_fondoAzul);
+				$xls->NewCell(DreNombreAseguradora($ASEGURADORA),true,$xls_fondoAzul);
+				$xls->NewCell(DreNombreGrupo($GRUPO),true,$xls_fondoAzul);
+				$xls->NewCell(DreNombreSubGrupo($SUBGRUPO),true,$xls_fondoAzul);
+				$xls->NewCell($CLIENTE_NOMBRE,true,$xls_fondoAzul);
+				$xls->NewCell($PERSONA_F_M,true,$xls_fondoAzul);
+				$xls->NewCell($COND_PAGO,true,$xls_fondoAzul);
+				$xls->NewCell($CONDUCTO_COBRO,true,$xls_fondoAzul);
+				$xls->NewCell($INICIO,true,$xls_fondoAzul);
+				$xls->NewCell($FIN,true,$xls_fondoAzul);
+				$xls->NewCell($PAGADO,true,$xls_fondoAzul);
+				$xls->NewCell($MONEDA,true,$xls_fondoAzul);
+				$xls->NewCell($TC,true,$xls_fondoAzul);
+				$xls->NewCell($CAMBIO_CONDUCTO,true,$xls_fondoAzul);
+				$xls->NewCell($PRIMA_NETA,true,$xls_fondoAzul);
+				$xls->NewCell($RECARGO,true,$xls_fondoAzul);
+				$xls->NewCell($GASTOS,true,$xls_fondoAzul);
+				$xls->NewCell($IVA,true,$xls_fondoAzul);
+				$xls->NewCell($PRIMA_TOTAL,true,$xls_fondoAzul);
+				$xls->NewCell($PRIMA_NETA_COMISION,true,$xls_fondoAzul); //$xls->NewCell($PRIMA_NETA,true,$xls_fondoAzul);
+				$xls->NewCell($RECARGO_COMISION,true,$xls_fondoAzul); //$xls->NewCell($PRIMA_NETA,true,$xls_fondoAzul);
+				$xls->NewCell($GASTOS_COMISION,true,$xls_fondoAzul); //$xls->NewCell($RECARGO,true,$xls_fondoAzul);
+				$xls->NewCell($TOTAL_COMISION,true,$xls_fondoAzul); //$xls->NewCell($GASTOS,true,$xls_fondoAzul);
+				$xls->NewCell($PCTJE_DISPERSION_VEND,true,$xls_fondoAzul); //$xls->NewCell($TOTAL,true,$xls_fondoAzul);
+				$xls->NewCell($IMPORTE_VEND,true,$xls_fondoAzul); //$xls->NewCell($xxx,true,$xls_fondoAzul);
+				$xls->NewCell($PRODUCTO,true,$xls_fondoAzul); //$xls->NewCell($PRODUCTO,true,$xls_fondoAzul);
+			$xls->CloseRow();
+}
+	$xls->GetXLS('ActividadesPendientes');
+?>

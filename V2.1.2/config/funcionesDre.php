@@ -1,0 +1,2697 @@
+<?php
+date_default_timezone_set('America/Merida');
+
+function DreConectarDB(){
+
+    $host = "localhost";
+	
+    $usuariodb = "gapsegur_tactica";
+    $pwddb = "viki52";
+    $db = "gapsegur_webdre_tactica";
+
+/*
+	$usuariodb = "juanjose_tactica";
+    $pwddb = "viki52";
+    $db = "juanjose_webdre_tactica";	
+*/
+    $enlace = mysql_connect($host,$usuariodb,$pwddb) or die("No pudo conectarse : " . mysql_error());
+    if (!$enlace) {
+        die('No conectado : ' . mysql_error());
+    }
+    $seldb = mysql_select_db($db,$enlace);
+    if (!$seldb) {
+        die ('No se puede usar la base de datos' . mysql_error());
+    }
+    return $enlace;
+}
+
+function DreDesconectarDB($conexion){
+	if(isset($conexion)){
+    mysql_close($conexion);
+	}
+}
+
+function DreQueryDB($sql){
+    $res = mysql_query($sql) or die (mysql_error());
+    return 
+		$res;
+}
+
+function DreTitle($seccion){	
+	if(!isset($seccion)){ $seccion = "inicio"; } 
+		$tituloSeccion['index'] = "";
+		$tituloSeccion['inicio'] = "Inicio";
+		$tituloSeccion['miInfo'] = "Mi Info";
+		$tituloSeccion['directorio'] = "Directorio";
+		$tituloSeccion['reportes'] = "Reportes";
+		$tituloSeccion['tienda'] = "Tienda";
+		$tituloSeccion['mailMasivo'] = "Mail Masivo";
+		$tituloSeccion['capacita'] = "Capacita";
+		$tituloSeccion['calendario'] = "Calendario";
+		$tituloSeccion['actividades'] = "Actividades";
+
+		$tituloSeccion['cliente'] = "Cliente";
+
+	$title.= "Capsys Web | Agente Capital";
+	if($seccion != ""){ $title.= " - ".$tituloSeccion[$seccion]; }
+	return
+		$title;
+}
+
+function DreTitleInterior($seccion){	
+	if(!isset($seccion)){ $seccion = "inicio"; } 
+		$tituloSeccion['index'] = "";
+		$tituloSeccion['inicio'] = "Inicio";
+		$tituloSeccion['miInfo'] = "Mi Info";
+		$tituloSeccion['directorio'] = "Directorio";
+		$tituloSeccion['reportes'] = "Reportes";
+		$tituloSeccion['tienda'] = "Tienda";
+		$tituloSeccion['mailMasivo'] = "Mail Masivo";
+		$tituloSeccion['capacita'] = "Cap.A.cita";
+		$tituloSeccion['calendario'] = "Calendario";
+		$tituloSeccion['actividades'] = "Actividades";
+		
+		$tituloSeccion['cliente'] = "Cliente";
+
+	if($seccion != ""){ $title = $tituloSeccion[$seccion]; }
+	return
+		$title;
+}
+
+function DreHead($seccion){
+	
+//	$head.= '<meta charset="utf-8">';
+	$head.= '<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />';
+	$head.= '<title>'.DreTitle($seccion).'</title>';
+	
+	$head.= '<link href="config/estilos.css" rel="stylesheet" type="text/css">';  // Estilos Base DreWeb
+
+/*	$head.= '<script language="javascript" type="text/javascript" src="js/jquery-1.6.1.js"></script>'; */
+	$head.= '<script language="javascript" type="text/javascript" src="js/validaciones.js"></script>'; 
+	$head.= '<script language="javascript" type="text/javascript" src="js/target.js"></script>';
+	$head.= '<script language="javascript" type="text/javascript" src="js/stmenu.js"></script>';
+/*
+	if($seccion != "calendarioAgenda"){
+	$head.= '<script language="javascript" type="text/javascript" src="js/popcalendar.js"></script>';
+	}
+*/
+/*	$head.= '<script language="javascript" type="text/javascript" src="js/funcionesDre.js"></script>'; */
+	
+	$head.= "<script src='js/jscal2.js'></script>"; // Calendario
+	$head.= "<script src='js/lang/es.js'></script>"; // Calendario
+	$head.= "<link rel='stylesheet' type='text/css' href='css/jscal2.css' />"; // Calendario
+	$head.= "<link rel='stylesheet' type='text/css' href='css/reduce-spacing.css' />"; // Calendario 
+	$head.= "<link rel='stylesheet' type='text/css' href='css/dre/dre.css' />"; // Calendario
+
+/*	$head.= "<script src='js/bloqueoNavegacion.js'></script>"; // Calendario */
+
+	$head.= "<script language='javascript' src='js/jquery-1.5.1.min.js'></script>";
+	$head.= "<script language='javascript' src='js/jquery-ui-1.8.13.custom.min.js'></script>";
+	$head.= "<link rel='stylesheet' type='text/css' href='css/jquery-ui-1.8.13.custom.css'/>"; 
+
+	return
+		print($head);
+}
+
+function DreLogin($user, $pass){
+	$user = str_replace("'","",$user);
+	$pass = str_replace("'","",$pass);
+	$conexion= DreConectarDB();
+	$res = DreQueryDB("Select * From `usuarios` Where `CLAVE` Like '%$user%' And `PASSWORD` = '$pass'");
+	if(mysql_num_rows($res) > 0){
+		return
+			true;
+	}
+	DreDesconectarDB($conexion);
+}
+
+function DreLoginData($user, $pass){
+	$user = str_replace("'","",$user);
+	$pass = str_replace("'","",$pass);
+	$conexion= DreConectarDB();
+	$sql = "
+		Select
+			*
+		From
+				`catalogo_perfiles` 
+			Inner Join 
+				`usuarios` 
+			On 
+				`catalogo_perfiles`.`TIPO` = `usuarios`.`TIPO`
+--			Inner Join 
+--				`info_usuarios_vendedores`
+--			On
+--				`info_usuarios_vendedores`.`VALOR` = `usuarios`.`VALOR`
+		Where 
+				`usuarios`.`CLAVE` Like '%$user%' 
+			And 
+				`usuarios`.`PASSWORD` = '$pass'	
+		   ";
+	$res = DreQueryDB($sql);
+	if(mysql_num_rows($res) > 0){ 
+		$row = mysql_fetch_assoc($res);
+		$sqlConsultaGrupo = "
+			Select * From 
+				`usuario_grupo`
+			Where 
+				`Usuario` = '$row[VALOR]'
+							";
+		$resConsultaGrupo = DreQueryDB($sqlConsultaGrupo);
+		$rowConsultaGrupo = mysql_fetch_assoc($resConsultaGrupo);
+		$GrupoUsuario = $rowConsultaGrupo['grupo']; 
+		
+		$sqlConsultaRanking = "
+			Select `RANKING` From 
+				`info_usuarios_vendedores`
+			Where 
+				`VALOR` = '$row[VALOR]'
+							";
+		$RankingUsuario = mysql_result(DreQueryDB($sqlConsultaRanking), 0);
+		
+			$Usuario = $row['CLAVE'];
+			$Vendedor = $row['VALOR'];
+			$Nivel = $row['NIVEL'];
+			$Nombre = $row['NOMBRE'];
+			$Sucursal = $row['SUCURSAL'];
+			$Promotor = $row['PROMOTOR'];
+			$Email = $row['Email'];
+			$Telefono = $row['Telefono_Fijo'];
+			$Movil = $row['Telefono_Celular'];
+			$Tipo = $row['TIPO'];
+			$Integral = $row['integral'];
+			$MailMasivo = $row['mailMasivo'];
+			$Ranking = $RankingUsuario;
+			$Grupo = $GrupoUsuario;
+			//$IDUsuario = $row['VALOR'];
+			//$IDNivel = rtrim(ltrim($row['NIVEL']));
+			
+		$sqlArregloPermisos = "
+			Select * From 
+				`configdre_usuarios` 
+			Where 
+				`idUsuario` Like '%".$row['VALOR']."%'
+							";
+		$resArregloPermisos = DreQueryDB($sqlArregloPermisos);
+		while($rowArregloPermisos = mysql_fetch_assoc($resArregloPermisos)){
+			
+			$arregloPermisos[] = 
+			array(
+				'modulo' => $rowArregloPermisos['modulo']
+				,'subModulo' => $rowArregloPermisos['subModulo']
+				,'accion' => $rowArregloPermisos['accion']
+				,'permiso' => $rowArregloPermisos['permiso']
+				);
+		}
+				return
+					array(
+						'Usuario'=>$Usuario
+						,'Vendedor'=>$Vendedor
+						,'Nivel'=>$Nivel
+						,'Nombre'=>$Nombre
+						,'Sucursal'=>$Sucursal
+						,'Promotor'=>$Promotor
+						,'Email'=>$Email
+						,'Telefono'=>$Telefono
+						,'Movil'=>$Movil
+						,'Tipo'=>$Tipo
+						,'Integral'=>$Integral
+						,'MailMasivo'=>$MailMasivo
+						,'Ranking'=>$Ranking
+						,'Grupo'=>$Grupo
+						,'usuarioCotiza'=>''
+						,'arregloPermisos'=>$arregloPermisos
+						 );
+	}
+	DreDesconectarDB($conexion);
+}
+	
+function get_ip($host){ 
+    $hostip = @gethostbyname($host); 
+    $ip = ($hostip == $host)? $host : long2ip( ip2long( $hostip ) ); 
+    return $ip; 
+}  
+
+function tipoUrl($remoteAddr){
+
+	//$octetosIp = explode('.',$remoteAddr);
+	//if($octetosIp[0] == '127' || $octetosIp[0] < 100){
+	if(get_ip('agentecapital.ddns.net') == $_SERVER['REMOTE_ADDR']){ 
+		$linkUrl = "http://192.168.0.42:5280";
+	} else {
+		$linkUrl = "http://agentecapital.ddns.net:5280";
+	}
+	return $linkUrl;
+}
+
+function tipoFtp($remoteAddr){
+	//$octetosIp = explode('.',$remoteAddr);
+	//if($octetosIp[0] == '127' || $octetosIp[0] < 100){
+	if(get_ip('agentecapital.ddns.net') == $_SERVER['REMOTE_ADDR']){ 
+		$linkFtp = "agentecapital.ddns.net"; // "agentecapital.ddns.net"; //"localhost"; //"192.168.0.42";
+	} else {
+		$linkFtp = "agentecapital.ddns.net";
+	}
+	return $linkFtp;
+}
+
+// Funciones para campos formularios 
+//nuevos campos
+function SelectExistencia($ExistenciaRequest, $campoBloqueado){
+	$sqlSelectExistencia = "Select * From `configdre` Where `parametro` = 'tipoDeExistencia'";
+	$resSelectExistencia = DreQueryDB($sqlSelectExistencia);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='existencia' id='existencia'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectExistencia = mysql_fetch_assoc($resSelectExistencia)){
+			$selectedExistencia = ($ExistenciaRequest == $rowSelectExistencia['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectExistencia[valor]'".$selectedExistencia.">$rowSelectExistencia[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='existencia' id='existencia'>";
+		$select .= "<option value='$ExistenciaRequest'>$ExistenciaRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+function SelectTipoCotizacion($TipoCotizacionRequest, $campoBloqueado){
+	$sqlSelectCotizacion = "Select * From `configdre` Where `parametro` = 'tipoDeCotizacion'";
+	$resSelectCotizacion = DreQueryDB($sqlSelectCotizacion);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='cotizacion' id='cotizacion'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectCotizacion = mysql_fetch_assoc($resSelectCotizacion)){
+			$selectedCotizacion = ($TipoCotizacionRequest == $rowSelectCotizacion['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectCotizacion[valor]'".$selectedCotizacion.">$rowSelectCotizacion[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='cotizacion' id='cotizacion'>";
+		$select .= "<option value='$TipoCotizacionRequest'>$TipoCotizacionRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+function SelectTipoCotizacionEfectuar($CotizacionEfectuarRequest, $campoBloqueado){
+	$sqlSelectCotizacionEfectuar = "Select * From `configdre` Where `parametro` = 'tipoDeCotizacionEfectuar'";
+	$resSelectCotizacionEfectuar = DreQueryDB($sqlSelectCotizacionEfectuar);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='cotizacionEfectuar' id='cotizacionEfectuar'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectCotizacionEfectuar = mysql_fetch_assoc($resSelectCotizacionEfectuar)){
+			$selectedCotizacionEfectuar = ($CotizacionEfectuarRequest == $rowSelectCotizacionEfectuar['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectCotizacionEfectuar[valor]'".$selectedCotizacionEfectuar.">$rowSelectCotizacionEfectuar[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='cotizacionEfectuar' id='cotizacionEfectuar'>";
+		$select .= "<option value='$CotizacionEfectuarRequest'>$CotizacionEfectuarRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+function SelectTipoAlarma($TipoAlarmaRequest, $campoBloqueado){
+	$sqlSelectTipoAlarma = "Select * From `configdre` Where `parametro` = 'tipoAlarmaT'";
+	$resSelectTipoAlarma = DreQueryDB($sqlSelectTipoAlarma);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='tipo_alarma_anunios' id='tipo_alarma_anunios'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectTipoAlarma = mysql_fetch_assoc($resSelectTipoAlarma)){
+			$selectedTipoAlarma = ($TipoAlarmaRequest == $rowSelectTipoAlarma['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectTipoAlarma[valor]'".$selectedTipoAlarma.">$rowSelectTipoAlarma[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='tipo_alarma_anunios' id='tipo_alarma_anunios'>";
+		$select .= "<option value='$TipoAlarmaRequest'>$TipoAlarmaRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+function SelectTipoDeducible($TipoDeducibleRequest, $campoBloqueado){
+	$sqlSelectTipoDeducible = "Select * From `configdre` Where `parametro` = 'tipoDeducibleR'";
+	$resSelectTipoDeducible = DreQueryDB($sqlSelectTipoDeducible);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='TipoDeducibleR' id='TipoDeducibleR'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectTipoDeducible = mysql_fetch_assoc($resSelectTipoDeducible)){
+			$selectedTipoDeducible = ($TipoDeducibleRequest == $rowSelectTipoDeducible['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectTipoDeducible[valor]'".$selectedTipoDeducible.">$rowSelectTipoDeducible[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='TipoDeducibleR' id='TipoDeducibleR'>";
+		$select .= "<option value='$TipoDeducibleRequest'>$TipoDeducibleRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+function SelectTipoDeducible2($TipoDeducibleRequest, $campoBloqueado){
+	$sqlSelectTipoDeducible = "Select * From `configdre` Where `parametro` = 'tipoDeducibleR'";
+	$resSelectTipoDeducible = DreQueryDB($sqlSelectTipoDeducible);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='TipoDeducibleR2' id='TipoDeducibleR2'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectTipoDeducible = mysql_fetch_assoc($resSelectTipoDeducible)){
+			$selectedTipoDeducible = ($TipoDeducibleRequest == $rowSelectTipoDeducible['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectTipoDeducible[valor]'".$selectedTipoDeducible.">$rowSelectTipoDeducible[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='TipoDeducibleR2' id='TipoDeducibleR2'>";
+		$select .= "<option value='$TipoDeducibleRequest'>$TipoDeducibleRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+//terminan nuevos campos
+function SelectPersonaTipo($PersonaTipoRequest, $campoBloqueado){
+	$sqlSelectPersonaTipo = "Select * From `configdre` Where `parametro` = 'tipoDePersona'";
+	$resSelectPersonaTipo = DreQueryDB($sqlSelectPersonaTipo);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='Tipo_persona' id='Tipo_persona'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectPersonaTipo = mysql_fetch_assoc($resSelectPersonaTipo)){
+			$selectedPersonaTipo = ($PersonaTipoRequest == $rowSelectPersonaTipo['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectPersonaTipo[valor]'".$selectedPersonaTipo.">$rowSelectPersonaTipo[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='Tipo_persona' id='Tipo_persona'>";
+		$select .= "<option value='$PersonaTipoRequest'>$PersonaTipoRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+function SelectSexo($sexoRequest, $campoBloqueado, $nombreCampo){
+	$sqlSelectSexo = "Select * From `configdre` Where `parametro` = 'sexo'";
+	$resSelectSexo = DreQueryDB($sqlSelectSexo);
+		$select = "";
+		
+	if($campoBloqueado == 0){
+		$select .= "<select name='$nombreCampo' id='$nombreCampo'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectSexo = mysql_fetch_assoc($resSelectSexo)){
+			$selectedSexo = ($sexoRequest == $rowSelectSexo['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectSexo[valor]'".$selectedSexo.">$rowSelectSexo[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='$nombreCampo' id='$nombreCampo'>";
+		$select .= "<option value='$sexoRequest'>$sexoRequest</option>";
+		$select .= "</select>";
+	}
+return
+	$select;
+}
+
+function SelectFormaPago($formaPagoRequest, $campoBloqueado, $grupo){
+	switch($grupo){
+		case "2":
+			$sqlSelectFormaPago = "
+				Select * From 
+					`configdre` 
+				Where 
+					`parametro` = 'formaPago'
+					And
+					(
+						`valor` = 'Contado'
+					)
+								  ";
+		break;
+		default:
+			$sqlSelectFormaPago = "
+				Select * From 
+					`configdre` 
+				Where 
+					`parametro` = 'formaPago'
+								  ";
+		break;
+	}
+	$resSelectFormaPago = DreQueryDB($sqlSelectFormaPago);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='forma_pago' id='forma_pago'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectFormaPago = mysql_fetch_assoc($resSelectFormaPago)){
+			$selectedFormaPago = ($formaPagoRequest == $rowSelectFormaPago['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectFormaPago[valor]'".$selectedFormaPago.">$rowSelectFormaPago[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='forma_pago' id='forma_pago'>";
+		$select .= "<option value='$formaPagoRequest'>$formaPagoRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+function campoBloqueado($campoBloquear){
+	if($campoBloquear == 1){
+		$estatus = 'readonly="readonly"';
+	} else {
+		$estatus = '';
+	}
+return
+	$estatus;
+}
+
+function SelectTipoEscuela($tipoEscuelaRequest, $campoBloqueado){
+	$sqlSelectTipoEscuela = "Select * From `configdre` Where `parametro` = 'tipoEscuela'";
+	$resSelectTipoEscuela = DreQueryDB($sqlSelectTipoEscuela);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='tipo_escuela' id='tipo_escuela'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectTipoEscuela = mysql_fetch_assoc($resSelectTipoEscuela)){
+			$selectedTipoEscuela = ($tipoEscuelaRequest == $rowSelectTipoEscuela['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectTipoEscuela[valor]'".$selectedTipoEscuela.">$rowSelectTipoEscuela[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='tipo_escuela' id='tipo_escuela'>";
+		$select .= "<option value='$tipoEscuelaRequest'>$tipoEscuelaRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+function SelectSiNo($SiNoRequest, $campoBloqueado, $nombreCampo){
+	
+	$sqlSelectSiNo = "Select * From `configdre` Where `parametro` = 'siNo'";
+	$resSelectSiNo = DreQueryDB($sqlSelectSiNo);
+		$select = "";
+		
+	if($campoBloqueado == 0){
+		$select .= "<select name='$nombreCampo' id='$nombreCampo'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectSiNo = mysql_fetch_assoc($resSelectSiNo)){
+			$selectedSiNo = ($SiNoRequest == $rowSelectSiNo['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectSiNo[valor]'".$selectedSiNo.">$rowSelectSiNo[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='$nombreCampo' id='$nombreCampo'>";
+		$select .= "<option value='$SiNoRequest'>$SiNoRequest</option>";
+		$select .= "</select>";
+	}
+return
+	$select;
+}
+
+function SelectNivelHospitalario($NivelHospitalarioRequest, $campoBloqueado){
+	$sqlSelectNivelHospitalario = "Select * From `configdre` Where `parametro` = 'nivelHospitalario'";
+	$resSelectNivelHospitalario = DreQueryDB($sqlSelectNivelHospitalario);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='nivel_hospitalario' id='nivel_hospitalario'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectNivelHospitalario = mysql_fetch_assoc($resSelectNivelHospitalario)){
+			$selectedNivelHospitalario = ($NivelHospitalarioRequest == $rowSelectNivelHospitalario['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectNivelHospitalario[valor]'".$selectedNivelHospitalario.">$rowSelectNivelHospitalario[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='nivel_hospitalario' id='nivel_hospitalario'>";
+		$select .= "<option value='$NivelHospitalarioRequest'>$NivelHospitalarioRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+function SelectEdadRetiro($EdadRetiroRequest, $campoBloqueado){
+	$sqlSelectEdadRetiro = "Select * From `configdre` Where `parametro` = 'edadRetiro'";
+	$resSelectEdadRetiro = DreQueryDB($sqlSelectEdadRetiro);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='edad_retiro' id='edad_retiro'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectEdadRetiro = mysql_fetch_assoc($resSelectEdadRetiro)){
+			$selectedEdadRetiro = ($EdadRetiroRequest == $rowSelectEdadRetiro['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectEdadRetiro[valor]'".$selectedEdadRetiro.">$rowSelectEdadRetiro[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='edad_retiro' id='edad_retiro'>";
+		$select .= "<option value='$EdadRetiroRequest'>$EdadRetiroRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+function SelectTipoFianza($TipoFianzaRequest, $campoBloqueado){
+	$sqlSelectTipoFianza = "Select * From `configdre` Where `parametro` = 'tipoFianza'";
+	$resSelectTipoFianza = DreQueryDB($sqlSelectTipoFianza);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='tipo_fianza' id='tipo_fianza'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectTipoFianza = mysql_fetch_assoc($resSelectTipoFianza)){
+			$selectedTipoFianza = ($TipoFianzaRequest == $rowSelectTipoFianza['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectTipoFianza[valor]'".$selectedTipoFianza.">$rowSelectTipoFianza[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='tipo_fianza' id='tipo_fianza'>";
+		$select .= "<option value='$TipoFianzaRequest'>$TipoFianzaRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+function SelectEstado($EstadoRequest, $campoBloqueado){
+	if(!isset($EstadoRequest) || $EstadoRequest==""){ $EstadoRequest="YUCATAN"; }
+	
+	$sqlSelectEstado = "Select * From `estados`";
+	$resSelectEstado = DreQueryDB($sqlSelectEstado);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='estado' id='estado'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectEstado = mysql_fetch_assoc($resSelectEstado)){
+			$selectedEstado = ($EstadoRequest == $rowSelectEstado['nombre_estado'])? "selected":"";
+			$select.= "<option value='$rowSelectEstado[nombre_estado]'".$selectedEstado.">$rowSelectEstado[nombre_estado]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='estado' id='estado'>";
+		$select .= "<option value='$EstadoRequest'>$EstadoRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+function SelectTipoUso($TipoUsoRequest, $campoBloqueado){
+	$sqlSelectTipoUso = "Select * From `configdre` Where `parametro` = 'tipoUso'";
+	$resSelectTipoUso = DreQueryDB($sqlSelectTipoUso);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='tipo_uso' id='tipo_uso'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectTipoUso = mysql_fetch_assoc($resSelectTipoUso)){
+			$selectedTipoUso = ($TipoUsoRequest == $rowSelectTipoUso['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectTipoUso[valor]'".$selectedTipoUso.">$rowSelectTipoUso[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='tipo_uso' id='tipo_uso'>";
+		$select .= "<option value='$TipoUsoRequest'>$TipoUsoRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+function SelectCoberturaAuto($CoberturaAutoRequest, $campoBloqueado){
+	$sqlSelectCoberturaAuto = "Select * From `configdre` Where `parametro` = 'coberturaAuto'";
+	$resSelectCoberturaAuto = DreQueryDB($sqlSelectCoberturaAuto);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='cobertura_auto' id='cobertura_auto'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectCoberturaAuto = mysql_fetch_assoc($resSelectCoberturaAuto)){
+			$selectedCoberturaAuto = ($CoberturaAutoRequest == $rowSelectCoberturaAuto['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectCoberturaAuto[valor]'".$selectedCoberturaAuto.">$rowSelectCoberturaAuto[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='cobertura_auto' id='cobertura_auto'>";
+		$select .= "<option value='$CoberturaAutoRequest'>$CoberturaAutoRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+
+function SelectMarcaAuto($MarcaAutoRequest, $campoBloqueado){
+	$sqlSelectMarcaAuto = "Select * From `catalogo_marcas`";
+	$resSelectMarcaAuto = DreQueryDB($sqlSelectMarcaAuto);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='marca_auto' id='marca_auto'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectMarcaAuto = mysql_fetch_assoc($resSelectMarcaAuto)){
+			$selectedMarcaAuto = ($MarcaAutoRequest == $rowSelectMarcaAuto['marca'])? "selected":"";
+			$select.= "<option value='$rowSelectMarcaAuto[marca]'".$selectedMarcaAuto.">$rowSelectMarcaAuto[marca]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='marca_auto' id='marca_auto'>";
+		$select .= "<option value='$MarcaAutoRequest'>$MarcaAutoRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+function SelectTipoMoneda($TipoMonedaRequest, $campoBloqueado, $nombreCampo){
+	
+	$sqlSelectTipoMoneda = "Select * From `configdre` Where `parametro` = 'tipoMoneda'";
+	$resSelectTipoMoneda = DreQueryDB($sqlSelectTipoMoneda);
+		$select = "";
+		
+	if($campoBloqueado == 0){
+		$select .= "<select name='$nombreCampo' id='$nombreCampo'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectTipoMoneda = mysql_fetch_assoc($resSelectTipoMoneda)){
+			$selectedTipoMoneda = ($TipoMonedaRequest == $rowSelectTipoMoneda['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectTipoMoneda[valor]'".$selectedTipoMoneda.">$rowSelectTipoMoneda[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='$nombreCampo' id='$nombreCampo'>";
+		$select .= "<option value='$TipoMonedaRequest'>$TipoMonedaRequest</option>";
+		$select .= "</select>";
+	}
+return
+	$select;
+}
+
+function SelectMuro($MuroRequest, $campoBloqueado){
+	$sqlSelectMuro = "Select * From `configdre` Where `parametro` = 'tipoMuro'";
+	$resSelectMuro = DreQueryDB($sqlSelectMuro);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='muro' id='muro'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectMuro = mysql_fetch_assoc($resSelectMuro)){
+			$selectedMuro = ($MuroRequest == $rowSelectMuro['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectMuro[valor]'".$selectedMuro.">$rowSelectMuro[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='muro' id='muro'>";
+		$select .= "<option value='$MuroRequest'>$MuroRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+function SelectTecho($TechoRequest, $campoBloqueado){
+	$sqlSelectTecho = "Select * From `configdre` Where `parametro` = 'tipoTecho'";
+	$resSelectTecho = DreQueryDB($sqlSelectTecho);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='techo' id='techo'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectTecho = mysql_fetch_assoc($resSelectTecho)){
+			$selectedTecho = ($TechoRequest == $rowSelectTecho['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectTecho[valor]'".$selectedTecho.">$rowSelectTecho[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='techo' id='techo'>";
+		$select .= "<option value='$TechoRequest'>$TechoRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+function SelectTipoVivienda($TipoViviendaRequest, $campoBloqueado){
+	$sqlSelectTipoVivienda = "Select * From `configdre` Where `parametro` = 'tipoVivienda'";
+	$resSelectTipoVivienda = DreQueryDB($sqlSelectTipoVivienda);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='tipo_vivienda' id='tipo_vivienda'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectTipoVivienda = mysql_fetch_assoc($resSelectTipoVivienda)){
+			$selectedTipoVivienda = ($TipoViviendaRequest == $rowSelectTipoVivienda['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectTipoVivienda[valor]'".$selectedTipoVivienda.">$rowSelectTipoVivienda[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='tipo_vivienda' id='tipo_vivienda'>";
+		$select .= "<option value='$TipoViviendaRequest'>$TipoViviendaRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+
+function SelectGastosExtraordinarios($GastosExtraordinariosRequest, $campoBloqueado){
+	$sqlSelectGastosExtraordinarios = "Select * From `configdre` Where `parametro` = 'gastosExtraordinarios'";
+	$resSelectGastosExtraordinarios = DreQueryDB($sqlSelectGastosExtraordinarios);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='gastos_extraordinarios' id='gastos_extraordinarios'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectGastosExtraordinarios = mysql_fetch_assoc($resSelectGastosExtraordinarios)){
+			$selectedGastosExtraordinarios = ($GastosExtraordinariosRequest == $rowSelectGastosExtraordinarios['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectGastosExtraordinarios[valor]'".$selectedGastosExtraordinarios.">$rowSelectGastosExtraordinarios[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='gastos_extraordinarios' id='gastos_extraordinarios'>";
+		$select .= "<option value='$GastosExtraordinariosRequest'>$GastosExtraordinariosRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+
+function SelectUsoHogar($UsoHogarRequest, $campoBloqueado){
+	$sqlSelectUsoHogar = "Select * From `configdre` Where `parametro` = 'tipoUsoHogar'";
+	$resSelectUsoHogar = DreQueryDB($sqlSelectUsoHogar);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='uso_hogar' id='uso_hogar'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectUsoHogar = mysql_fetch_assoc($resSelectUsoHogar)){
+			$selectedUsoHogar = ($UsoHogarRequest == $rowSelectUsoHogar['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectUsoHogar[valor]'".$selectedUsoHogar.">$rowSelectUsoHogar[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='uso_hogar' id='uso_hogar'>";
+		$select .= "<option value='$UsoHogarRequest'>$UsoHogarRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+
+function SelectRegimenHogar($RegimenHogarRequest, $campoBloqueado){
+	$sqlSelectRegimenHogar = "Select * From `configdre` Where `parametro` = 'tipoRegimenHogar'";
+	$resSelectRegimenHogar = DreQueryDB($sqlSelectRegimenHogar);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='regimen_hogar' id='regimen_hogar'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectRegimenHogar = mysql_fetch_assoc($resSelectRegimenHogar)){
+			$selectedRegimenHogar = ($RegimenHogarRequest == $rowSelectRegimenHogar['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectRegimenHogar[valor]'".$selectedRegimenHogar.">$rowSelectRegimenHogar[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='regimen_hogar' id='regimen_hogar'>";
+		$select .= "<option value='$RegimenHogarRequest'>$RegimenHogarRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+function SelectTipoSector($TipoSectorRequest, $campoBloqueado){
+	$sqlSelectTipoSector = "Select * From `configdre` Where `parametro` = 'tipoSector'";
+	$resSelectTipoSector = DreQueryDB($sqlSelectTipoSector);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='sector' id='sector'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectTipoSector = mysql_fetch_assoc($resSelectTipoSector)){
+			$selectedTipoSector = ($TipoSectorRequest == $rowSelectTipoSector['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectTipoSector[valor]'".$selectedTipoSector.">$rowSelectTipoSector[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='sector' id='sector'>";
+		$select .= "<option value='$TipoSectorRequest'>$TipoSectorRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+function SelectGiroTarifa($GiroTarifaRequest, $campoBloqueado){
+	$sqlSelectGiroTarifa = "Select * From `configdre` Where `parametro` = 'tipoGiroTarifa'";
+	$resSelectGiroTarifa = DreQueryDB($sqlSelectGiroTarifa);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='giro_tarifa' id='giro_tarifa'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectGiroTarifa = mysql_fetch_assoc($resSelectGiroTarifa)){
+			$selectedGiroTarifa = ($GiroTarifaRequest == $rowSelectGiroTarifa['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectGiroTarifa[valor]'".$selectedGiroTarifa.">$rowSelectGiroTarifa[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='giro_tarifa' id='giro_tarifa'>";
+		$select .= "<option value='$GiroTarifaRequest'>$GiroTarifaRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+
+function SelectTipoVehiculo($TipoVehiculoRequest, $campoBloqueado){
+	$sqlSelectTipoVehiculo = "Select * From `configdre` Where `parametro` = 'tipoVehiculo'";
+	$resSelectTipoVehiculo = DreQueryDB($sqlSelectTipoVehiculo);
+		$select = "";
+	if($campoBloqueado == 0){
+		$select .= "<select name='tipoVehiculo' id='tipoVehiculo'>";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectTipoVehiculo = mysql_fetch_assoc($resSelectTipoVehiculo)){
+			$selectedTipoVehiculo = ($TipoVehiculoRequest == $rowSelectTipoVehiculo['valor'])? "selected":"";
+			$select.= "<option value='$rowSelectTipoVehiculo[valor]'".$selectedTipoVehiculo.">$rowSelectTipoVehiculo[valor]</option>";
+		}
+		$select .= "</select>";
+	} else {
+		$select .= "<select name='tipoVehiculo' id='tipoVehiculo'>";
+		$select .= "<option value='$TipoVehiculoRequest'>$TipoVehiculoRequest</option>";
+		$select .= "</select>";
+	}
+
+return
+	$select;
+}
+
+function SelectEstadoEmpresas($estadoSelect){
+	$sqlSelectEstado = "Select `ESTADO` From `empresas` Group By `ESTADO`";
+	$resSelectEstado = DreQueryDB($sqlSelectEstado);
+		$select = "";
+
+		$select .= "<select name='ESTADO' id='ESTADO' style=\" width:155px\">";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectEstado = mysql_fetch_assoc($resSelectEstado)){
+			$selectedEstado = ($paisSelect == $rowSelectEstado['ESTADO'])? "selected":"";
+			$select.= "<option value='$rowSelectEstado[ESTADO]'".$selectedEstado.">$rowSelectEstado[ESTADO]</option>";
+		}
+		$select .= "</select>";
+
+return
+	$select;
+}
+
+
+function SelectPaisEmpresas($paisSelect){
+	$sqlSelectPais = "Select `PAIS` From `empresas` Group By `PAIS`";
+	$resSelectPais = DreQueryDB($sqlSelectPais);
+		$select = "";
+
+		$select .= "<select name='PAIS' id='PAIS' style=\" width:155px\">";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectPais = mysql_fetch_assoc($resSelectPais)){
+			$selectedPais = ($paisSelect == $rowSelectPais['PAIS'])? "selected":"";
+			$select.= "<option value='$rowSelectPais[PAIS]'".$selectedPais.">$rowSelectPais[PAIS]</option>";
+		}
+		$select .= "</select>";
+
+return
+	$select;
+}
+
+function SelectLocalidadEmpresas($localidadSelect){
+	$sqlSelectPais = "SELECT `LOCALIDAD` FROM `empresas` GROUP BY `LOCALIDAD`";
+	$resSelectPais = DreQueryDB($sqlSelectPais);
+		$select = "";
+
+		$select .= "<select name='LOCALIDAD' id='LOCALIDAD' style=\" width:155px\">";
+		$select .= "<option value=''> -Seleccione- </option>";
+		while($rowSelectPais = mysql_fetch_assoc($resSelectPais)){
+			$selectedLocalidad = ($localidadSelect == $rowSelectPais['LOCALIDAD'])? "selected":"";
+			$select.= "<option value='$rowSelectPais[LOCALIDAD]'".$selectedLocalidad.">$rowSelectPais[LOCALIDAD]</option>";
+		}
+		$select .= "</select>";
+
+return
+	$select;
+}
+
+function nombreVendedor($idVendedor){
+	$sqlNombreVendedor = "Select * From `usuarios`  Where `VALOR` = '$idVendedor' ";
+	$resNombreVendedor =  DreQueryDB($sqlNombreVendedor);
+	$rowNombreVendedor = mysql_fetch_assoc($resNombreVendedor);
+	
+	return
+		$rowNombreVendedor['NOMBRE'];
+}
+
+function nombreUsuario($id){
+	$sqlNombreVendedor = "Select * From `usuarios`  Where `VALOR` = '$id' ";
+	$resNombreVendedor =  DreQueryDB($sqlNombreVendedor);
+	
+	if(mysql_num_rows($resNombreVendedor) != 0){
+		$rowNombreVendedor = mysql_fetch_assoc($resNombreVendedor);
+	} else {
+		$sqlNombreVendedor = "Select * From `usuarios`  Where `CLAVE` = '$id' ";
+		$resNombreVendedor =  DreQueryDB($sqlNombreVendedor);	
+		$rowNombreVendedor = mysql_fetch_assoc($resNombreVendedor);
+	}
+	
+	
+	return
+		$rowNombreVendedor['NOMBRE'];
+}
+
+
+function DreNombreTipoPerfil($idTipo){
+	$sqlNombreTipoPerfil = "Select * From `catalogo_perfiles`  Where `TIPO` = '$idTipo' ";
+	$resNombreTipoPerfil =  DreQueryDB($sqlNombreTipoPerfil);
+	$rowNombreTipoPerfil = mysql_fetch_assoc($resNombreTipoPerfil);
+	
+	return
+		$rowNombreTipoPerfil['NOMBRE'];
+}
+
+//** Funciones Calculo RFC ** //
+function QuitarArticulos($palabra) 
+{ 
+$palabra=str_replace("DEL ","",$palabra); 
+$palabra=str_replace("LAS ","",$palabra); 
+$palabra=str_replace("DE ","",$palabra); 
+$palabra=str_replace("LA ","",$palabra); 
+$palabra=str_replace("Y ","",$palabra); 
+$palabra=str_replace("A ","",$palabra); 
+return $palabra; 
+} 
+function EsVocal($letra) 
+{ 
+if ($letra == 'A' || $letra == 'E' || $letra == 'I' || $letra == 'O' || $letra == 'U' || 
+$letra == 'a' || $letra == 'e' || $letra == 'i' || $letra == 'o' || $letra == 'u') 
+return 1; 
+else 
+return 0; 
+} 
+function CalcularRFC($nombre,$apellidoPaterno,$apellidoMaterno,$fecha) 
+{ 
+/*Cambiamos todo a mayúsculas. 
+Quitamos los espacios al principio y final del nombre y apellidos*/ 
+$nombre =strtoupper(trim($nombre)); 
+$apellidoPaterno =strtoupper(trim($apellidoPaterno)); 
+$apellidoMaterno =strtoupper(trim($apellidoMaterno)); 
+
+//RFC que se regresará 
+$rfc=""; 
+
+//Quitamos los artículos de los apellidos 
+$apellidoPaterno = QuitarArticulos($apellidoPaterno); 
+$apellidoMaterno = QuitarArticulos($apellidoMaterno); 
+
+//Agregamos el primer caracter del apellido paterno 
+$rfc = substr($apellidoPaterno,0, 1); 
+
+//Buscamos y agregamos al rfc la primera vocal del primer apellido 
+$len_apellidoPaterno=strlen($apellidoPaterno); 
+for($x=1;$x<$len_apellidoPaterno;$x++) 
+{ 
+$c=substr($apellidoPaterno,$x,1); 
+if (EsVocal($c)) 
+{ 
+$rfc .= $c; 
+break; 
+} 
+} 
+
+//Agregamos el primer caracter del apellido materno 
+$rfc .= substr($apellidoMaterno,0, 1); 
+
+//Agregamos el primer caracter del primer nombre 
+$rfc .= substr($nombre,0, 1); 
+
+//agregamos la fecha ddmmyyyy
+$rfc .= substr($fecha,6, 2).substr($fecha,2, 2).substr($fecha,0, 2); 
+
+//Le agregamos la homoclave al rfc 
+CalcularHomoclave($apellidoPaterno." ".$apellidoMaterno." ".$nombre, $fecha,$rfc); 
+return $rfc; 
+} 
+function CalcularHomoclave($nombreCompleto,$fecha, &$rfc) 
+{ 
+//Guardara el nombre en su correspondiente numérico 
+//agregamos un cero al inicio de la representación númerica del nombre 
+$nombreEnNumero="0"; 
+//La suma de la secuencia de números de nombreEnNumero 
+$valorSuma = 0; 
+
+#region Tablas para calcular la homoclave 
+//Estas tablas realmente no se porque son como son 
+//solo las copie de lo que encontré en internet 
+
+$tablaRFC1['&']='10'; 
+$tablaRFC1['Ñ']='10'; 
+$tablaRFC1['A']='11'; 
+$tablaRFC1['B']='12'; 
+$tablaRFC1['C']='13'; 
+$tablaRFC1['D']='14'; 
+$tablaRFC1['E']='15'; 
+$tablaRFC1['F']='16'; 
+$tablaRFC1['G']='17'; 
+$tablaRFC1['H']='18'; 
+$tablaRFC1['I']='19'; 
+$tablaRFC1['J']='21'; 
+$tablaRFC1['K']='22'; 
+$tablaRFC1['L']='23'; 
+$tablaRFC1['M']='24'; 
+$tablaRFC1['N']='25'; 
+$tablaRFC1['O']='26'; 
+$tablaRFC1['P']='27'; 
+$tablaRFC1['Q']='28'; 
+$tablaRFC1['R']='29'; 
+$tablaRFC1['S']='32'; 
+$tablaRFC1['T']='33'; 
+$tablaRFC1['U']='34'; 
+$tablaRFC1['V']='35'; 
+$tablaRFC1['W']='36'; 
+$tablaRFC1['X']='37'; 
+$tablaRFC1['Y']='38'; 
+$tablaRFC1['Z']='39'; 
+$tablaRFC1['0']='00'; 
+$tablaRFC1['1']='01'; 
+$tablaRFC1['2']='02'; 
+$tablaRFC1['3']='03'; 
+$tablaRFC1['4']='04'; 
+$tablaRFC1['5']='05'; 
+$tablaRFC1['6']='06'; 
+$tablaRFC1['7']='07'; 
+$tablaRFC1['8']='08'; 
+$tablaRFC1['9']='09'; 
+
+$tablaRFC2[0]="1"; 
+$tablaRFC2[1]="2"; 
+$tablaRFC2[2]="3"; 
+$tablaRFC2[3]="4"; 
+$tablaRFC2[4]="5"; 
+$tablaRFC2[5]="6"; 
+$tablaRFC2[6]="7"; 
+$tablaRFC2[7]="8"; 
+$tablaRFC2[8]="9"; 
+$tablaRFC2[9]="A"; 
+$tablaRFC2[10]="B"; 
+$tablaRFC2[11]="C"; 
+$tablaRFC2[12]="D"; 
+$tablaRFC2[13]="E"; 
+$tablaRFC2[14]="F"; 
+$tablaRFC2[15]="G"; 
+$tablaRFC2[16]="H"; 
+$tablaRFC2[17]="I"; 
+$tablaRFC2[18]="J"; 
+$tablaRFC2[19]="K"; 
+$tablaRFC2[20]="L"; 
+$tablaRFC2[21]="M"; 
+$tablaRFC2[22]="N"; 
+$tablaRFC2[23]="P"; 
+$tablaRFC2[24]="Q"; 
+$tablaRFC2[25]="R"; 
+$tablaRFC2[26]="S"; 
+$tablaRFC2[27]="T"; 
+$tablaRFC2[28]="U"; 
+$tablaRFC2[29]="V"; 
+$tablaRFC2[30]="W"; 
+$tablaRFC2[31]="X"; 
+$tablaRFC2[32]="Y"; 
+$tablaRFC2[33]="Z"; 
+
+$tablaRFC3['A']=10; 
+$tablaRFC3['B']=11; 
+$tablaRFC3['C']=12; 
+$tablaRFC3['D']=13; 
+$tablaRFC3['E']=14; 
+$tablaRFC3['F']=15; 
+$tablaRFC3['G']=16; 
+$tablaRFC3['H']=17; 
+$tablaRFC3['I']=18; 
+$tablaRFC3['J']=19; 
+$tablaRFC3['K']=20; 
+$tablaRFC3['L']=21; 
+$tablaRFC3['M']=22; 
+$tablaRFC3['N']=23; 
+$tablaRFC3['O']=25; 
+$tablaRFC3['P']=26; 
+$tablaRFC3['Q']=27; 
+$tablaRFC3['R']=28; 
+$tablaRFC3['S']=29; 
+$tablaRFC3['T']=30; 
+$tablaRFC3['U']=31; 
+$tablaRFC3['V']=32; 
+$tablaRFC3['W']=33; 
+$tablaRFC3['X']=34; 
+$tablaRFC3['Y']=35; 
+$tablaRFC3['Z']=36; 
+$tablaRFC3['0']=0; 
+$tablaRFC3['1']=1; 
+$tablaRFC3['2']=2; 
+$tablaRFC3['3']=3; 
+$tablaRFC3['4']=4; 
+$tablaRFC3['5']=5; 
+$tablaRFC3['6']=6; 
+$tablaRFC3['7']=7; 
+$tablaRFC3['8']=8; 
+$tablaRFC3['9']=9; 
+$tablaRFC3['']=24; 
+$tablaRFC3[' ']=37; 
+
+//Recorremos el nombre y vamos convirtiendo las letras en 
+//su valor numérico 
+$len_nombreCompleto=strlen($nombreCompleto); 
+for($x=0;$x<$len_nombreCompleto;$x++) 
+{ 
+$c=substr($nombreCompleto,$x,1); 
+if (isset($tablaRFC1[$c])) 
+$nombreEnNumero.=$tablaRFC1[$c]; 
+else 
+$nombreEnNumero.="00"; 
+} 
+//Calculamos la suma de la secuencia de números 
+//calculados anteriormente 
+//la formula es: 
+//( (el caracter actual multiplicado por diez) 
+//mas el valor del caracter siguiente ) 
+//(y lo anterior multiplicado por el valor del caracter siguiente) 
+
+$n=strlen($nombreEnNumero)-1; 
+for ($i = 0; $i < $n; $i++) 
+{ 
+$prod1 = substr($nombreEnNumero, $i, 2); 
+$prod2 = substr($nombreEnNumero, $i + 1, 1); 
+$valorSuma += $prod1 * $prod2; 
+} 
+//Lo siguiente no se porque se calcula así, es parte del algoritmo. 
+//Los magic numbers que aparecen por ahí deben tener algún origen matemático 
+//relacionado con el algoritmo al igual que el proceso mismo de calcular el 
+//digito verificador. 
+//Por esto no puedo añadir comentarios a lo que sigue, lo hice por acto de fe. 
+$div = 0; 
+$mod = 0; 
+$div = $valorSuma % 1000; 
+$mod = floor($div / 34);//cociente 
+$div = $div - $mod * 34;//residuo 
+
+$hc = $tablaRFC2[$mod]; 
+$hc.= $tablaRFC2[$div]; 
+
+$rfc .= $hc; 
+
+//Aqui empieza el calculo del digito verificador basado en lo que tenemos del RFC 
+//En esta parte tampoco conozco el origen matemático del algoritmo como para dar 
+//una explicación del proceso, así que ¡tengamos fe hermanos!. 
+$sumaParcial = 0; 
+$n=strlen($rfc); 
+for ($i = 0; $i < $n; $i++) 
+{ 
+$c=substr($rfc,$i,1); 
+if (isset($tablaRFC3[$c])) 
+{ 
+$sumaParcial += ($tablaRFC3[$c] * (14 - ($i + 1))); 
+} 
+} 
+
+$moduloVerificador = $sumaParcial % 11; 
+if ($moduloVerificador == 0) 
+$rfc .= "0"; 
+else 
+{ 
+$sumaParcial = 11 - $moduloVerificador; 
+if ($sumaParcial == 10) 
+$rfc .= "A"; 
+else 
+$rfc .= $sumaParcial; 
+} 
+}
+//** Funciones Calculo RFC ** //
+
+// DreSemaforoActividad
+function DreSemaforoActividad($idActividad){
+	$sqlSemaforoActividades = "
+		Select * From 
+			`semactividad`
+		Where
+			`idActividad` = '$idActividad'
+							  ";
+	$resSemaforoActividades = DreQueryDB($sqlSemaforoActividades);
+	$rowSemaforoActividades = mysql_fetch_assoc($resSemaforoActividades);
+	
+	$semaforo = '';
+//-->			$semaforo.= "<center>";
+			$semaforo.= "&nbsp;";
+	switch ($rowSemaforoActividades['semaforo']) {
+		case 'VERDE':
+			$semaforo.= '<img src="img/transparente.fw.png" class="semaforo verde" alt="semaforo" border="0" title="Semaforo de Actividades"/>';
+		break;
+		
+		case 'AMBAR':
+			$semaforo.= '<img src="img/transparente.fw.png" class="semaforo amarillo" alt="semaforo" border="0" title="Semaforo de Actividades"/>';
+		break;
+		
+		case 'ROJO':
+			$semaforo.= '<img src="img/transparente.fw.png" class="semaforo rojo" alt="semaforo" border="0" title="Semaforo de Actividades"/>';
+		break;
+		
+		default :
+			$semaforo.= '<img src="img/transparente.fw.png" class="semaforo neutro" alt="semaforo" border="0" title="Semaforo de Actividades"/>';
+		break;
+	}
+//-->			$semaforo.= "</center>";
+	return
+		$semaforo;
+}
+
+function InvitadosCitasDre($idCita,$usuarioCita){
+	$sqlInvitadosCitas = "
+		Select
+			`agenda_invitados`.`idAgenda`
+			,`agenda_invitados`.`usuario`
+			,concat(SUBSTRING(`NOMBRE`,1,Locate(' ', `NOMBRE`)+1),'.') As `nombre`
+		From
+			`agenda_invitados` Inner Join `usuarios` 
+			On 
+			`agenda_invitados`.`usuario` = `usuarios`.`VALOR`
+		Where
+			(
+			`idAgenda` = '$idCita'
+			And
+			`usuario` != '$usuarioCita'
+			)
+			And
+			(
+			`agenda_invitados`.`confirmado` = '1'
+			)
+						 ";
+	$resInvitadosCitas = DreQueryDB($sqlInvitadosCitas);
+	$return = "";
+	while($rowInvitadosCitas = mysql_fetch_assoc($resInvitadosCitas)){
+		$return.= "\\n -".$rowInvitadosCitas['nombre'];
+	}
+	return
+		print($return);
+		
+	
+}
+
+function SelectCategoriaCitaDre($idCategoria){
+	$sqlCategoriasAgenda = "
+		Select * From 
+			`agenda_categorias`
+						   ";
+	$resCategoriasAgenda = DreQueryDB($sqlCategoriasAgenda);
+	
+	$return = "<select name='categoria' id='categoria'>";
+		$return.= "<option value=''> Sin Categoria </option>";
+	while($rowCategoriasAgenda = mysql_fetch_assoc($resCategoriasAgenda)){
+		if($rowCategoriasAgenda['nombre'] == $idCategoria){ $selected = 'selected';} else {$selected = '';}
+		$return.= "<option value='".$rowCategoriasAgenda['nombre']."' ".$selected.">";
+		$return.= $rowCategoriasAgenda['nombre'];
+		$return.= "</option>";
+	}
+	$return.="</select>";
+	return
+		print($return);
+}
+function SelectHoraCitaDreOnChange($idHora,$tipo){
+	$sqlHorasAgenda = "
+		Select * From
+			`agenda_horas`
+					  ";
+	$resHorasAgenda = DreQueryDB($sqlHorasAgenda);
+	$return = "<select name='hora".$tipo."' id='hora".$tipo."' onChange='JavaScript: cambiaDatosHoraStartVsEnd();'>";
+	while($rowHorasAgenda = mysql_fetch_assoc($resHorasAgenda)){
+		if($rowHorasAgenda['hora'] == $idHora){ $selected = 'selected';} else {$selected = '';}
+		$return.= "<option value='".$rowHorasAgenda['hora']."' ".$selected.">";
+		$return.= $rowHorasAgenda['hora'];
+		$return.= "</option>";
+	}
+	$return.= "</select>";
+	
+	return
+		print($return);
+}
+
+function SelectHoraCitaDre($idHora,$tipo){
+	$sqlHorasAgenda = "
+		Select * From
+			`agenda_horas`
+					  ";
+	$resHorasAgenda = DreQueryDB($sqlHorasAgenda);
+	$return = "<select name='hora".$tipo."' id='hora".$tipo."'";
+	while($rowHorasAgenda = mysql_fetch_assoc($resHorasAgenda)){
+		if($rowHorasAgenda['hora'] == $idHora){ $selected = 'selected';} else {$selected = '';}
+		$return.= "<option value='".$rowHorasAgenda['hora']."' ".$selected.">";
+		$return.= $rowHorasAgenda['hora'];
+		$return.= "</option>";
+	}
+	$return.= "</select>";
+	
+	return
+		print($return);
+}
+
+// Funcion de Correo DRE
+function DreMail($desde,$para,$copia,$copiaOculta,$asunto,$mensaje,$fileAdjunto,$nameAdjunto){
+
+if($fileAdjunto != ""){ /*Adjun*/
+	// Codificamos el archivo
+	$file = fopen($fileAdjunto, 'r'); 
+	$contenido = fread($file, filesize($fileAdjunto)); 
+	$encoded_attach = chunk_split(base64_encode($contenido)); 
+	fclose($file);
+	$fileName = "Archivo_Adjunto".$extension;
+}
+
+$headers = "From: ".$desde."\r\n"; 
+$headers .= "Reply-To: ".$desde."\r\n";
+$headers .= "Return-path: ".$desde."\r\n";  
+$headers .= "Cc: ".$copia."\r\n"; 
+$headers .= "Bcc: ".$copiaOculta.", juanjose@dre-learning.com \r\n";
+$headers .= "MIME-version: 1.0\n"; 
+$headers .= "Content-type: multipart/form-data; "; 
+$headers .= "boundary=\"Message-Boundary\"\n"; 
+$headers .= "Content-transfer-encoding: 7BIT\n"; 
+if($fileAdjunto != ""){ $headers .= "X-attachments:".$fileAdjunto; /*Adjun*/ }
+
+//Se configuran las propiedades del email_message del mensaje 
+$body_top = "--Message-Boundary\n";
+$body_top .= "Content-type: text/html; charset=iso-8859-1\r\n"; 
+//** $body_top .= "Content-transfer-encoding: 7BIT\n"; 
+//** $body_top .= "Content-description: Mail messagebody\n\n"; 
+
+$email_message = $body_top.$mensaje; 
+
+$email_message .= "\n\n--Message-Boundary\n"; 
+if($fileAdjunto != ""){ $email_message .= "Content-type: Binary;name=\"$nameAdjunto\"\n"; /*Adjun*/ }
+$email_message .= "Content-Transfer-Encoding: BASE64\n"; 
+if($fileAdjunto != ""){ $email_message .= "Content-disposition: attachment;filename=\"$nameAdjunto\"\n\n"; /*Adjun*/}
+$email_message .= "$encoded_attach\n"; 
+$email_message .= "--Message-Boundary--\n"; 
+		
+	// Envio del Correo
+	@mail($para, $asunto, $email_message, $headers);  
+}
+
+// DreFechaEsp
+function DreFechaEsp($fecha){
+	$meses["01"] = "Enero";
+	$meses["02"] = "Febrero";
+	$meses["03"] = "Marzo";
+	$meses["04"] = "Abril";
+	$meses["05"] = "Mayo";
+	$meses["06"] = "Junio";
+	$meses["07"] = "Julio ";
+	$meses["08"] = "Agosto";
+	$meses["09"] = "Septiembre";
+	$meses["10"] = "Octubre";
+	$meses["11"] = "Noviembre";
+	$meses["12"] = "Diciembre";
+
+	$fechaPartes = explode('-', $fecha);
+	
+	return
+		substr($fechaPartes[2],0,2)."/".$meses[$fechaPartes[1]]."/".$fechaPartes[0];		
+}
+
+function DreCorreoUsuario($idUsuario){
+		$sqlCorreoUsuario = "
+			Select `Email` From 
+				`usuarios`
+			Where 
+				`VALOR` = '$idUsuario'
+							";
+		$resCorreoUsuario = DreQueryDB($sqlCorreoUsuario);
+		$rowCorreoUsuario = mysql_fetch_assoc($resCorreoUsuario);
+		return
+			$rowCorreoUsuario['Email'];
+	}
+	
+function DreNombreUsuario($idUsuario){
+		if(strpos($idUsuario, '@')){
+			$nombreUsuario = $idUsuario;
+		} else {
+			$sqlNombreUsuario = "
+				Select `NOMBRE` From 
+					`usuarios`
+				Where 
+					`VALOR` = '$idUsuario'
+								";
+			$resNombreUsuario = DreQueryDB($sqlNombreUsuario);
+			$rowNombreUsuario = mysql_fetch_assoc($resNombreUsuario);
+			$nombreUsuario = $rowNombreUsuario['NOMBRE'];
+		}
+		return
+			$nombreUsuario;
+	}
+
+function DreNombreCliente($idCliente){
+		$sqlNombreCliente = "
+			Select `RAZON_SOCIAL` From 
+				`empresas`
+			Where 
+				`CLAVE` = '$idCliente'
+							";
+		$resNombreCliente = DreQueryDB($sqlNombreCliente);
+		$rowNombreCliente = mysql_fetch_assoc($resNombreCliente);
+		return
+			$rowNombreCliente['RAZON_SOCIAL'];
+	}
+
+function DreDireccionClienteContacto($idCliente, $tipoContacto){
+		$sqlNombreCliente = "
+			Select * From 
+				`contactos` 
+			Where 
+				`CLAVE` Like '%$idCliente%' 
+				And 
+				`TIPO` = '$tipoContacto'
+							";
+		$resNombreCliente = DreQueryDB($sqlNombreCliente);
+		$rowNombreCliente = mysql_fetch_assoc($resNombreCliente);
+		return
+			$rowNombreCliente['DIRECCION'];
+	}
+
+
+function DreNombreClienteContacto($idCliente, $tipoContacto){
+		$sqlNombreCliente = "
+			Select * From 
+				`contactos` 
+			Where 
+				`CLAVE` Like '%$idCliente%' 
+				And 
+				`TIPO` = '$tipoContacto'
+							";
+		$resNombreCliente = DreQueryDB($sqlNombreCliente);
+		$rowNombreCliente = mysql_fetch_assoc($resNombreCliente);
+		return
+			$rowNombreCliente['NOMBRE'];
+	}
+
+function DreEmailClienteContacto($idCliente, $tipoContacto){
+		$sqlNombreCliente = "
+			Select * From 
+				`contactos` 
+			Where 
+				`CLAVE` Like '%$idCliente%' 
+				And 
+				`TIPO` = '$tipoContacto'
+							";
+		$resNombreCliente = DreQueryDB($sqlNombreCliente);
+		$rowNombreCliente = mysql_fetch_assoc($resNombreCliente);
+		return
+			$rowNombreCliente['EMAIL'];
+	}
+
+function DreTelefonoClienteContacto($idCliente, $tipoContacto){
+		$sqlNombreCliente = "
+			Select * From 
+				`contactos` 
+			Where 
+				`CLAVE` Like '%$idCliente%' 
+				And 
+				`TIPO` = '$tipoContacto'
+							";
+		$resNombreCliente = DreQueryDB($sqlNombreCliente);
+		$rowNombreCliente = mysql_fetch_assoc($resNombreCliente);
+		return
+			$rowNombreCliente['TELEFONO'];
+	}
+
+function DreRamoPoliza($poliza){
+	$sqlRamoPoliza = "
+		Select * From
+			`cliramos`
+		Where 
+			`POLIZA` = '$poliza'
+					 ";
+	$resRamoPoliza = DreQueryDB($sqlRamoPoliza);
+	$rowRamoPoliza = mysql_fetch_assoc($resRamoPoliza);
+		if($rowRamoPoliza['RAMO'] != ''){
+			$return = $rowRamoPoliza['RAMO'];
+		} else {
+			$return = 'Imagen NO Identificada';
+		}
+	return
+		print($return);
+}
+
+function DreClientePoliza($poliza){
+	$sqlClientePoliza = "
+		Select * From
+			`cliramos`
+		Where 
+			`POLIZA` = '$poliza'
+					 ";
+	$resClientePoliza = DreQueryDB($sqlClientePoliza);
+	$rowClientePoliza = mysql_fetch_assoc($resClientePoliza);
+		if($rowClientePoliza['CLAVE_CLIENTE'] != ''){
+			$return = $rowClientePoliza['CLAVE_CLIENTE'];
+		}
+	return
+		$return;
+}
+
+function DrePolizaVigente($poliza){
+	$sqlClientePoliza = "
+		Select * From
+			`cliramos`
+		Where 
+			`POLIZA` = '$poliza'
+					 ";
+	$resClientePoliza = DreQueryDB($sqlClientePoliza);
+	$rowClientePoliza = mysql_fetch_assoc($resClientePoliza);
+		if($rowClientePoliza['CLAVE_CLIENTE'] != ''){
+			$return = $rowClientePoliza['CLAVE_CLIENTE'];
+		}
+	return
+		$return;
+}
+
+function SelectDescuentoAseguradora($aseguradora, $maximoDescuento, $permisoUsuario, $requestDescuento){
+	
+	$contDescuento = "0";
+		$select = "";
+			$disabled = ($permisoUsuario == "0")? "disabled":"";
+		$select .= "<select name='descuento$aseguradora' id='descuento$aseguradora'$disabled >";
+		//$select .= "<option value=''> -Seleccione- </option>";
+		while($maximoDescuento >= $contDescuento){
+			$selectedDescuento = ($requestDescuento == $contDescuento)? "selected":"";
+			$select.= "<option value='$contDescuento' ".$selectedDescuento.">$contDescuento</option>";
+		$contDescuento++;
+		}
+		$select .= "</select>";
+return
+	$select;
+}
+
+	function calculaedad($fechanacimiento){
+    list($ano,$mes,$dia) = explode("-",$fechanacimiento);
+    $ano_diferencia  = date("Y") - $ano;
+    $mes_diferencia = date("m") - $mes;
+    $dia_diferencia   = date("d") - $dia;
+    if ($dia_diferencia < 0 || $mes_diferencia < 0)
+        $ano_diferencia--;
+    return $ano_diferencia;
+}
+
+function DreSinAcentos($cadena){
+	$originales = array('á','é','í','ó','ú','Á','É','Í','Ó','Ú',',');
+	$modificadas = array('a','e','i','o','u','A','E','I','O','U','');
+		
+	$cadena = str_replace($originales, $modificadas,$cadena);
+
+	return
+		$cadena;
+
+}
+
+function SelectEstadoCivil($selectedRequest){
+	$sqlEstadoCivil = "
+		Select * From
+			`configdre` 
+		Where 
+			`parametro` = 'tipoEstadoCivil'
+					  ";
+	$resEstadoCivil = DreQueryDB($sqlEstadoCivil);
+	$return = '<select name="ESTADO_CIVIL" id="ESTADO_CIVIL">';
+	$return.= '<option value="" >-- Seleccione --</option>';
+	while($rowEstadoCivil = mysql_fetch_assoc($resEstadoCivil)){
+		if($rowEstadoCivil['valor'] == $selectedRequest){ $selected = "selected"; } else { $selected = ""; }
+		$return.= '<option value="'.$rowEstadoCivil['valor'].'" '.$selected.'>'.$rowEstadoCivil['titulo'].'</option>';
+	}
+	$return .= '</select>';
+	
+	return
+		print($return);
+}
+
+function SelectEscolaridad($selectedRequest){
+	$sqlEscolaridad = "
+		Select * From
+			`configdre` 
+		Where 
+			`parametro` = 'tipoEscolaridad'
+					  ";
+	$resEscolaridad = DreQueryDB($sqlEscolaridad);
+	$return = '<select name="ESCOLARIDAD" id="ESCOLARIDAD">';
+	$return.= '<option value="" >-- Seleccione --</option>';
+	while($rowEscolaridad = mysql_fetch_assoc($resEscolaridad)){
+		if($rowEscolaridad['valor'] == $selectedRequest){ $selected = "selected"; } else { $selected = ""; }
+		$return.= '<option value="'.$rowEscolaridad['valor'].'" '.$selected.'>'.$rowEscolaridad['titulo'].'</option>';
+	}
+	$return .= '</select>';
+	
+	return
+		print($return);
+}
+
+function SelectCiaCel($selectedRequest){
+	$sqlCiaCel = "
+		Select * From
+			`configdre` 
+		Where 
+			`parametro` = 'compCelular'
+					  ";
+	$resCiaCel = DreQueryDB($sqlCiaCel);
+	$return = '<select name="CIA_CEL" id="CIA_CEL">';
+	$return.= '<option value="" >-- Seleccione --</option>';
+	while($rowCiaCel = mysql_fetch_assoc($resCiaCel)){
+		if($rowCiaCel['valor'] == $selectedRequest){ $selected = "selected"; } else { $selected = ""; }
+		$return.= '<option value="'.$rowCiaCel['valor'].'" '.$selected.'>'.$rowCiaCel['titulo'].'</option>';
+	}
+	$return .= '</select>';
+	
+	return
+		print($return);
+}
+
+function SelectVehiculoPropio($selectedRequest){
+	$sqlVehiculoPropio = "
+		Select * From
+			`configdre` 
+		Where 
+			`parametro` = 'vehiculoPropio'
+					  ";
+	$resVehiculoPropio = DreQueryDB($sqlVehiculoPropio);
+	$return = '<select name="VEHICULO_PROPIO" id="VEHICULO_PROPIO">';
+	$return.= '<option value="" >-- Seleccione --</option>';
+	while($rowVehiculoPropio = mysql_fetch_assoc($resVehiculoPropio)){
+		if($rowVehiculoPropio['valor'] == $selectedRequest){ $selected = "selected"; } else { $selected = ""; }
+		$return.= '<option value="'.$rowVehiculoPropio['valor'].'" '.$selected.'>'.$rowVehiculoPropio['titulo'].'</option>';
+	}
+	$return .= '</select>';
+	
+	return
+		print($return);
+}
+
+function SelectTieneHijos($selectedRequest){
+	$sqlTieneHijos = "
+		Select * From
+			`configdre` 
+		Where 
+			`parametro` = 'tieneHijos'
+					  ";
+	$resTieneHijos = DreQueryDB($sqlTieneHijos);
+	$return = '<select name="TIENE_HIJOS" id="TIENE_HIJOS">';
+	$return.= '<option value="" >-- Seleccione --</option>';
+	while($rowTieneHijos = mysql_fetch_assoc($resTieneHijos)){
+		if($rowTieneHijos['valor'] == $selectedRequest){ $selected = "selected"; } else { $selected = ""; }
+		$return.= '<option value="'.$rowTieneHijos['valor'].'" '.$selected.'>'.$rowTieneHijos['titulo'].'</option>';
+	}
+	$return .= '</select>';
+	
+	return
+		print($return);
+}
+
+function DigitoVerificadorQualitas($cAmis){
+	// Paso 1 Completado de Ceros Amis
+	if(strlen($cAmis) == 5)
+	{
+		$cAmis_Completo = $cAmis;
+	} else if(strlen($cAmis) <= 4)
+	{
+		$longitudAmis = strlen($cAmis);
+		$completoCeros = 5 - $longitudAmis;
+			$ceros[1] = "0";
+			$ceros[2] = "00";
+			$ceros[3] = "000";
+			$ceros[4] = "0000";
+		$cAmis_Completo = $ceros[$completoCeros].$cAmis;
+	}
+	
+	// Paso 1.2 Suma de Numeros impares desde la izquierda
+	$sumaNumerosImpares = $cAmis_Completo[0] + $cAmis_Completo[2] + $cAmis_Completo[4];
+	
+	// Paso 2 Multiplicar SumaNumerosImpares por 3
+	$multiplicacionImpar = $sumaNumerosImpares * 3;
+	
+	// Paso 3 Sumar las posiciones pares
+	$sumaNumerosPares = $cAmis_Completo[1] + $cAmis_Completo[3];
+	
+	// Paso 4 Sumar los resultados de los pasos 3  y 4 
+ 	$sumaPasos = $multiplicacionImpar + $sumaNumerosPares;
+	
+	// Paso 5 buscar el menor numero para llegar a multiplo de 10
+	$modulo10 = $sumaPasos % 10;
+	
+	if($modulo10 != 0 ){	
+    $digitoVerificador = 10- $modulo10;
+	} else {
+	$digitoVerificador = $modulo10;
+	}
+	
+	return $digitoVerificador;
+}
+
+function ae_detect_ie()
+{
+    if (isset($_SERVER['HTTP_USER_AGENT']) && 
+    (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE') !== false))
+        return true;
+    else
+        return false;
+}  
+
+function puntosClub($claveCliente){
+	$sql = "
+		Select * From 
+			`vigenciaclub`
+		Where
+			`clave_cliente` = '$claveCliente'
+		   ";
+	$res = DreQueryDB($sql);
+	$row = mysql_fetch_assoc($res);
+	
+	return
+		$row['puntos_acumulados'];
+}
+
+function DreNombreRamo($idRamo){
+	$sqlRamos = "
+	Select * From 
+		`catalogo_ramo`
+	Where
+		`clave` = '$idRamo'
+				";
+	$resRamos = DreQueryDB($sqlRamos);
+	$rowRamos = mysql_fetch_assoc($resRamos);
+	
+	return
+		$rowRamos['nombre'];
+}
+
+
+function DreNombreRamoV2($idSubRamo){
+	$sqlSubRamos = "
+	Select * From 
+		`catalogo_ramo_subramo`
+	Where
+		`clave` = '$idSubRamo'
+				";
+	$resSubRamos = DreQueryDB($sqlSubRamos);
+	$rowSubRamos = mysql_fetch_assoc($resSubRamos);
+	
+	return
+		$rowSubRamos['ramo'];
+}
+
+function DreNombreSucursalV2($idSucursal){
+	$sqlSucursal = "
+	Select * From 
+		`catalogo_sucursales`
+	Where
+		`clave` = '$idSucursal'
+				";
+	$resSucursal = DreQueryDB($sqlSucursal);
+	$rowSucursal = mysql_fetch_assoc($resSucursal);
+	
+	return
+		$rowSucursal['nombre'];
+}
+
+
+function DreNombreSubRamo($idSubRamo){
+	$sqlSubRamos = "
+	Select * From 
+		`catalogo_ramo_subramo`
+	Where
+		`clave` = '$idSubRamo'
+				";
+	$resSubRamos = DreQueryDB($sqlSubRamos);
+	$rowSubRamos = mysql_fetch_assoc($resSubRamos);
+	
+	return
+		$rowSubRamos['subRamo'];
+}
+
+function DreNombreAseguradora($claveAseguradora){
+	$sqlAseguradora = "
+	Select * From 
+		`catalogo_aseguradoras`
+	Where 
+		`proovedor_id` = '$claveAseguradora'
+				";
+	$resAseguradora = DreQueryDB($sqlAseguradora);
+	$rowAseguradora = mysql_fetch_assoc($resAseguradora);
+	
+	return
+		$rowAseguradora['nombre'];
+}
+
+function DreNombreGrupo($idGrupo){
+	$sqlGrupo = "
+		Select * From 
+			`catalogo_grupo` 
+		Where 
+			`id` = '$idGrupo'
+					  ";
+	$resGrupo = DreQueryDB($sqlGrupo);
+	$rowGrupo = mysql_fetch_assoc($resGrupo);
+	
+	return
+		$rowGrupo['nombre'];
+}
+
+
+function DreNombreSubGrupo($idSubGrupo){
+	$sqlSubGrupo = "
+		Select * From 
+			`catalogo_grupo_subgrupo` 
+		Where 
+			`id` = '$idSubGrupo'
+					  ";
+	$resSubGrupo = DreQueryDB($sqlSubGrupo);
+	$rowSubGrupo = mysql_fetch_assoc($resSubGrupo);
+	
+	return
+		$rowSubGrupo['subGrupo'];
+}
+
+function DreUrgenteReporteActividades($estatusUrgente){
+	switch($estatusUrgente){
+		case "1":
+			$tituloUrgente = "Si";
+		break;
+		
+		case "0":
+			$tituloUrgente = "No";
+		break;
+	}
+	
+	return
+		$tituloUrgente;
+}
+
+function DrePrioridadReporteActividades($estatusPrioridad){
+	switch($estatusPrioridad){
+		case "0":
+			$tituloPrioridad = "Proceso";
+		break;
+		
+		case "1":
+			$tituloPrioridad = "Cotizada";
+		break;
+		
+		case "2":
+			$tituloPrioridad = "Recotizada";
+		break;
+		
+		case "3":
+			$tituloPrioridad = "Via Oficina";
+		break;
+		
+		case "4":
+			$tituloPrioridad = "Emitida";
+		break;
+	}
+	
+	return
+		$tituloPrioridad;
+}
+
+function multiexplode ($delimiters,$string) {
+    
+    $ready = str_replace($delimiters, $delimiters[0], $string);
+    $launch = explode($delimiters[0], $ready);
+    return  $launch;
+}
+
+function DrePermisoUsuario($permiso, $arregloPermisos){
+	if(count($arregloPermisos) > 0){
+		if(in_array($permiso, $arregloPermisos)){
+			$return = TRUE;
+		} else {
+			$return = FALSE;
+		}
+	} else {
+		$return = FALSE;
+	}
+	return
+		$return;
+}
+
+function DreActividadActividad($idActividad){
+	$sqlConsultaActividadPadre = "
+		Select * From
+			`actividades`
+		Where
+			`recId` = '$idActividad'
+			And
+			`inicio` = '0'
+								 ";
+	$resConsultaActividadPadre = DreQueryDB($sqlConsultaActividadPadre);
+	$rowConsultaActividadPadre = mysql_fetch_assoc($resConsultaActividadPadre);	
+		$textoActividad = $rowConsultaActividadPadre['actividad'];
+	return
+		print($textoActividad);
+}
+
+function DreStatusActividadV2($idActividad){
+	$sqlConsultaActividadPadre = "
+		Select * From
+			`actividades`
+		Where
+			`recId` = '$idActividad'
+			And
+			`inicio` = '0'
+								 ";
+	$resConsultaActividadPadre = DreQueryDB($sqlConsultaActividadPadre);
+	$rowConsultaActividadPadre = mysql_fetch_assoc($resConsultaActividadPadre);
+
+	switch($rowConsultaActividadPadre['fin']){
+		case 0:
+			switch($rowConsultaActividadPadre['prioridad']){
+				case 0:
+					$textoStatusActividad = "Proceso";
+				break;
+				
+				case 1:
+					$textoStatusActividad = "Cotizada";
+				break;
+				
+				case 2:
+					$textoStatusActividad = "Recotizar";
+				break;
+				
+				case 3:
+					$textoStatusActividad = "V&iacute;a Oficina";
+				break;
+
+				case 4:
+					$textoStatusActividad = "Emitida";
+				break;
+				
+				case 5:
+					$textoStatusActividad = "Cancelada";
+				break;
+
+				
+			}			
+		break;
+		
+		case 1:
+			$textoStatusActividad = "Terminada";
+		break;
+	}
+	
+	return
+	
+	print($textoStatusActividad);
+}
+
+function DreBloqueActividad($idActividad){
+	$sqlConsultaActividadPadre = "
+		Select * From
+			`actividades`
+		Where
+			`recId` = '$idActividad'
+			And
+			`inicio` = '0'
+								 ";
+	$resConsultaActividadPadre = DreQueryDB($sqlConsultaActividadPadre);
+	$rowConsultaActividadPadre = mysql_fetch_assoc($resConsultaActividadPadre);
+	$fechaTomada = date_create($rowConsultaActividadPadre['fechaTomada']);
+		
+		$textoBloqueoActividad = "";
+		if($rowConsultaActividadPadre['usuarioBloqueo'] != ""){
+			$textoBloqueoActividad.= "<br><strong>".date_format($fechaTomada, 'H:i:s a')."</strong>";
+			$textoBloqueoActividad.= "<br><font style='font-size:6px;'>".DreNombreUsuario($rowConsultaActividadPadre['usuarioBloqueo'])."</font>";
+			$textoBloqueoActividad.= "<br>".date_format($fechaTomada, 'd-m-Y');
+		}
+				
+	return
+	
+	print($textoBloqueoActividad);
+}
+
+function DreSemaforoNubeCotizaciones($idActividad){
+	$fechaHoraActualLocal = date('Y-m-d H:i:s');
+
+	$sqlConsultaActividadCalculosNube = "
+		Select
+			*
+			,  Time_Format( TIMEDIFF('$fechaHoraActualLocal', `fechaTomada`), '%i' )  As `minutos_TiempoTomado`
+			,  Time_Format( TIMEDIFF('$fechaHoraActualLocal', `fechaTomada`), '%H' )  As `horas_TiempoTomado`
+			,  Time_Format( TIMEDIFF('$fechaHoraActualLocal', `fechaCreacion`), '%i' )  As `minutos_TiempoCreado`
+			,  Time_Format( TIMEDIFF('$fechaHoraActualLocal', `fechaCreacion`), '%H' )  As `horas_TiempoCreado`
+			
+		From
+			`actividades`
+		Where
+			(
+				`inicio` = '0'
+				And
+				`recId` = '$idActividad'
+			)
+										";
+	$resConsultaActividadCalculosNube = DreQueryDB($sqlConsultaActividadCalculosNube);
+	$rowConsultaActividadCalculosNube = mysql_fetch_assoc($resConsultaActividadCalculosNube);
+	extract($rowConsultaActividadCalculosNube);
+		/*	
+		$semaforoNube.= $horas_TiempoTomado;
+		$semaforoNube.= ":";
+		$semaforoNube.= $minutos_TiempoTomado;
+		$semaforoNube.= "<br>";
+		*/
+
+	if($rowConsultaActividadCalculosNube['usuarioBloqueo'] != ''){
+		if($horas_TiempoTomado == 0){
+			if($minutos_TiempoTomado < 30){
+				$colorNube = "azul";
+			} else {
+				$colorNube = "amarillo";
+			}
+		} else {
+			$colorNube = "amarillo";
+		}
+	} else {
+		if($horas_TiempoCreado == 0){
+			if($minutos_TiempoCreado < 30){
+				$colorNube = "gris";
+			} else {
+				$colorNube = "naranja";
+			}
+		} else {
+			$colorNube = "naranja";
+		}
+	}
+	switch($colorNube){
+		default:
+		case "gris":
+			$semaforoNube.= '<img src="img/transparente.fw.png" class="semaforoNubeCotizaciones gris" alt="semaforo" border="0" title="Semaforo de Actividades"/>';
+		break;
+		
+		case "azul":
+			$semaforoNube.= '<img src="img/transparente.fw.png" class="semaforoNubeCotizaciones azul" alt="semaforo" border="0" title="Semaforo de Actividades"/>';
+		break;
+		
+		case "amarillo":
+			$semaforoNube.= '<img src="img/transparente.fw.png" class="semaforoNubeCotizaciones amarillo" alt="semaforo" border="0" title="Semaforo de Actividades"/>';
+		break;
+		
+		case "naranja":
+			$semaforoNube.= '<img src="img/transparente.fw.png" class="semaforoNubeCotizaciones naranja" alt="semaforo" border="0" title="Semaforo de Actividades"/>';
+		break;
+	}
+	
+	return
+		print($semaforoNube);
+}
+
+$dm_usergent = array(
+   'PIE4' => 'compatible; MSIE 4.01; Windows CE; PPC; 240x320',
+   'PIE4_Smartphone' => 'compatible; MSIE 4.01; Windows CE; Smartphone;',
+   'PIE6' => 'compatible; MSIE 6.0; Windows CE;',
+   'Minimo' => 'Minimo',
+   'OperaMini' => 'Minimo',
+   'AvantGo' => 'AvantGo',
+   'Plucker' => 'Plucker',
+   'NetFront' => 'NetFront',
+   'SonyEricsson' => 'SonyEricsson',
+   'Nokia' => 'Nokia',
+   'Motorola' => 'mot-',
+   'BlackBerry' => 'BlackBerry',
+   'WindowsMobile' => 'Windows CE',
+   'PPC' => 'PPC',
+   'PDA' => 'PDA',
+   'Smartphone' => 'Smartphone',
+   'Palm' => 'Palm',
+   'iPod touch' => 'iPod touch',
+   'iPhone' => 'iPhone',
+   'Android' => 'Android'
+);
+
+function obtenerNavegador($useragents, $useragent){
+	
+   foreach($useragents as $nav=>$ua){
+      if(strstr($useragent, $ua)!=false){
+         return $nav;
+      }
+   }
+   return 'Desconocido';
+}
+
+function SelectActividadDinamico($urlDestino, $idRef, $tipo, $areaSeleccionable, $nombreFormulario){
+
+	switch($areaSeleccionable){
+		case "2":
+			$filtradoGrupo = "
+				And
+				(
+				`valor` = 'cotizacion'
+				Or
+				`valor` = 'emision'
+				)
+							 ";
+		break;
+		
+		default:
+			$filtradoGrupo = "";
+		break;
+	}
+	
+	$return = "";
+	$return.= "	Actividad: ";
+	$return.= "
+		<select 
+			name = 'Actividad' 
+			id = 'Actividad' 
+			onchange = 'JavaScrip: document.formSelectActividad.submit();'
+			style='width:50%;'
+		> 
+			  ";
+	$return.= "<option value=''>-- Seleccione --</option>";
+		$sqlTiposActividad = "
+			Select * From 
+				`configdre` 
+			Where 
+				`parametro` = 'tipoActividad'
+				And
+				`activo` = '0'
+				$filtradoGrupo				
+			Order By 
+				`orden` Asc
+							 "; 
+		$resTiposActicidad = DreQueryDB($sqlTiposActividad);
+		while($rowTiposActividad = mysql_fetch_assoc($resTiposActicidad)){
+			$return.= "
+			<option value='".urlencode($rowTiposActividad['titulo'])."'>
+				".$rowTiposActividad['titulo']."
+			</option>
+					  ";
+		}
+	$return.= "	</select> ";
+	
+	return
+		print($return);
+}
+
+function SelectRamoDinamico($Ramo, $grupo){
+	switch($grupo){
+		case "2":
+			$filtradoGrupo = "
+						Where
+							`ramo_id` = '8'
+							 ";
+		break;
+		
+		default:
+			$filtradoGrupo = "";
+		break;
+	}
+
+	$return = "";
+	$return.= "	&Aacute;rea: ";
+	$return.= "
+				<select 
+					name='Ramo' 
+					id='Ramo' 
+					onchange='JavaScrip: document.formSelectActividad.submit();'
+					style='width:30%;'
+				>
+			  ";
+	$return.= "<option value=''>-- Seleccione --</option>";
+		$sqlRamo = 	"
+						Select * From
+							`ramosconfigdre`
+						$filtradoGrupo
+						Order By
+							`orden` Asc
+					";
+		$resRamo = DreQueryDB($sqlRamo);
+		while($rowRamo = mysql_fetch_assoc($resRamo)){
+		if($Ramo == urlencode($rowRamo['nombre'])){ $selected = "selected"; } else { $selected = "";}
+			$return.= " <option value=".urlencode($rowRamo['nombre'])." $selected>
+							".$rowRamo['nombre']."
+						</option>";
+		}
+	$return.= " </select>";
+	
+	return
+		print($return);
+}
+
+function SelectSubRamoDinamico($SubRamo, $filtroSubRamo, $grupo){
+	switch($grupo){
+		case "2":
+			$filtradoGrupo = "
+						Where
+							`ramo_id` = '8'
+							 ";
+		break;
+		
+		default:
+			$filtradoGrupo = "";
+		break;
+	}
+
+	$return = "";
+	
+	$return.= "	SubRamo:";
+	
+	$return.= "
+		<select 
+			name='SubRamo' id='SubRamo' 
+			onchange='JavaScrip: document.formSubRamo.submit();'
+			style='width:40%;'
+		>
+			  ";
+	$return.= "<option value=''> -Seleccione- </option>";
+		$sqlSubRamo = "
+			Select * From 
+				`configdre`  
+			Where 
+				`parametro` = 'subRamo' 
+				And
+				`filtro` = '$filtroSubRamo'
+  				And
+  			`activo` = '0'
+			Order By 
+				`orden` Asc
+								";
+		$resSubRamo = DreQueryDB($sqlSubRamo);
+		while($rowSubRamo = mysql_fetch_assoc($resSubRamo)){
+			if($SubRamo == $rowSubRamo['valor']){ $selected = "selected"; } else { $selected = "";}
+	$return.= "
+		<option 
+			value='".$rowSubRamo['valor']."'
+			$selected
+		>
+			  ";
+	$return.= $rowSubRamo['titulo'];
+	$return.= "
+                </option>
+			  ";
+		}
+	$return.= "
+			</select>
+			  ";
+	return
+		print($return);
+}
+
+function DreConversionMinutosHoras($mins) {
+	// Se Convierten en positivos los negativos // Se os minutos estiverem negativos
+	if($mins < 0)
+		$min = abs($mins);
+	else
+		$min = $mins;
+ 
+	//Redondeamos la Hora // Arredonda a hora
+	$h = floor($min / 60);
+	$m = ($min - ($h * 60)) / 100;
+	$horas = $h + $m;
+ 
+	// Matemática da quinta série
+	// Detalhe: Aqui também pode se usar o abs()
+	if ($mins < 0)
+		$horas *= -1;
+		
+	// Separa a hora dos minutos
+	$sep = explode('.', $horas);
+	$h = $sep[0];
+	if (empty($sep[1]))
+		$sep[1] = 00;
+		$m = $sep[1];
+ 
+		// Aqui um pequeno artifício pra colocar um zero no final
+        if (strlen($m) < 2)
+			$m = $m . 0;
+ 
+	return 
+		sprintf('%02d:%02d', $h, $m)." Hrs";
+}
+
+function DreTiempoRespuesta($recId){
+
+	$sqlConsultaActividad = "
+		Select
+			`actividadInterno`
+			, `ramoInterno`
+			, `prioridad`
+			
+			, `fechaCreacion`
+			, `fechaCotizacion`
+			, `fechaCotizacion2` -- 
+			, `fechaCotizacion3` -- 
+			, `fechaEmite`
+			, `fechaEndosa` -- 
+			, `fechaCancela`
+			, `fechaAclara` -- 
+			
+			, `tiempoAtencion`
+			
+			, TIMESTAMPDIFF(Minute,`fechaCreacion`, `fechaCotizacion`) As `tiempoCotizada`
+			, TIMESTAMPDIFF(Minute,`fechaCreacion`, `fechaCotizacion2`) As `tiempoCotizada2` -- 
+			, TIMESTAMPDIFF(Minute,`fechaCreacion`, `fechaCotizacion3`) As `tiempoCotizada3` -- 
+			, TIMESTAMPDIFF(Minute,`fechaCreacion`, `fechaEmite`) As `tiempoEmitida`
+			, TIMESTAMPDIFF(Minute,`fechaCreacion`, `fechaEndosa`) As `tiempoEndosada` -- 
+			, TIMESTAMPDIFF(Minute,`fechaCreacion`, `fechaCancela`) As `tiempoCancela`
+			, TIMESTAMPDIFF(Minute,`fechaCreacion`, `fechaAclara`) As `tiempoAclarada` -- 
+			
+			, DAYNAME(`fechaCreacion`) As `DiaSemanaCreacion`
+			, DAYNAME(`fechaCotizacion`) As `DiaSemanaCotizada`
+			, DAYNAME(`fechaCotizacion2`) As `DiaSemanaCotizada2` -- 
+			, DAYNAME(`fechaCotizacion3`) As `DiaSemanaCotizada3` -- 
+			, DAYNAME(`fechaEmite`) As `DiaSemanaEmitida`
+			, DAYNAME(`fechaEndosa`) As `DiaSemanaEndosada` -- 
+			, DAYNAME(`fechaCancela`) As `DiaSemanaCancela`
+			, DAYNAME(`fechaAclara`) As `DiaSemanaAclarada` -- 
+			
+			, HOUR(`fechaCreacion`) As `HoraDiaCreacion`
+			, HOUR(`fechaCotizacion`) As `HoraDiaCotizada`
+			, HOUR(`fechaCotizacion2`) As `HoraDiaCotizada2` -- 
+			, HOUR(`fechaCotizacion3`) As `HoraDiaCotizada3` -- 
+			, HOUR(`fechaEmite`) As `HoraDiaEmitida`
+			, HOUR(`fechaEndosa`) As `HoraDiaEndosada` -- 
+			, HOUR(`fechaCancela`) As `HoraDiaCancela`
+			, HOUR(`fechaAclara`) As `HoraDiaAclarada` -- 
+			
+
+			, TIMESTAMPDIFF(Minute,`fechaCreacion`, date_format(`fechaCreacion`, '%Y-%m-%d 18:00:00')) As `tiempoAbiertoDiaCreada`
+-- 			, TIMESTAMPDIFF(Minute,date_format(`fechaCotizacion`, '%Y-%m-%d 09:00:00'),`fechaCotizacion`) As `tiempoAbiertoDiaCotizada`
+-- 			, TIMESTAMPDIFF(Minute,date_format(`fechaCotizacion2`, '%Y-%m-%d 09:00:00'),`fechaCotizacion2`) As `tiempoAbiertoDiaCotizada2`
+-- 			, TIMESTAMPDIFF(Minute,date_format(`fechaCotizacion3`, '%Y-%m-%d 09:00:00'),`fechaCotizacion3`) As `tiempoAbiertoDiaCotizada3`
+			, TIMESTAMPDIFF(Minute,`fechaCotizacion`, date_format(`fechaCotizacion`, '%Y-%m-%d 18:00:00')) As `tiempoAbiertoDiaCotizada`
+			, TIMESTAMPDIFF(Minute,`fechaCotizacion2`, date_format(`fechaCotizacion2`, '%Y-%m-%d 18:00:00')) As `tiempoAbiertoDiaCotizada2`
+			, TIMESTAMPDIFF(Minute,`fechaCotizacion3`, date_format(`fechaCotizacion3`, '%Y-%m-%d 18:00:00')) As `tiempoAbiertoDiaCotizada3`
+			, TIMESTAMPDIFF(Minute,`fechaEmite`, date_format(`fechaEmite`, '%Y-%m-%d 18:00:00')) As `tiempoAbiertoDiaEmitida`
+			, TIMESTAMPDIFF(Minute,`fechaEndosa`, date_format(`fechaEndosa`, '%Y-%m-%d 18:00:00')) As `tiempoAbiertoDiaEndosada`
+			, TIMESTAMPDIFF(Minute,`fechaCancela`, date_format(`fechaCancela`, '%Y-%m-%d 18:00:00')) As `tiempoAbiertoDiaCancela`
+			, TIMESTAMPDIFF(Minute,`fechaAclara`, date_format(`fechaAclara`, '%Y-%m-%d 18:00:00')) As `tiempoAbiertoDiaAclarada`
+			
+		From
+			`actividades`
+		Where
+			(
+				`fechaCotizacion` != '0000-00-00 00:00:00'
+				Or
+				`fechaEmite` != '0000-00-00 00:00:00'
+				Or
+				`fechaEndosa` != '0000-00-00 00:00:00'
+				Or
+				`fechaCancela` != '0000-00-00 00:00:00'
+				Or
+				`fechaAclara` != '0000-00-00 00:00:00'
+			)
+			And
+			(
+			`recId` = '$recId'
+				And
+				`inicio` = '0'
+			)
+							";
+	$resConsultaActividad = DreQueryDB($sqlConsultaActividad);
+	$rowConsultaActividad = mysql_fetch_assoc($resConsultaActividad);
+	extract($rowConsultaActividad);
+	
+	switch($actividadInterno){
+		case "Cotizaci%F3n":
+			if(date_format(date_create($fechaCreacion), '%Y-%m-%d') == date_format(date_create($fechaCotizacion), '%Y-%m-%d')){
+				$tiempoRespuesta = DreConversionMinutosHoras($tiempoCotizada-$tiempoAtencion);
+			} else {
+				if($DiaSemanaCreacion == "Saturday" || $DiaSemanaCreacion == "Sunday"){
+					if($tiempoAbiertoDiaCotizada > 0){
+						$tiempoRespuesta = DreConversionMinutosHoras($tiempoAbiertoDiaCotizada);
+					} else {
+						$tiempoRespuesta = "+00:00 Hrs";
+					}
+				} else {
+					if($tiempoAbiertoDiaCreada > 0){
+						$tiempoRespuesta = DreConversionMinutosHoras($tiempoAbiertoDiaCreada + $tiempoAbiertoDiaCotizada);
+					} else {
+						$tiempoRespuesta = DreConversionMinutosHoras($tiempoAbiertoDiaCotizada);
+					}
+				}
+			}
+		break;
+		
+		case "Emisi%F3n":
+			if(date_format(date_create($fechaCreacion), '%Y-%m-%d') == date_format(date_create($fechaEmite), '%Y-%m-%d')){
+				$tiempoRespuesta = DreConversionMinutosHoras($tiempoEmitida);
+			} else {
+				if($DiaSemanaCreacion == "Saturday" || $DiaSemanaCreacion == "Sunday"){
+					$tiempoRespuesta = DreConversionMinutosHoras($tiempoAbiertoDiaEmitida);
+				} else {
+					if($tiempoAbiertoDiaCreada > 0){
+						$tiempoRespuesta = DreConversionMinutosHoras($tiempoAbiertoDiaCreada + $tiempoAbiertoDiaEmitida);
+					} else {
+						$tiempoRespuesta = DreConversionMinutosHoras($tiempoAbiertoDiaEmitida);
+					}
+				}
+			}
+		break;
+
+		case "Cancelacion":
+			if(date_format(date_create($fechaCreacion), '%Y-%m-%d') == date_format(date_create($fechaCancela), '%Y-%m-%d')){
+				$tiempoRespuesta = DreConversionMinutosHoras($tiempoCancela-$tiempoAtencion);
+			} else {
+				if($DiaSemanaCreacion == "Saturday" || $DiaSemanaCreacion == "Sunday"){
+					if($tiempoAbiertoDiaCancela > 0){
+						$tiempoRespuesta = DreConversionMinutosHoras($tiempoAbiertoDiaCancela);
+					} else {
+						$tiempoRespuesta = "+00:00 Hrs";
+					}
+				} else {
+					if($tiempoAbiertoDiaCreada > 0){
+						$tiempoRespuesta = DreConversionMinutosHoras($tiempoAbiertoDiaCreada + $tiempoAbiertoDiaCancela);
+					} else {
+						$tiempoRespuesta = DreConversionMinutosHoras($tiempoAbiertoDiaCancela);
+					}
+				}
+			}
+		break;
+		
+		default:
+			$tiempoRespuesta = "&bull;No Calculable";
+		break;	
+	}
+
+	if($tiempoRespuesta == "00:00 Hrs"){ $tiempoRespuesta = "-No Calculable"; }
+	
+	$sqlContadorComentariosActividad = "
+		Select 
+			Count(*)
+		From
+			`actividades`
+		Where
+			`recId` = '$recId'
+									   ";
+	$contadorComentariosActividad = mysql_result(DreQueryDB($sqlContadorComentariosActividad),0);
+	
+	if($contadorComentariosActividad > 1){ 
+		$tiempoRespuestaFinal = $tiempoRespuesta."[".$contadorComentariosActividad."]"; 
+	} else {
+		$tiempoRespuestaFinal = $tiempoRespuesta;
+	}
+	return
+		$tiempoRespuestaFinal;
+}
+
+function DreSemaforoRespuesta($recId){
+
+	$xls_semaforoRojo = array('border'=>'000000','background'=>'FF0111','color'=>'696566'); #FF0111 => Rojo
+	$xls_semaforoAmarillo = array('border'=>'000000','background'=>'FED51B','color'=>'696566'); #FED51B => Amarillo
+	$xls_semaforoVerde = array('border'=>'000000','background'=>'7AFF02','color'=>'696566'); #7AFF02 => Verde
+	$xls_semaforoBlanco = array('border'=>'000000','background'=>'ECECFB','color'=>'696566'); #ECECFB => Blanco
+
+	$sqlConsultaActividad = "
+		Select
+			`actividadInterno`
+			, `ramoInterno`
+			, `prioridad`
+			
+			, `fechaCreacion`
+			, `fechaCotizacion`
+			, `fechaEmite`
+			
+			, TIMESTAMPDIFF(Minute,`fechaCreacion`, `fechaCotizacion`) As `tiempoCotizada`
+			, TIMESTAMPDIFF(Minute,`fechaCreacion`, `fechaEmite`) As `tiempoEmitida`
+			
+			, DAYNAME(`fechaCreacion`) As `DiaSemanaCreacion`
+			, DAYNAME(`fechaCotizacion`) As `DiaSemanaCotizada`
+			, DAYNAME(`fechaEmite`) As `DiaSemanaEmitida`
+			
+			, HOUR(`fechaCreacion`) As `HoraDiaCreacion`
+			, HOUR(`fechaCotizacion`) As `HoraDiaCotizada`
+			, HOUR(`fechaEmite`) As `HoraDiaEmitida`
+
+			, TIMESTAMPDIFF(Minute,`fechaCreacion`, date_format(`fechaCreacion`, '%Y-%m-%d 18:00:00')) As `tiempoAbiertoDiaCreada`
+			, TIMESTAMPDIFF(Minute,date_format(`fechaCotizacion`, '%Y-%m-%d 09:00:00'),`fechaCotizacion`) As `tiempoAbiertoDiaCotizada`
+			, TIMESTAMPDIFF(Minute,`fechaEmite`, date_format(`fechaEmite`, '%Y-%m-%d 18:00:00')) As `tiempoAbiertoDiaEmitida`
+		From
+			`actividades`
+		Where
+			(
+				`fechaCotizacion` != '0000-00-00 00:00:00'
+				or
+				`fechaEmite` != '0000-00-00 00:00:00'
+			)
+			And
+			(
+			`recId` = '$recId'
+				And
+				`inicio` = '0'
+			)
+							";
+	$resConsultaActividad = DreQueryDB($sqlConsultaActividad);
+	$rowConsultaActividad = mysql_fetch_assoc($resConsultaActividad);
+	extract($rowConsultaActividad);
+	
+	switch($actividadInterno){
+		case "Cotizaci%F3n":
+			if(date_format(date_create($fechaCreacion), '%Y-%m-%d') == date_format(date_create($fechaCotizacion), '%Y-%m-%d')){
+				$tiempoRespuesta = $tiempoCotizada;
+			} else {
+				if($DiaSemanaCreacion == "Saturday" || $DiaSemanaCreacion == "Sunday"){
+					$tiempoRespuesta = $tiempoAbiertoDiaCotizada;
+				} else {
+					if($tiempoAbiertoDiaCreada > 0){
+						$tiempoRespuesta = $tiempoAbiertoDiaCreada + $tiempoAbiertoDiaCotizada;
+					} else {
+						$tiempoRespuesta = $tiempoAbiertoDiaCotizada;
+					}
+				}
+			}			
+			if($viaOficina == 1){
+				switch($tiempoRespuesta){
+					case ($tiempoRespuesta <= 60 ):
+						$semaforoRespuesta = $xls_semaforoVerde;						
+					break;
+					
+					case ($tiempoRespuesta >= 1440 && $tiempoRespuesta <= 2880 ):
+						$semaforoRespuesta = $xls_semaforoAmarillo;
+					break;
+					
+					case ($tiempoRespuesta >= 2880):
+						$semaforoRespuesta = $xls_semaforoRojo;
+					break;
+				}
+			} else {
+				switch($tiempoRespuesta){
+					case ($tiempoRespuesta <= 60 ):
+						$semaforoRespuesta = $xls_semaforoVerde;						
+					break;
+					
+					case ($tiempoRespuesta >= 60 && $tiempoRespuesta <= 120 ):
+						$semaforoRespuesta = $xls_semaforoAmarillo;
+					break;
+					
+					case ($tiempoRespuesta >= 120):
+						$semaforoRespuesta = $xls_semaforoRojo;
+					break;
+				}
+			}
+
+		break;
+/*
+		case "Emisi%F3n":
+			if(date_format(date_create($fechaCreacion), '%Y-%m-%d') == date_format(date_create($fechaEmite), '%Y-%m-%d')){
+				$tiempoRespuesta = DreConversionMinutosHoras($tiempoEmitida);
+			} else {
+				if($DiaSemanaCreacion == "Saturday" || $DiaSemanaCreacion == "Sunday"){
+					$tiempoRespuesta = DreConversionMinutosHoras($tiempoAbiertoDiaEmitida);
+				} else {
+					if($tiempoAbiertoDiaCreada > 0){
+						$tiempoRespuesta = DreConversionMinutosHoras($tiempoAbiertoDiaCreada + $tiempoAbiertoDiaEmitida);
+					} else {
+						$tiempoRespuesta = DreConversionMinutosHoras($tiempoAbiertoDiaEmitida);
+					}
+				}
+			}
+
+//			if($viaOficina != 1){
+//				$semaforoRespuesta = $xls_semaforoRojo;
+//			} else {
+//				$semaforoRespuesta = $xls_semaforoVerde;
+//			}
+		break;
+*/
+
+		case "Emisi%F3n":
+			if(date_format(date_create($fechaCreacion), '%Y-%m-%d') == date_format(date_create($fechaEmite), '%Y-%m-%d')){
+				$tiempoRespuesta = $tiempoCotizada;
+			} else {
+				if($DiaSemanaCreacion == "Saturday" || $DiaSemanaCreacion == "Sunday"){
+					$tiempoRespuesta = $tiempoAbiertoDiaEmite;
+				} else {
+					if($tiempoAbiertoDiaCreada > 0){
+						$tiempoRespuesta = $tiempoAbiertoDiaCreada + $tiempoAbiertoDiaEmite;
+					} else {
+						$tiempoRespuesta = $tiempoAbiertoDiaEmite;
+					}
+				}
+			}			
+			if($viaOficina == 1){
+				switch($tiempoRespuesta){
+					case ($tiempoRespuesta <= 60 ):
+						$semaforoRespuesta = $xls_semaforoVerde;						
+					break;
+					
+					case ($tiempoRespuesta >= 1440 && $tiempoRespuesta <= 2880 ):
+						$semaforoRespuesta = $xls_semaforoAmarillo;
+					break;
+					
+					case ($tiempoRespuesta >= 2880):
+						$semaforoRespuesta = $xls_semaforoRojo;
+					break;
+				}
+			} else {
+				switch($tiempoRespuesta){
+					case ($tiempoRespuesta <= 60 ):
+						$semaforoRespuesta = $xls_semaforoVerde;						
+					break;
+					
+					case ($tiempoRespuesta >= 60 && $tiempoRespuesta <= 120 ):
+						$semaforoRespuesta = $xls_semaforoAmarillo;
+					break;
+					
+					case ($tiempoRespuesta >= 120):
+						$semaforoRespuesta = $xls_semaforoRojo;
+					break;
+				}
+			}
+
+		break;
+		
+		default:
+			//$tiempoRespuesta = "&bull;No Calculable";
+			$semaforoRespuesta = $xls_semaforoBlanco;
+		break;	
+	}
+	
+	return
+		$semaforoRespuesta;
+}
+?>

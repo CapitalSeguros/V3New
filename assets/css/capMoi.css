@@ -1,0 +1,230 @@
+﻿ul#menuSub {
+	float:center;
+	padding: 5px;
+	position: relative;
+	top:10px;
+	color: #fff;
+	font-size: 14px;
+}
+
+ul#menuSub2 {
+	border-style:solid; 
+	height: 80px; 
+	width: 80px;
+	border-style: groove;
+	font-size: 14px;
+	top: 15px;
+	position:  absolute;
+}
+
+ul#menuSub li {
+	color: white;
+	float: left;
+	list-style: none;
+	margin: 0% 0%; 
+}
+  
+ul#menuSub li:hover{
+	color: blue;
+	cursor:pointer;
+	background: #9D8EBF;
+}
+  
+ul#menuSub ul {
+	display: none;
+	position: absolute;
+	top: 18px;
+	color: green;
+	padding: 2px 0px 2px 2px;
+	margin-top: 3px ;
+	left: 5PX;
+	height: auto;
+	width: 140px;
+	background: #59497A;
+}
+
+ul#menuSub ul li{
+	float: left;
+	color: blue;
+	width:130px;
+	margin:2% 0%;
+}
+
+ul#menuSub ul li a{
+	color: white;
+}
+
+ul#menuSub ul li a:hover{
+	color: yellow;
+	cursor:pointer;
+}
+
+ul#menuSub li:hover ul ul,ul#menuSub li:hover ul ul ul,ul#menuSub li.iehover ul ul,ul#menuSub li.iehover ul ul ul {
+	display: none;
+	cursor:pointer;
+}
+
+ul#menuSub li:hover ul,ul#menuSub ul li:hover ul,ul#menuSub ul ul li:hover ul,ul#menuSub li.iehover ul,ul#menuSub ul li.iehover ul,ul#menuSub ul ul li.iehover ul {
+	display: block;
+	cursor:pointer;
+}
+
+.fondoCabeceraMenu{
+	/* background-image:url(../images/CABECERA.jpg); */
+	background-image:url(../images/logo/B320x120.png);
+	height: 130px;  
+	visibility: visible;
+	background-repeat: no-repeat;
+	margin-bottom: 0px;
+	background-color: white;
+}
+.fondoNegro{
+	color: black;
+}
+/*
+.stiloLogo1{background-image: url("<?php echo base_url(); ?>assets/images/logo/B1366x100.png");}
+.stiloLogo2{background-image: url("<?php echo base_url(); ?>assets/images/logo/B960X115.png");}
+.stiloLogo3{background-image: url("<?php echo base_url(); ?>assets/images/logo/B900x100.png");}
+.stiloLogo4{background-image: url("<?php echo base_url(); ?>assets/images/logo/B720x120.png");}
+.stiloLogo5{background-image: url("<?php echo base_url(); ?>assets/images/logo/B320x120.png");}
+*/
+#ventana-flotanteBL{
+	width: 90%;  /* Ancho de la ventana */
+	height:90%;  /* Alto de la ventana */
+	background: white;/* Color de fondo */
+	position: absolute;
+ top: 10px;
+ left: 5%;
+
+ /* Borde de la ventana */
+ box-shadow: 0 5px 25px rgba(0,0,0,.1);  /* Sombra */
+ z-index:999999;
+ overflow:scroll;
+ padding-bottom:50px;
+ padding-top: 50px;
+ bottom: 200px;
+
+}
+.ver{visibility:visible;}
+#ventana-flotanteBL .cerrar {
+float: right;
+border-bottom: 1px solid #bbb;
+border-left: 1px solid #bbb;
+color: #999;
+background: red;
+line-height: 17px;
+text-decoration: none;
+padding: 0px 14px;
+font-family: Arial;
+border-radius: 0 0 0 5px;
+box-shadow: -1px 1px white;
+font-size: 18px;
+-webkit-transition: .3s;
+-moz-transition: .3s;
+-o-transition: .3s;
+-ms-transition: .3s;
+}
+#ventana-flotanteBL .cerrar:hover {
+background: #ff6868;
+color: white;
+text-decoration: none;
+text-shadow: -1px -1px red;
+border-bottom: 1px solid red;
+border-left: 1px solid red;
+}
+
+.ocultoInicio {
+visibility:hidden;}
+.oculto {
+	-webkit-transition:1s;-moz-transition:1s;-o-transition:1s;-ms-transition:1s;opacity:0;-ms-opacity:0;-moz-opacity:0;visibility:hidden;
+}
+
+.menuPrincipal {
+font-family:sans-serif;
+list-style:none;
+text-decoration:none;
+margin:0;
+padding:0;
+height: 100px;
+z-index: 1200;background:#361866;
+}
+.menuPrincipal form{
+  background-color: #361866;
+  border-style: none;
+  padding:0;
+}
+.menuPrincipal li{
+  list-style:none;
+  padding:0;
+  z-index: 1200;
+  }
+ 
+.menuPrincipal > li {
+float:left;
+list-style:none;
+padding:0;
+z-index: 1200;
+}
+ 
+.menuPrincipal li a {
+background:#361866;
+color:#FFF;
+display:block;
+border:0px solid;
+padding:10px 12px;
+list-style:none;
+
+}
+ 
+.menuPrincipal li a:hover {
+background: #9D8EBF;
+list-style:none;
+
+}
+
+.menuPrincipal li ul {
+display:none;
+position:absolute;
+min-width:140px;
+list-style:none;
+padding:0;
+z-index: 1200;
+border-style: outset;
+border-color: #9D8EBF;
+}
+
+.menuPrincipal li:hover > ul {
+display:block;
+list-style:none;
+}
+
+.menuPrincipal li ul li {
+position:relative;
+list-style:none;
+}
+ 
+.menuPrincipal li ul li ul {
+  list-style:none;
+right:-140px;
+top:0;
+}
+
+.bannerG{
+	width: 100%;
+	height: 70px;    
+	visibility: visible;
+	-webkit-animation: bannerG 60s infinite; 
+	background-size: 100% 100%;
+	background-image: url(../imgBanner/OFICINA.png); 
+}
+@keyframes bannerG{
+	20%{
+		background-image: url(../imgBanner/OFICINA.png); 
+	}
+	35%{
+		background-image: url(../imgBanner/TALLER.png); 
+	}
+	70%{
+		background-image: url(../imgBanner/MANUAL.png);
+	}
+}

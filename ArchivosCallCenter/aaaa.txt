@@ -1,0 +1,45 @@
+select * from Venta.PedidoGlobal where FolioGlobal=18208
+select * from Venta.Pedido where FolioGlobal=18208
+
+select distinct Estatus from Venta.Pedido 
+
+--update Venta.PedidoGlobal set Estatus='CANCELADO' where FolioGlobal=18208
+--update Venta.Pedido set Estatus='CANCELADO' where FolioGlobal=18208
+
+select * from Catalogo.Articulo where cveArt='5140145'
+update  Catalogo.Articulo set CenaExpo=3 where cveArt='5140145'
+
+
+select  * from Articulos where cveProv='24763';
+
+select * from [Catalogo].[Imagenes] where CveArt in (select cveArt from Articulos where cveProv='24763');
+
+
+--Articulo a cambiar 1027450
+select  * from Articulos where cveArt='1027450' and cveProv='24763';
+--update  Articulos set cveProv='1758' where cveArt='1027450'
+select  * from  [Catalogo].[Imagenes]  where cveArt='1027450' and cveProv='24763';
+--update [Catalogo].[Imagenes]  set cveProv='1758' where CveArt='1027450'
+
+
+select * from Proveedores where cveProv='1758';
+
+select  * from [Catalogo].[Articulo] where cveProv='1758';
+select * from [Catalogo].[Imagenes] where CveArt in (select cveArt from [Catalogo].[Articulo] where cveProv='24763');
+--update [Catalogo].[Articulo] set cveProv='1758' where cveProv='24763';
+--update [Catalogo].[Imagenes]  set cveProv='1758' where CveArt in (select cveArt from [Catalogo]
+
+
+ELECT * FROM Reporte.AsistenciaAA
+--truncate table Reporte.AsistenciaAA
+
+
+SELECT * FROM [dbo].[ExpoVtsCliente]
+--truncate table dbo.ExpoVtsCliente
+
+
+SELECT * FROM Venta.VentasAA
+--truncate table Venta.VentasAA
+
+
+SELECT * FROM catalogo.AccesoExpo

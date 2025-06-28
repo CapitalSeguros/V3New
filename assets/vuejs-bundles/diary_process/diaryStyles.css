@@ -1,0 +1,122 @@
+.dialog-container {
+  width: 65%;
+}
+
+.change-date {
+  color: black;
+  text-align: center;
+}
+
+.change-date-animation-up {
+  animation: change-date-frame-up 0.5s;
+}
+
+.custom-card {
+  border: 1px lightgray solid;
+  padding: 10px 10px 10px 10px;
+  border-radius: 4px;
+}
+
+.custom-card-header {
+  padding: 0px 5px 0px 5px;
+  color: black;
+  font-size: 21px;
+  font-family: sans-serif;
+}
+
+.custom-card-sub-header {
+  padding: 0px 5px 0px 5px;
+  color: gray;
+  font-size: 13px;
+  font-family: sans-serif;
+}
+
+.hour-hover:hover {
+  background-color: lightgray;
+  opacity: 0.5;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hour-border {
+  border-bottom: 2px darkblue solid;
+  transition: width 2s;
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+
+.hour-text {
+  font-size: 15px !important;
+}
+.hour-tooltip-up {
+  top: 180px !important;
+}
+
+.hour-tooltip-bottom {
+  top: 250px !important;
+}
+
+.rounded-option-button {
+  padding: 3px 20px 3px 20px;
+  border: 1px purple solid;
+  /* color: rebeccapurple; */
+  border-radius: 15px;
+  font-size: 14px;
+  background-color: blueviolet;
+  color: white;
+}
+
+.rounded-option-button:hover {
+  background-color: rgb(71 35 128 / 32%);
+}
+
+.rounded-option-button:active {
+  background-color: rgb(71 35 128 / 1);
+  color: white;
+}
+
+.change-contact {
+  border: 1px lightgray solid;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 3px;
+  padding-right: 2px;
+  border-radius: 100%;
+  left: 37px;
+  bottom: 5px;
+  background-color: lightgray;
+  cursor: pointer;
+}
+
+.change-contact:hover {
+  background-color: gray;
+  border: 1px gray solid;
+}
+
+.link-required {
+  color: red !important;
+}
+
+@media screen and (width >= 1800px) {
+  .dialog-container {
+    width: 53%;
+  }
+}
+
+@keyframes change-date-frame-up {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  75% {
+    opacity: 0.75;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

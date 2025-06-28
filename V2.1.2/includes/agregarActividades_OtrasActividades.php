@@ -1,0 +1,42 @@
+<?php
+			$sqlAgregarActividad = "
+				Insert Into `actividades`
+					(		
+						`recId`
+						,`idRef`
+						,`tipo`
+						,`inicio`
+						,`fin`
+						,`referencia`
+						,`actividad`
+						,`usuario`
+						,`usuarioCreacion`
+						,`usuarioBolita`
+						,`fechaCreacion`
+						,`fechaProgramada`
+						,`actividadInterno`
+						,`ramoInterno`
+						,`SUCURSAL`
+						,`CONSULTOR`
+					)
+				Values
+					(
+						'$recId'
+						,'$idRef'
+						,'$TIPO'
+						,'0'
+						,'0'
+						,'$Referencia'
+						,'".urldecode($Actividad)."'
+						,'$Responsable'
+						,'$IDUsuarioCreacion'
+						,'$usuarioBolita'
+						,'".date('Y-m-d H:i:s')."'
+						,'$formatFecha'
+						,'$actividadInterno'
+						,'$ramoInterno'
+						,'".$_SESSION['WebDreTacticaWeb2']['Sucursal']."'
+						,'".$_SESSION['WebDreTacticaWeb2']['Promotor']."'
+					)
+								   ";	
+?>

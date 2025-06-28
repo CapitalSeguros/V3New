@@ -1,0 +1,2853 @@
+Array
+(
+    [1] => Array
+        (
+            [nombre] => VACANTE GERENCIA OPERATIVA
+            [registros] => Array
+                (
+                    [profesional] => 20
+                    [daños] => 4
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 3
+                    [fianzas] => 5
+                )
+
+        )
+
+    [6] => Array
+        (
+            [nombre] => CARLOS CERVERA CALERO
+            [registros] => Array
+                (
+                    [profesional] => 27.5
+                    [daños] => 4
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 6.5
+                    [fianzas] => 2
+                )
+
+        )
+
+    [8] => Array
+        (
+            [nombre] => AUDITOR INTERNO  
+            [registros] => Array
+                (
+                    [profesional] => 1
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [13] => Array
+        (
+            [nombre] => ASHANTI IVETTE MENDEZ  RUZ
+            [registros] => Array
+                (
+                    [profesional] => 29
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 3
+                    [fianzas] => 1
+                )
+
+        )
+
+    [14] => Array
+        (
+            [nombre] => CINDY YENISEI CANCHE  HOIL
+            [registros] => Array
+                (
+                    [profesional] => 19
+                    [daños] => 5
+                    [vida] => 0
+                    [autos] => 2.5
+                    [GMM] => 8.649999976158142
+                    [fianzas] => 3
+                )
+
+        )
+
+    [15] => Array
+        (
+            [nombre] => PATRICIA LIZETH MORENO FERRUZCA
+            [registros] => Array
+                (
+                    [profesional] => 34
+                    [daños] => 2
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 3
+                    [fianzas] => 1
+                )
+
+        )
+
+    [20] => Array
+        (
+            [nombre] => MARIA EUGENIA ALFARO GOMEZ
+            [registros] => Array
+                (
+                    [profesional] => 24
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 2
+                    [GMM] => 2
+                    [fianzas] => 2
+                )
+
+        )
+
+    [22] => Array
+        (
+            [nombre] => ALMA ISABEL HERNANDEZ GARAVITO 
+            [registros] => Array
+                (
+                    [profesional] => 23
+                    [daños] => 6
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 7.5
+                    [fianzas] => 5
+                )
+
+        )
+
+    [25] => Array
+        (
+            [registros] => Array
+                (
+                    [profesional] => 0
+                    [daños] => 2
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+            [nombre] => LUIS OMAR CEJA MENDOZA
+        )
+
+    [39] => Array
+        (
+            [nombre] => REBECA EUGENIA HERRERA SANTANA
+            [registros] => Array
+                (
+                    [profesional] => 13
+                    [daños] => 2
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [40] => Array
+        (
+            [nombre] => JOSE RODRIGO CARDENAS LOPEZ
+            [registros] => Array
+                (
+                    [profesional] => 1
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [42] => Array
+        (
+            [nombre] => MARISSA DEL CARMEN RODRIGUEZ ABREU
+            [registros] => Array
+                (
+                    [profesional] => 18
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 3
+                    [GMM] => 8.5
+                    [fianzas] => 3
+                )
+
+        )
+
+    [43] => Array
+        (
+            [nombre] => SARA EDELMIRA ARJONA MAY
+            [registros] => Array
+                (
+                    [profesional] => 3
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [45] => Array
+        (
+            [registros] => Array
+                (
+                    [profesional] => 0
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 1
+                )
+
+            [nombre] => HAROL GERMAN CORTEZ   MONFORTE
+        )
+
+    [62] => Array
+        (
+            [nombre] => OSCAR GUILLERMO ROMAHN DE LA VEGA
+            [registros] => Array
+                (
+                    [profesional] => 8.5
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 0
+                    [fianzas] => 3
+                )
+
+        )
+
+    [64] => Array
+        (
+            [nombre] => FRANCISCO JAVIER ENCALADA FLORES
+            [registros] => Array
+                (
+                    [profesional] => 1
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 1
+                )
+
+        )
+
+    [70] => Array
+        (
+            [nombre] => OLIVIA AGUILAR JUAREZ
+            [registros] => Array
+                (
+                    [profesional] => 23.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 3
+                    [fianzas] => 1
+                )
+
+        )
+
+    [72] => Array
+        (
+            [nombre] => RENAN HUMBERTO SANCHEZ ORTIZ
+            [registros] => Array
+                (
+                    [profesional] => 12
+                    [daños] => 3
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 2
+                    [fianzas] => 1
+                )
+
+        )
+
+    [77] => Array
+        (
+            [nombre] => CARLOS IVAN VALENCIA CANTO
+            [registros] => Array
+                (
+                    [profesional] => 1
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [83] => Array
+        (
+            [nombre] => MARIA LUISA AGUILERA NEGRON
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 2.5
+                    [fianzas] => 0
+                )
+
+        )
+
+    [104] => Array
+        (
+            [nombre] => GLADYS GINON METRI CERVANTES
+            [registros] => Array
+                (
+                    [profesional] => 1
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [106] => Array
+        (
+            [nombre] => JOSE HUMBERTO VARGAS SABIDO
+            [registros] => Array
+                (
+                    [profesional] => 10
+                    [daños] => 4
+                    [vida] => 0
+                    [autos] => 1.5
+                    [GMM] => 3.5
+                    [fianzas] => 1
+                )
+
+        )
+
+    [115] => Array
+        (
+            [nombre] => LIZBETH LORENA FLORES SOLIS
+            [registros] => Array
+                (
+                    [profesional] => 3
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 2
+                    [fianzas] => 0
+                )
+
+        )
+
+    [161] => Array
+        (
+            [nombre] => MARIA TERESA YUDICO ROMO
+            [registros] => Array
+                (
+                    [profesional] => 4
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1
+                    [fianzas] => 1
+                )
+
+        )
+
+    [162] => Array
+        (
+            [nombre] => CLAUDIA GUADALUPE SOLTERO DANIEL
+            [registros] => Array
+                (
+                    [profesional] => 21.5
+                    [daños] => 5
+                    [vida] => 0
+                    [autos] => 2
+                    [GMM] => 6
+                    [fianzas] => 4
+                )
+
+        )
+
+    [165] => Array
+        (
+            [nombre] => MANUEL JESUS CANUL UCAN
+            [registros] => Array
+                (
+                    [profesional] => 4
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 4
+                    [fianzas] => 1
+                )
+
+        )
+
+    [181] => Array
+        (
+            [nombre] => ELMA ESTHER RODRIGUEZ BARCELO
+            [registros] => Array
+                (
+                    [profesional] => 10
+                    [daños] => 4
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 5.5
+                    [fianzas] => 3
+                )
+
+        )
+
+    [198] => Array
+        (
+            [nombre] => VACANTE EJECUTIVO COTIZACIONES(NUBE)
+            [registros] => Array
+                (
+                    [profesional] => 17
+                    [daños] => 5
+                    [vida] => 0
+                    [autos] => 2.5
+                    [GMM] => 4
+                    [fianzas] => 3
+                )
+
+        )
+
+    [211] => Array
+        (
+            [nombre] => CLAUDIA CELESTE JIMENEZ ABURTO
+            [registros] => Array
+                (
+                    [profesional] => 31
+                    [daños] => 4
+                    [vida] => 0
+                    [autos] => 2
+                    [GMM] => 8.5
+                    [fianzas] => 3
+                )
+
+        )
+
+    [219] => Array
+        (
+            [nombre] => LUCERO CAMPOS POOT
+            [registros] => Array
+                (
+                    [profesional] => 7
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1
+                    [fianzas] => 1
+                )
+
+        )
+
+    [221] => Array
+        (
+            [nombre] => CARLOS E. CERVERA ORTIZ
+            [registros] => Array
+                (
+                    [profesional] => 1
+                    [daños] => 2
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [224] => Array
+        (
+            [nombre] => MILDRED GISELLE FERNANDEZ CASTRO
+            [registros] => Array
+                (
+                    [profesional] => 23.5
+                    [daños] => 7.25
+                    [vida] => 3.75
+                    [autos] => 6.75
+                    [GMM] => 10.25
+                    [fianzas] => 3
+                )
+
+        )
+
+    [231] => Array
+        (
+            [nombre] => JAVIER ANTONIO GOMEZ SOSA
+            [registros] => Array
+                (
+                    [profesional] => 1
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [243] => Array
+        (
+            [nombre] => PATRICIA LIZETH MORENO FERRUZCA
+            [registros] => Array
+                (
+                    [profesional] => 14
+                    [daños] => 3
+                    [vida] => 0
+                    [autos] => 2.5
+                    [GMM] => 5.649999976158142
+                    [fianzas] => 3
+                )
+
+        )
+
+    [252] => Array
+        (
+            [nombre] => CARLOS LORIA FERNANDEZ
+            [registros] => Array
+                (
+                    [profesional] => 1
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [254] => Array
+        (
+            [nombre] => G.A.P AGENTES DE SEG. Y FIANZAS  (Rpt. Sandra Firth, Mildred Fernandez)  
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [288] => Array
+        (
+            [nombre] => AGENTE DEMO CAPACITACION DEMO 
+            [registros] => Array
+                (
+                    [profesional] => 1.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [297] => Array
+        (
+            [nombre] => JOSE ULISES MORALES SEBASTIAN
+            [registros] => Array
+                (
+                    [profesional] => 17.5
+                    [daños] => 4
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 5.5
+                    [fianzas] => 3
+                )
+
+        )
+
+    [312] => Array
+        (
+            [nombre] => CINTIA DIAZ MILLET
+            [registros] => Array
+                (
+                    [profesional] => 3.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [318] => Array
+        (
+            [nombre] => EZEQUIEL ALBERTO GALLARETA HERNANDEZ
+            [registros] => Array
+                (
+                    [profesional] => 3
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [319] => Array
+        (
+            [nombre] => INGRID VILLALBA YEPES
+            [registros] => Array
+                (
+                    [profesional] => 16
+                    [daños] => 3
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 3.5
+                    [fianzas] => 4
+                )
+
+        )
+
+    [321] => Array
+        (
+            [registros] => Array
+                (
+                    [profesional] => 0
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 1
+                )
+
+            [nombre] => JUAN EDUARDO ANDREU TORRES
+        )
+
+    [322] => Array
+        (
+            [nombre] => LUIS FELIPE BAEZA AVILA
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [339] => Array
+        (
+            [nombre] => EDUARDO ALFREDO FLORES CANTO
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 2
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 3
+                )
+
+        )
+
+    [355] => Array
+        (
+            [nombre] => JOSE LUIS SOLIS NIEVES
+            [registros] => Array
+                (
+                    [profesional] => 6
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 2
+                    [fianzas] => 1
+                )
+
+        )
+
+    [552] => Array
+        (
+            [nombre] => SILVIA NOEMI MEDINA HUCHIM
+            [registros] => Array
+                (
+                    [profesional] => 28.5
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 2.5
+                    [GMM] => 2
+                    [fianzas] => 3
+                )
+
+        )
+
+    [573] => Array
+        (
+            [nombre] => ARMANDO JOSE PENICHE LOPEZ
+            [registros] => Array
+                (
+                    [profesional] => 18
+                    [daños] => 4
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 6.5
+                    [fianzas] => 3
+                )
+
+        )
+
+    [584] => Array
+        (
+            [nombre] => DALIANA KARINA POOT ROSADO
+            [registros] => Array
+                (
+                    [profesional] => 14
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 1
+                    [fianzas] => 1
+                )
+
+        )
+
+    [655] => Array
+        (
+            [nombre] => RICARDO ERNESTO BARAJAS PEREZ
+            [registros] => Array
+                (
+                    [profesional] => 3
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [667] => Array
+        (
+            [nombre] => JESSICA NATALIA PADILLA MARTIN
+            [registros] => Array
+                (
+                    [profesional] => 22
+                    [daños] => 5
+                    [vida] => 0
+                    [autos] => 5
+                    [GMM] => 3.5
+                    [fianzas] => 4
+                )
+
+        )
+
+    [668] => Array
+        (
+            [nombre] => SAYDI GUADALUPE PECH PECH
+            [registros] => Array
+                (
+                    [profesional] => 6
+                    [daños] => 3
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 2
+                    [fianzas] => 2
+                )
+
+        )
+
+    [693] => Array
+        (
+            [nombre] => FABIAN RUSSELL CEBALLOS HERNANDEZ
+            [registros] => Array
+                (
+                    [profesional] => 4
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [721] => Array
+        (
+            [nombre] => ALAN JESUS ECHEVERRIA BENITEZ
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [729] => Array
+        (
+            [registros] => Array
+                (
+                    [profesional] => 0
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+            [nombre] => CELIA  GOMEZ SALINAS
+        )
+
+    [737] => Array
+        (
+            [nombre] => ALFONSO  RAMIREZ MAGALLON
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [756] => Array
+        (
+            [nombre] => CARLOS  CERVERA  SEGOVIA
+            [registros] => Array
+                (
+                    [profesional] => 12
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [772] => Array
+        (
+            [registros] => Array
+                (
+                    [profesional] => 0
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+            [nombre] => CHRISTIAN GUTIERREZ  TREJO
+        )
+
+    [775] => Array
+        (
+            [nombre] => DIANA SARAÍ CASTRO BALAM
+            [registros] => Array
+                (
+                    [profesional] => 36.5
+                    [daños] => 8.75
+                    [vida] => 0.25
+                    [autos] => 5.25
+                    [GMM] => 10.75
+                    [fianzas] => 3
+                )
+
+        )
+
+    [777] => Array
+        (
+            [nombre] => EMILIO VEGA DE LLERGO CORNISH
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [784] => Array
+        (
+            [nombre] => CHRISTIAN BEATRIZ RODRIGUEZ VAZQUEZ
+            [registros] => Array
+                (
+                    [profesional] => 11
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 1
+                    [fianzas] => 2
+                )
+
+        )
+
+    [785] => Array
+        (
+            [registros] => Array
+                (
+                    [profesional] => 0
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+            [nombre] => IVAN ENRIQUE NIQUETE PEREZ
+        )
+
+    [805] => Array
+        (
+            [nombre] => ROCIO MARTINEZ ESPINOSA
+            [registros] => Array
+                (
+                    [profesional] => 20.5
+                    [daños] => 7
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 7
+                    [fianzas] => 7
+                )
+
+        )
+
+    [807] => Array
+        (
+            [nombre] => GRECIA VIANNEY PALACIOS  PORTILLA
+            [registros] => Array
+                (
+                    [profesional] => 12
+                    [daños] => 5.75
+                    [vida] => 0.25
+                    [autos] => 4.25
+                    [GMM] => 4.25
+                    [fianzas] => 0
+                )
+
+        )
+
+    [808] => Array
+        (
+            [nombre] => FRANCISCO JAVIER AVILA NOVELO
+            [registros] => Array
+                (
+                    [profesional] => 24
+                    [daños] => 5
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 3
+                    [fianzas] => 2
+                )
+
+        )
+
+    [813] => Array
+        (
+            [nombre] => WILLIAM RENE RODRIGUEZ CHAVEZ
+            [registros] => Array
+                (
+                    [profesional] => 1
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [814] => Array
+        (
+            [nombre] => LUIS RENAN BRICEÑO LOPEZ
+            [registros] => Array
+                (
+                    [profesional] => 9
+                    [daños] => 4
+                    [vida] => 0
+                    [autos] => 2
+                    [GMM] => 3
+                    [fianzas] => 2
+                )
+
+        )
+
+    [822] => Array
+        (
+            [nombre] => WILMA ROSALBA UN COCOM
+            [registros] => Array
+                (
+                    [profesional] => 50.5
+                    [daños] => 4
+                    [vida] => 0
+                    [autos] => 2
+                    [GMM] => 7.5
+                    [fianzas] => 4
+                )
+
+        )
+
+    [824] => Array
+        (
+            [nombre] => MIGUEL GONZALO LIZAMA  ZOZAYA
+            [registros] => Array
+                (
+                    [profesional] => 1
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [825] => Array
+        (
+            [nombre] => MARIA ELIZABETH  MADERO LUNA
+            [registros] => Array
+                (
+                    [profesional] => 52
+                    [daños] => 6
+                    [vida] => 0
+                    [autos] => 7.5
+                    [GMM] => 10.5
+                    [fianzas] => 6
+                )
+
+        )
+
+    [846] => Array
+        (
+            [nombre] => NADIR AZAEL CRUZ PECH
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 2
+                )
+
+        )
+
+    [850] => Array
+        (
+            [nombre] => PROSPECCION DE NEGOCIOS VACANTE
+            [registros] => Array
+                (
+                    [profesional] => 4
+                    [daños] => 0.25
+                    [vida] => 0.25
+                    [autos] => 3.25
+                    [GMM] => 1.25
+                    [fianzas] => 0
+                )
+
+        )
+
+    [860] => Array
+        (
+            [nombre] => AUXILIAR COMERCIAL  VACANTE
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 4
+                    [GMM] => 1
+                    [fianzas] => 0
+                )
+
+        )
+
+    [867] => Array
+        (
+            [nombre] => MAYRA ALEJANDRA SMITH REJON
+            [registros] => Array
+                (
+                    [profesional] => 16
+                    [daños] => 6
+                    [vida] => 0
+                    [autos] => 6.5
+                    [GMM] => 7.5
+                    [fianzas] => 5
+                )
+
+        )
+
+    [868] => Array
+        (
+            [nombre] => AMIRA ESTHER ARJONA ESPINOSA
+            [registros] => Array
+                (
+                    [profesional] => 8
+                    [daños] => 4
+                    [vida] => 0
+                    [autos] => 4
+                    [GMM] => 2
+                    [fianzas] => 0
+                )
+
+        )
+
+    [875] => Array
+        (
+            [nombre] => MARIO ALBERTO  ORTIZ LOZANO
+            [registros] => Array
+                (
+                    [profesional] => 10
+                    [daños] => 3
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 4
+                    [fianzas] => 2
+                )
+
+        )
+
+    [886] => Array
+        (
+            [nombre] => ARNULFO MANCERA ESPAÑA
+            [registros] => Array
+                (
+                    [profesional] => 16
+                    [daños] => 6
+                    [vida] => 0
+                    [autos] => 2.5
+                    [GMM] => 4.5
+                    [fianzas] => 2
+                )
+
+        )
+
+    [889] => Array
+        (
+            [nombre] => AZALIA JEHIELI FERNANDEZ MEDINA
+            [registros] => Array
+                (
+                    [profesional] => 22.5
+                    [daños] => 8
+                    [vida] => 0
+                    [autos] => 2
+                    [GMM] => 8
+                    [fianzas] => 7
+                )
+
+        )
+
+    [891] => Array
+        (
+            [nombre] => EDWIN ENRIQUE CANCHE CHABLE
+            [registros] => Array
+                (
+                    [profesional] => 16.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 2
+                    [GMM] => 0
+                    [fianzas] => 1
+                )
+
+        )
+
+    [892] => Array
+        (
+            [nombre] => DENNIS ALBERTO CASTILLO HERNANDEZ
+            [registros] => Array
+                (
+                    [profesional] => 4
+                    [daños] => 2
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 5
+                    [fianzas] => 0
+                )
+
+        )
+
+    [893] => Array
+        (
+            [nombre] => VERONICA ALEJANDRA CAUICH MUKUL
+            [registros] => Array
+                (
+                    [profesional] => 48
+                    [daños] => 5
+                    [vida] => 0
+                    [autos] => 2
+                    [GMM] => 5.5
+                    [fianzas] => 4
+                )
+
+        )
+
+    [894] => Array
+        (
+            [nombre] => CRISTHIAN JOSUE COCOM CHABLE
+            [registros] => Array
+                (
+                    [profesional] => 33
+                    [daños] => 4
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 6.5
+                    [fianzas] => 3
+                )
+
+        )
+
+    [895] => Array
+        (
+            [nombre] => MARIA ISABEL GARRIDO ROSADO
+            [registros] => Array
+                (
+                    [profesional] => 34
+                    [daños] => 5
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 3.5
+                    [fianzas] => 3
+                )
+
+        )
+
+    [897] => Array
+        (
+            [nombre] => SELMY CARINA LIZAMA ARGAEZ
+            [registros] => Array
+                (
+                    [profesional] => 37
+                    [daños] => 5
+                    [vida] => 0
+                    [autos] => 3.5
+                    [GMM] => 13.649999976158142
+                    [fianzas] => 6
+                )
+
+        )
+
+    [898] => Array
+        (
+            [nombre] => MARCO PAT ESCOBEDO
+            [registros] => Array
+                (
+                    [profesional] => 16.5
+                    [daños] => 3
+                    [vida] => 0
+                    [autos] => 2.5
+                    [GMM] => 5.5
+                    [fianzas] => 2
+                )
+
+        )
+
+    [899] => Array
+        (
+            [nombre] => WILLIAM JOSE MOLINA DZIB
+            [registros] => Array
+                (
+                    [profesional] => 6.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 2
+                    [fianzas] => 1
+                )
+
+        )
+
+    [901] => Array
+        (
+            [nombre] => PAOLA REBECA  TORRES  YAH
+            [registros] => Array
+                (
+                    [profesional] => 22
+                    [daños] => 5
+                    [vida] => 0
+                    [autos] => 2.5
+                    [GMM] => 6.5
+                    [fianzas] => 3
+                )
+
+        )
+
+    [903] => Array
+        (
+            [nombre] => MARIANA DEL JESUS CEBALLOS PEREZ
+            [registros] => Array
+                (
+                    [profesional] => 26
+                    [daños] => 6.75
+                    [vida] => 0.25
+                    [autos] => 6.75
+                    [GMM] => 7.75
+                    [fianzas] => 4
+                )
+
+        )
+
+    [904] => Array
+        (
+            [nombre] => ADRIAN RIVERO OSORNO
+            [registros] => Array
+                (
+                    [profesional] => 5
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [905] => Array
+        (
+            [nombre] => MIGUEL ANGEL JAIME RIVERO
+            [registros] => Array
+                (
+                    [profesional] => 1
+                    [daños] => 1.5
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [906] => Array
+        (
+            [nombre] => EDGAR ALEJANDRO CHAN UC
+            [registros] => Array
+                (
+                    [profesional] => 4
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1
+                    [fianzas] => 0
+                )
+
+        )
+
+    [907] => Array
+        (
+            [nombre] => LIBNI JAZIBY ESCOBEDO MEDINA
+            [registros] => Array
+                (
+                    [profesional] => 30
+                    [daños] => 2
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 1
+                    [fianzas] => 3
+                )
+
+        )
+
+    [910] => Array
+        (
+            [nombre] => CARMEN LETICIA AYORA  VALOIS
+            [registros] => Array
+                (
+                    [profesional] => 39
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 5
+                    [fianzas] => 4
+                )
+
+        )
+
+    [914] => Array
+        (
+            [nombre] => NORA E. LOPEZ MALDONADO
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 2
+                    [fianzas] => 0
+                )
+
+        )
+
+    [915] => Array
+        (
+            [registros] => Array
+                (
+                    [profesional] => 0
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 2
+                )
+
+            [nombre] => ARMANDO HANZ HOFFMAN RIVERA
+        )
+
+    [922] => Array
+        (
+            [nombre] => GEANINA AVILA FERNANDEZ
+            [registros] => Array
+                (
+                    [profesional] => 12
+                    [daños] => 3
+                    [vida] => 0
+                    [autos] => 1.5
+                    [GMM] => 5.5
+                    [fianzas] => 1
+                )
+
+        )
+
+    [925] => Array
+        (
+            [nombre] => SEGUROS  DINERCAP VACANTE
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 1.25
+                    [vida] => 0.25
+                    [autos] => 3.25
+                    [GMM] => 0.25
+                    [fianzas] => 0
+                )
+
+        )
+
+    [926] => Array
+        (
+            [nombre] => KATHERYN  MALANCO  RODRíGUEZ
+            [registros] => Array
+                (
+                    [profesional] => 6
+                    [daños] => 2
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 2
+                    [fianzas] => 0
+                )
+
+        )
+
+    [927] => Array
+        (
+            [nombre] => BRIAN ARTHUR VERDIER ALVAREZ
+            [registros] => Array
+                (
+                    [profesional] => 6
+                    [daños] => 2
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1
+                    [fianzas] => 0
+                )
+
+        )
+
+    [928] => Array
+        (
+            [registros] => Array
+                (
+                    [profesional] => 0
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 2
+                )
+
+            [nombre] => MARIO ARREDONDO HERNANDEZ
+        )
+
+    [929] => Array
+        (
+            [nombre] => JOSE MANUEL  HUERTA  MARTINEZ
+            [registros] => Array
+                (
+                    [profesional] => 7
+                    [daños] => 4
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1
+                    [fianzas] => 4
+                )
+
+        )
+
+    [935] => Array
+        (
+            [nombre] => LUCELY NAOMI  ESPINOSA SILVEIRA
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [936] => Array
+        (
+            [nombre] => PEDRO EMMANUEL CASTILLO ROSADO
+            [registros] => Array
+                (
+                    [profesional] => 34
+                    [daños] => 8.25
+                    [vida] => 0.25
+                    [autos] => 5.25
+                    [GMM] => 10.25
+                    [fianzas] => 15
+                )
+
+        )
+
+    [938] => Array
+        (
+            [nombre] => FERNANDO CHIMAL PEREZ
+            [registros] => Array
+                (
+                    [profesional] => 6
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 0
+                    [fianzas] => 1
+                )
+
+        )
+
+    [942] => Array
+        (
+            [registros] => Array
+                (
+                    [profesional] => 0
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1
+                    [fianzas] => 0
+                )
+
+            [nombre] => JUAN  FERNANDO  COLORES JARDON
+        )
+
+    [949] => Array
+        (
+            [registros] => Array
+                (
+                    [profesional] => 0
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1
+                    [fianzas] => 0
+                )
+
+            [nombre] => JULIO CESAR  ARANDA LOPEZ
+        )
+
+    [950] => Array
+        (
+            [registros] => Array
+                (
+                    [profesional] => 0
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 2
+                    [GMM] => 1
+                    [fianzas] => 0
+                )
+
+            [nombre] => SAMUEL  VAZQUEZ  BACA 
+        )
+
+    [952] => Array
+        (
+            [nombre] => CRISTINA ASUNCION TZUC  CHAN
+            [registros] => Array
+                (
+                    [profesional] => 25.5
+                    [daños] => 4
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 6.5
+                    [fianzas] => 3
+                )
+
+        )
+
+    [953] => Array
+        (
+            [registros] => Array
+                (
+                    [profesional] => 0
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 2
+                    [GMM] => 1
+                    [fianzas] => 0
+                )
+
+            [nombre] => ANTONIO GERARDO FELIU FRANCO 
+        )
+
+    [955] => Array
+        (
+            [nombre] => ELIA MARIANA MORENO ALCOCER
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 3
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 4
+                    [fianzas] => 1.5
+                )
+
+        )
+
+    [956] => Array
+        (
+            [nombre] => PAOLA CASTILLA CARBAJAL
+            [registros] => Array
+                (
+                    [profesional] => 4
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 2
+                    [fianzas] => 0
+                )
+
+        )
+
+    [957] => Array
+        (
+            [nombre] => MKT MEDIA VACANTE
+            [registros] => Array
+                (
+                    [profesional] => 3
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1
+                    [fianzas] => 0
+                )
+
+        )
+
+    [958] => Array
+        (
+            [nombre] => KARLA CORAZON DE JESUS RODRIGUEZ ESTRELLA
+            [registros] => Array
+                (
+                    [profesional] => 3
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 4
+                    [fianzas] => 0
+                )
+
+        )
+
+    [961] => Array
+        (
+            [nombre] => AUXILIAR COMERCIAL VACANTE
+            [registros] => Array
+                (
+                    [profesional] => 4
+                    [daños] => 0.25
+                    [vida] => 0.25
+                    [autos] => 0.25
+                    [GMM] => 1.25
+                    [fianzas] => 0
+                )
+
+        )
+
+    [963] => Array
+        (
+            [nombre] => J. JESUS VIRRUETA 
+            [registros] => Array
+                (
+                    [profesional] => 7
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 3
+                    [fianzas] => 0
+                )
+
+        )
+
+    [964] => Array
+        (
+            [nombre] => MKT INTERNO VACANTE
+            [registros] => Array
+                (
+                    [profesional] => 1
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 2
+                    [fianzas] => 0
+                )
+
+        )
+
+    [966] => Array
+        (
+            [nombre] => OSCAR EDUARDO GONZALEZ RUELAS 
+            [registros] => Array
+                (
+                    [profesional] => 6
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [970] => Array
+        (
+            [nombre] => EDIT ABIGAIL CANCHE HOIL
+            [registros] => Array
+                (
+                    [profesional] => 16
+                    [daños] => 5
+                    [vida] => 0
+                    [autos] => 2.5
+                    [GMM] => 6.649999976158142
+                    [fianzas] => 3
+                )
+
+        )
+
+    [976] => Array
+        (
+            [nombre] => VANESSA AVILA NOVELO
+            [registros] => Array
+                (
+                    [profesional] => 22.5
+                    [daños] => 4
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 8.5
+                    [fianzas] => 3
+                )
+
+        )
+
+    [988] => Array
+        (
+            [nombre] => HERMINIO MORALES LUNA
+            [registros] => Array
+                (
+                    [profesional] => 12
+                    [daños] => 2
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 3.5
+                    [fianzas] => 3
+                )
+
+        )
+
+    [990] => Array
+        (
+            [nombre] => ANA GRACIELA DEL CARMEN  FERNANDEZ  QUIJANO 
+            [registros] => Array
+                (
+                    [profesional] => 7
+                    [daños] => 4
+                    [vida] => 0
+                    [autos] => 2.5
+                    [GMM] => 3
+                    [fianzas] => 3
+                )
+
+        )
+
+    [996] => Array
+        (
+            [nombre] => GIOVANNA GUADALUPE  PEREZ GONZALEZ
+            [registros] => Array
+                (
+                    [profesional] => 1
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [997] => Array
+        (
+            [nombre] => MIRTHA LUCELY BERMONT SABIDO
+            [registros] => Array
+                (
+                    [profesional] => 5
+                    [daños] => 3
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 1
+                    [fianzas] => 2
+                )
+
+        )
+
+    [1002] => Array
+        (
+            [nombre] => JESUS ENRIQUE GARCIA MISS
+            [registros] => Array
+                (
+                    [profesional] => 7
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 5.5
+                    [fianzas] => 2
+                )
+
+        )
+
+    [1005] => Array
+        (
+            [nombre] => DULCE YAZMIN DIAZ FAVELA
+            [registros] => Array
+                (
+                    [profesional] => 3
+                    [daños] => 3
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1006] => Array
+        (
+            [nombre] => JAEL  DIAZ POLANCO
+            [registros] => Array
+                (
+                    [profesional] => 45
+                    [daños] => 4
+                    [vida] => 0
+                    [autos] => 3.5
+                    [GMM] => 8.5
+                    [fianzas] => 6
+                )
+
+        )
+
+    [1009] => Array
+        (
+            [nombre] => ADRIANA ALEJANDRA CHI MICHEL
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1012] => Array
+        (
+            [nombre] => RITA ROSALIA FIGUEROA MAY
+            [registros] => Array
+                (
+                    [profesional] => 10
+                    [daños] => 3
+                    [vida] => 0
+                    [autos] => 2.5
+                    [GMM] => 3.5
+                    [fianzas] => 4
+                )
+
+        )
+
+    [1013] => Array
+        (
+            [nombre] => JOAQUIN SAMUEL  DOMINGUEZ CUEVAS 
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 0
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1014] => Array
+        (
+            [nombre] => LUCELLY MINERVA KUMUL  ENCALADA
+            [registros] => Array
+                (
+                    [profesional] => 3
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1.5
+                    [GMM] => 1
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1015] => Array
+        (
+            [nombre] => ANA YAZMIN CARDENAS GONGORA
+            [registros] => Array
+                (
+                    [profesional] => 5
+                    [daños] => 2
+                    [vida] => 0
+                    [autos] => 2.5
+                    [GMM] => 2.149999976158142
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1021] => Array
+        (
+            [nombre] => EDUARDO ALBERTO  FLORES  HERRERA 
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1.5
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1022] => Array
+        (
+            [nombre] => MAURY GUADALUPE RUIZ CARRILLO
+            [registros] => Array
+                (
+                    [profesional] => 12
+                    [daños] => 2
+                    [vida] => 0
+                    [autos] => 1.5
+                    [GMM] => 4.5
+                    [fianzas] => 4
+                )
+
+        )
+
+    [1023] => Array
+        (
+            [nombre] => ANA ROMINA VIOR BARROSO
+            [registros] => Array
+                (
+                    [profesional] => 15
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1
+                    [fianzas] => 2
+                )
+
+        )
+
+    [1024] => Array
+        (
+            [nombre] => VERENICE STEFANIA  RIVERA SOTO
+            [registros] => Array
+                (
+                    [profesional] => 5
+                    [daños] => 1
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1026] => Array
+        (
+            [nombre] => EDUARDO  VAZQUEZ  FRANCO
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1030] => Array
+        (
+            [nombre] => SUEMY IVETTE DZIB TZAB
+            [registros] => Array
+                (
+                    [profesional] => 34
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 4
+                    [fianzas] => 2
+                )
+
+        )
+
+    [1031] => Array
+        (
+            [nombre] => JOSUE GUADALUPE BAEZ BALAM
+            [registros] => Array
+                (
+                    [profesional] => 3
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1033] => Array
+        (
+            [nombre] => RAUL ENRIQUE BRICENO SALAZAR
+            [registros] => Array
+                (
+                    [profesional] => 1
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1034] => Array
+        (
+            [nombre] => PEDRO EMMANUEL CASTILLO ROSADO
+            [registros] => Array
+                (
+                    [profesional] => 1
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1035] => Array
+        (
+            [nombre] => MARTHA PATRICIA MANCILLA ROSADO
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1038] => Array
+        (
+            [nombre] => MARIA FERNANDA MONTALVO MOLINA
+            [registros] => Array
+                (
+                    [profesional] => 1
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1039] => Array
+        (
+            [nombre] => MARIO ALEJANDRO LUNA CUEVAS
+            [registros] => Array
+                (
+                    [profesional] => 3
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1
+                    [fianzas] => 2
+                )
+
+        )
+
+    [1040] => Array
+        (
+            [nombre] => MARIANA BARRERO ZORRILLA
+            [registros] => Array
+                (
+                    [profesional] => 6.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1041] => Array
+        (
+            [nombre] => NUBIA MARIELA HUAN PACHECO
+            [registros] => Array
+                (
+                    [profesional] => 7
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 3
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1042] => Array
+        (
+            [nombre] => ONESIMO CRUZ RUIZ
+            [registros] => Array
+                (
+                    [profesional] => 3
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1043] => Array
+        (
+            [nombre] => ALEJANDRO CLAUDIO CASTAÑEDA
+            [registros] => Array
+                (
+                    [profesional] => 3
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1045] => Array
+        (
+            [nombre] => ALEJANDRA TOLENTINO VIDAL
+            [registros] => Array
+                (
+                    [profesional] => 30
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 4
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1048] => Array
+        (
+            [nombre] => ANDREA GUADALUPE  ESCALANTE CEN
+            [registros] => Array
+                (
+                    [profesional] => 10
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 1
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1049] => Array
+        (
+            [nombre] => YISSEL ESCAMILLA MELO
+            [registros] => Array
+                (
+                    [profesional] => 30
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 4
+                    [fianzas] => 2
+                )
+
+        )
+
+    [1050] => Array
+        (
+            [registros] => Array
+                (
+                    [profesional] => 0
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 1
+                )
+
+            [nombre] => MANUEL BENJAMIN MEDRANO SANCHEZ
+        )
+
+    [1051] => Array
+        (
+            [nombre] => KEVIN ALEXANDER ORTIZ MORENO
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 2
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1053] => Array
+        (
+            [nombre] => JADE SAYURI POLANCO CAUICH
+            [registros] => Array
+                (
+                    [profesional] => 1
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1055] => Array
+        (
+            [nombre] => GIOVANNA NATALY AGUILAR RIVERO
+            [registros] => Array
+                (
+                    [profesional] => 21
+                    [daños] => 2
+                    [vida] => 0
+                    [autos] => 2
+                    [GMM] => 3
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1056] => Array
+        (
+            [nombre] => SILVIA BEATRIZ ESQUIVEL SOLIS
+            [registros] => Array
+                (
+                    [profesional] => 1.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1059] => Array
+        (
+            [nombre] => DIANA GUADALUPE RUIZ MARTINEZ
+            [registros] => Array
+                (
+                    [profesional] => 9
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1060] => Array
+        (
+            [nombre] => SHERLY ANDREA NOVELO CARRION
+            [registros] => Array
+                (
+                    [profesional] => 13.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 1
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1061] => Array
+        (
+            [nombre] => MILDRED GISELLE FERNANDEZ CASTRO
+            [registros] => Array
+                (
+                    [profesional] => 20.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 3
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1062] => Array
+        (
+            [nombre] => VANESSA  AVILA NOVELO
+            [registros] => Array
+                (
+                    [profesional] => 23.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 2
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1067] => Array
+        (
+            [nombre] => AMAIRANI TOLENTINO VIDAL
+            [registros] => Array
+                (
+                    [profesional] => 9.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 3
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1068] => Array
+        (
+            [nombre] => ANA ROMINA VIOR  BARROSO
+            [registros] => Array
+                (
+                    [profesional] => 28.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 4
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1069] => Array
+        (
+            [nombre] => FLOR CERVERA CALERO
+            [registros] => Array
+                (
+                    [profesional] => 28.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 2
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1071] => Array
+        (
+            [nombre] => VACANTE EJECUTIVO COMERCIAL
+            [registros] => Array
+                (
+                    [profesional] => 7
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1075] => Array
+        (
+            [nombre] => EDWIN ANTONIO  MARIN  MANZANERO 
+            [registros] => Array
+                (
+                    [profesional] => 18.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1076] => Array
+        (
+            [nombre] => MYRIAM CECILIA CAAMAL CHAN
+            [registros] => Array
+                (
+                    [profesional] => 3.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1077] => Array
+        (
+            [nombre] => CRISTIAN EDUARDO GONGORA GONZALEZ
+            [registros] => Array
+                (
+                    [profesional] => 8
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1080] => Array
+        (
+            [nombre] => RUBI ESMERALDA VARGUEZ TUN
+            [registros] => Array
+                (
+                    [profesional] => 3.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1081] => Array
+        (
+            [nombre] => ANA OTILIA LIZAMA ZOZAYA
+            [registros] => Array
+                (
+                    [profesional] => 3.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1082] => Array
+        (
+            [nombre] => NEYMA ARALEN ALCOCER BOJORQUEZ
+            [registros] => Array
+                (
+                    [profesional] => 9.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 1
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1085] => Array
+        (
+            [nombre] => CHRISTIAN BEATRIZ RODRIGUEZ VAZQUEZ
+            [registros] => Array
+                (
+                    [profesional] => 20
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 1
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1090] => Array
+        (
+            [nombre] => JORGE MURHAT BROCA GONZALEZ
+            [registros] => Array
+                (
+                    [profesional] => 19
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 1
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1091] => Array
+        (
+            [nombre] => ARMANDO CARLOS LOPEZ ECHEVERRIA
+            [registros] => Array
+                (
+                    [profesional] => 22.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 2
+                    [GMM] => 3
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1092] => Array
+        (
+            [nombre] => SYDNEY XAAIL CAUICH HERRERA
+            [registros] => Array
+                (
+                    [profesional] => 4.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1093] => Array
+        (
+            [nombre] => YAZMIN DIANE GURUBEL ARCILA
+            [registros] => Array
+                (
+                    [profesional] => 13
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 2
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1095] => Array
+        (
+            [nombre] => CRISTINA SARAHI SONDA GOMEZ
+            [registros] => Array
+                (
+                    [profesional] => 12
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1100] => Array
+        (
+            [nombre] => JOSUE EMMANUEL HERNANDEZ PUC
+            [registros] => Array
+                (
+                    [profesional] => 22.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 1
+                    [GMM] => 2
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1104] => Array
+        (
+            [nombre] => PAOLA YAZMIN IHUITZ  MADERA
+            [registros] => Array
+                (
+                    [profesional] => 3.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1105] => Array
+        (
+            [nombre] => KELLY OSMARA GOMEZ MUKUL
+            [registros] => Array
+                (
+                    [profesional] => 3
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1108] => Array
+        (
+            [nombre] => DELSY MARIA GOMEZ PUGA
+            [registros] => Array
+                (
+                    [profesional] => 13.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 2
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1109] => Array
+        (
+            [nombre] => ANGEL GIBRAN  LEON  CASTILLO
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1111] => Array
+        (
+            [nombre] => AYLIN AMADAI  CHAN  TAMAY
+            [registros] => Array
+                (
+                    [profesional] => 3.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1112] => Array
+        (
+            [nombre] => MARIA JOSE  OSORNO  PEREZ
+            [registros] => Array
+                (
+                    [profesional] => 3.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1114] => Array
+        (
+            [nombre] => CLAUDIA MARISOL UC UICAB
+            [registros] => Array
+                (
+                    [profesional] => 1.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1115] => Array
+        (
+            [nombre] => MONICA ALEXANDRA GASCA TOLOSA
+            [registros] => Array
+                (
+                    [profesional] => 8
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1121] => Array
+        (
+            [nombre] => ANA LILIA  BASTO  MORENO
+            [registros] => Array
+                (
+                    [profesional] => 3
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1122] => Array
+        (
+            [nombre] => MARIA ELENA  TZIU  UICAB
+            [registros] => Array
+                (
+                    [profesional] => 7
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1
+                    [fianzas] => 1
+                )
+
+        )
+
+    [1124] => Array
+        (
+            [nombre] => ROBERTO ANGEL  CETZAL  ALVAREZ
+            [registros] => Array
+                (
+                    [profesional] => 1
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1125] => Array
+        (
+            [nombre] => GERARDO  DE ROSAS  RICO
+            [registros] => Array
+                (
+                    [profesional] => 1.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1126] => Array
+        (
+            [nombre] => DIANA GUADALUPE RUIZ MARTINEZ
+            [registros] => Array
+                (
+                    [profesional] => 0.5
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1128] => Array
+        (
+            [nombre] => LILIA ISELA PERALTA DOMINGUEZ
+            [registros] => Array
+                (
+                    [profesional] => 2
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 0
+                    [fianzas] => 0
+                )
+
+        )
+
+    [1130] => Array
+        (
+            [registros] => Array
+                (
+                    [profesional] => 0
+                    [daños] => 0
+                    [vida] => 0
+                    [autos] => 0
+                    [GMM] => 1
+                    [fianzas] => 1
+                )
+
+            [nombre] => MARCOS REY MADERA CARRILLO
+        )
+
+)

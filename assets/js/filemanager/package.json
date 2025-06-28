@@ -1,0 +1,38 @@
+{
+  "name": "filemanager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack -d --watch",
+    "build": "webpack -p",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "filesize": "^6.1.0",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
+    "react": "^16.13.1",
+    "react-checkbox-tree": "^1.6.0",
+    "react-dom": "^16.12.0",
+    "react-icons": "^3.9.0",
+    "react-select": "^3.1.0",
+    "styled-components": "^5.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/polyfill": "^7.8.7",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-react": "^7.8.3",
+    "babel-loader": "^8.0.6",
+    "babel-preset-es2017": "^6.24.1",
+    "css-loader": "^3.4.0",
+    "style-loader": "^1.0.2",
+    "terser-webpack-plugin": "^2.3.4",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
+}

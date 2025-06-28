@@ -1,0 +1,52 @@
+/* tamaño de la letra */
+.ui-widget {
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 10px; 
+	z-index:2000;
+}
+/* Cuadro de Fondo */
+.ui-widget-content {
+	border: 1px solid #07234B; 
+	background: #BFBFBF; /*linea del cuadro  */ 
+	/* url(img/ui-bg_highlight-soft_100_eeeeee_1x100.png) 50% top repeat-x; */
+	color: #FFF; 
+	z-index:2000;
+}
+
+.ui-widget-content a { color: #FFF; z-index:2000; width:97%; }/*color de la letra  */
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus,
+/*muestra el efecto naranja */ 
+
+/*borde al momento de seleccionarlo */
+.ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { 
+	border: 1px solid #D01532; 
+	background: url(../img/fondo_azul.png) 50% 50% repeat-x;  /* #003986 */
+	font-weight: lighter; 
+	color:  #FFF; 
+	z-index:2000; 
+	width:97%;
+}
+	/*color de la letra  */
+	
+
+.ui-autocomplete { position: absolute; cursor: default; z-index:2000; }	
+
+* html .ui-autocomplete { width:1px; z-index:2000; } /* tamaño del menu desplegable*/
+
+.ui-menu {/*acomoda  */
+	list-style:none;/*esto agrega viñetas*/
+	padding: 3px;
+	margin: 1;
+	display: compact;
+	float: right;
+	z-index:2000;
+}
+.ui-menu .ui-menu-item a {/*rellena toda la fila */
+	text-decoration:none;
+	display:block;
+	padding:.2em .4em;
+	line-height:1;
+	zoom:1;
+	z-index:2000;
+}

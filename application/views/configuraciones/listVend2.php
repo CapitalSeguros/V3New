@@ -1,0 +1,236 @@
+<?php
+$busquedaUsuario = $this->input->get('busquedaUsuario', TRUE);
+$totalResultados = $ListaVendedores->num_rows();
+?>
+<?php
+	$this->load->view('headers/header'); 
+?>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+
+<!-- Navbar -->
+<?php
+	$this->load->view('headers/menu');
+?>
+
+<script language="javascript" type="text/javascript">
+    function MakeStaticHeader(gridId, height, width, headerHeight, isFooter) {
+        var tbl = document.getElementById(gridId);
+        if (tbl) {
+        var DivHR = document.getElementById('DivHeaderRow');
+        var DivMC = document.getElementById('DivMainContent');
+        var DivFR = document.getElementById('DivFooterRow');
+
+        //*** Set divheaderRow Properties ****
+        DivHR.style.height = headerHeight + 'px';
+        DivHR.style.width = (parseInt(width) - 16) + 'px';
+        DivHR.style.position = 'relative';
+        DivHR.style.top = '0px';
+        DivHR.style.zIndex = '10';
+        DivHR.style.verticalAlign = 'top';
+
+        //*** Set divMainContent Properties ****
+        DivMC.style.width = width + 'px';
+        DivMC.style.height = height + 'px';
+        DivMC.style.position = 'relative';
+        DivMC.style.top = -headerHeight + 'px';
+        DivMC.style.zIndex = '1';
+
+        //*** Set divFooterRow Properties ****
+        DivFR.style.width = (parseInt(width) - 16) + 'px';
+        DivFR.style.position = 'relative';
+        DivFR.style.top = -headerHeight + 'px';
+        DivFR.style.verticalAlign = 'top';
+        DivFR.style.paddingtop = '2px';
+
+        if (isFooter) {
+         var tblfr = tbl.cloneNode(true);
+      tblfr.removeChild(tblfr.getElementsByTagName('tbody')[0]);
+         var tblBody = document.createElement('tbody');
+         tblfr.style.width = '100%';
+         tblfr.cellSpacing = "0";
+         //*****In the case of Footer Row *******
+         tblBody.appendChild(tbl.rows[tbl.rows.length - 1]);
+         tblfr.appendChild(tblBody);
+         DivFR.appendChild(tblfr);
+         }
+        //****Copy Header in divHeaderRow****
+        DivHR.appendChild(tbl.cloneNode(true));
+     }
+    }
+
+    function OnScrollDiv(Scrollablediv) {
+    document.getElementById('DivHeaderRow').scrollLeft = Scrollablediv.scrollLeft;
+    document.getElementById('DivFooterRow').scrollLeft = Scrollablediv.scrollLeft;
+    }
+
+    window.onload = function() {
+   MakeStaticHeader('Mitabla', 250, 1350, 40, false)
+}
+ </script>
+
+
+<!-- End navbar -->
+<section class="container-fluid breadcrumb-formularios">
+        <div class="row">
+            <div class="col-md-6 col-sm-5 col-xs-5"><h3 class="titulo-secciones">Directorio de Agentes</h3></div>
+            <div class="col-md-6 col-sm-7 col-xs-7">
+				<!-- <ol class="breadcrumb text-right">
+                <li><a href="<?=base_url()?>" title="Inicio">Inicio</a></li>
+                <li><a href="<?=base_url()."configuraciones"?>" title="Configuración">Configuración</a></li>
+				<li class="active">Lista de vendedores</li>
+                </ol> -->
+            </div>
+        </div>
+            <hr /> 
+ </section>
+                
+                <div class="panel panel-default">
+             
+                    <div class="panel-body">
+                    
+                        <div class="row">
+                            <div class="col-md-4 col-sm-4 col-md-offset-8 col-sm-offset-8">
+                            	<form id="form" method="GET" action="<?=base_url()?>configuraciones/listVend2">
+	                            	<div class="input-group">
+	                                    <input type="text" name="busquedaUsuario" id="busquedaUsuario" class="form-control input-sm" placeholder="Buscar">
+	                                    <span class="input-group-btn"><button class="btn btn-primary btn-sm" title="Buscar"><i class="fa fa-search"></i>&nbsp;</button></span>
+	                                </div>
+								</form>
+                                
+                            </div>
+                            <form id="ExportaAgentes" method="GET" action="<?=base_url()?>configuraciones/ExportaAgentes">
+                                     <button class="btn btn-primary btn-sm"
+                                            name="ExportaAgentes" id="ExportaAgentes"
+                                        >
+                                            Exporta Agentes
+                                    </button>
+                            </form>        
+                        </div>
+                        <div class="row">
+                        	<?php if (isset($busquedaUsuario) && $busquedaUsuario != ""): ?>
+                        		<div class="col-md-12"><br /><p><i>Buscando resultados de: <b><? echo $busquedaUsuario; ?></b>
+                        	<?php endif ?>
+                        </div>
+                    </div>
+                </div>
+         
+
+
+<div id="DivRoot" align="left">
+    <div style="overflow: hidden;" id="DivHeaderRow">
+    </div>
+
+    <div style="overflow:scroll;" onscroll="OnScrollDiv(this)" id="DivMainContent">
+        <!--Place Your Table Heare-->
+                    <div class="table-responsive">
+						<table class="table" id='Mitabla'>
+							<thead>
+		                        <tr>
+                                    <th>Id</th>
+									<th>Sucursal</th>				                                
+									<th>Canal</th>			                                
+									<th>Nombre</th>
+									<th>Clasificacion</th>	
+									<th>Ranking</th>	
+		                            <th>Telefono</th>
+									<th>Email</th>
+									
+								</tr>
+							</thead>
+							<tbody>   
+							<?php
+								if($ListaVendedores != FALSE){
+									foreach ($ListaVendedores->result() as $row){
+							?>
+										<tr>
+											<!-- <td><a data-toggle="modal" href="#myModal"><?=$row->IDVend?></a></td> -->
+											<td><a href="<?=base_url()?>miInfo/verAgente?userMail=<?=$row->email?>"><?=$row->IDVend?></a></td>
+                                            <td><?=$this->capsysdre->GetSucursal($row->IdSucursal)?></td>
+		                                	<td><?=$this->capsysdre->GetCanal($row->IdCanal)?></td>
+
+											<td><?=$row->name_complete?></td>
+											<td><?=$this->capsysdre->GiroID($row->IDVend)?></td>
+											<td><?=$this->capsysdre->RankingID($row->IDVend)?></td>
+											<td><?=$row->CelularSMS?></td>
+											<td><?=$row->email?></td>
+		                                        <!--
+		                                        <a href='".base_url()."index.php/bookmarks/eliminar/".$row->id."'>
+													<span class='glyphicon glyphicon-trash'></span>
+		                                    	</a>
+		                                        -->
+										</tr>
+							<?php
+									}
+								}
+							?>
+							</tbody>
+                            <?
+								if($totalResultados == 0){
+							?>
+                            <tfoot>
+                            	<tr>
+                                	<td colspan="4"><center><b>No se encontraron registros.</b></center></td>
+                                </tr>
+                            </tfoot>
+                            <?
+								}
+							?>
+						</table>
+               		</div>
+
+    <div id="DivFooterRow" style="overflow:hidden">
+    </div>
+</div>
+
+
+
+
+                    
+                
+                <div class="row">
+                    <div class="col-md-12"><small><i>Total de resultados: <b><?=$totalResultados?></b></i></small></div>
+                </div>
+           
+       
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Modal with Dynamic Content</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php $this->load->view('footers/footer'); ?>
+<script>
+
+$(document).ready(function(){
+    $("#myBtn").click(function(){
+		
+    	$('.modal-body').load('CargarContenido.php?id=2',function(){ //
+        	$("#myModal").modal({show:true});
+	    }); //
+	
+    });
+});
+
+/*
+$('.openBtn').on('click',function(){
+    $('.modal-body').load('content.html',function(){
+        $('#myModal').modal({show:true});
+    });
+});
+*/
+</script>

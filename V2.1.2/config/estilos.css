@@ -1,0 +1,391 @@
+@charset "iso-8859-1";
+/* CSS Document */
+body{
+	margin:0;
+	font-style:normal;
+	font-size:12px;
+	font-family:Verdana, Geneva, sans-serif;
+	color:#000;
+	background-color:#010101;
+	background-image:url(../img/fondoBodyDegradadoGris.png);
+	background-repeat:repeat-x;
+}
+
+input[type="submit"]{
+	border: #C3C3C3 1px solid;
+	background:#273B71;
+	-webkit-border-radius: 5px 5px;
+	-moz-border-radius: 5px 5px;
+	color:#FFFFFF;
+}
+.buttonGeneral{
+	border: #C3C3C3 1px solid;
+	background:#273B71;
+	-webkit-border-radius: 5px 5px;
+	-moz-border-radius: 5px 5px;
+	color:#FFFFFF;
+}
+input[type="text"] {
+	border: #C3C3C3 1px solid;
+	background: transparent;
+	color:#6F6F6F;
+	-webkit-border-radius: 5px 5px;
+	-moz-border-radius: 5px 5px;
+}
+input[type="password"] {
+	border: #C3C3C3 1px solid;
+	background: transparent;
+	color:#6F6F6F;
+	-webkit-border-radius: 5px 5px;
+	-moz-border-radius: 5px 5px;
+}
+
+input[type="text"]:hover {
+	border: thin #0000FF outset;
+	filter:alpha(opacity=60);
+	-moz-opacity:.5;
+	opacity:.5;
+	background: #FFFFFF;
+	color:#6F6F6F;
+	-webkit-border-radius: 5px 5px;
+	-moz-border-radius: 5px 5px;
+}
+input[type="text"]:focus  {
+	border: thin #0000FF solid;
+	background: #FFFFFF;
+	color: #6F6F6F;
+	-webkit-border-radius: 5px 5px;
+	-moz-border-radius: 5px 5px;
+}
+input[type="text"]:focus:hover {
+	border: thin #0000FF solid;
+	filter:alpha(opacity=100);
+	-moz-opacity:1;
+	opacity:1;
+	background: #FFFFFF;
+	color: #6F6F6F;
+	-webkit-border-radius: 5px 5px;
+	-moz-border-radius: 5px 5px;
+}
+
+textarea {
+	border: #C3C3C3 1px solid;
+	background: transparent;
+	color:#6F6F6F;
+	-webkit-border-radius: 5px 5px;
+	-moz-border-radius: 5px 5px;
+}
+input[type="file"]{
+	border: #C3C3C3 1px solid;
+	background: transparent;
+	color:#6F6F6F;
+	-webkit-border-radius: 5px 5px;
+	-moz-border-radius: 5px 5px;
+}
+select {
+/*	margin-left:5px; */
+/*	margin-right: 5px; */
+	border: #C3C3C3 1px solid;
+	background: transparent;
+	color:#6F6F6F;
+	-webkit-border-radius: 5px 5px;
+	-moz-border-radius: 5px 5px;
+}
+select:hover {
+	border: thin #0000FF outset;
+	filter:alpha(opacity=75);
+	-moz-opacity:.75;
+	opacity:.75;
+	background: #FFFFFF;
+	color: #6F6F6F;
+	-webkit-border-radius: 5px 5px;
+	-moz-border-radius: 5px 5px;
+}
+select:focus:hover {
+	border: thin #0000FF solid;
+	filter:alpha(opacity=100);
+	-moz-opacity:1;
+	opacity:1;
+	background: #FFFFFF;
+	color: #6F6F6F;
+	-webkit-border-radius: 5px 5px;
+	-moz-border-radius: 5px 5px;
+}
+select:focus {
+	border: thin #0000FF solid;
+	background: #FFFFFF;
+	color: #6F6F6F;
+	-webkit-border-radius: 5px 5px;
+	-moz-border-radius: 5px 5px;
+}
+option {
+	border:none;
+	background: #FFFFFF;
+	color: #6F6F6F;
+}
+/* ---- */
+.TablePrincipal{
+	position:relative;
+	width:1000px;
+	padding:2px;
+	border:0;
+	background-image:url(../img/fondoTablaDegradadoGris.png);
+	background-repeat:repeat;
+	background-position:center;
+}
+.TextoTitulosHeaderAzul{
+	font-style:normal;
+	font-weight:bold;
+	font-size:28px;
+	font-family:Verdana, Geneva, sans-serif;
+	color:#273B71;	
+}
+.TableLogin{
+	border:#C6C6C6 1px solid;
+}
+.TableInteriorLogin{
+	font-style:normal;
+	font-size:12px;
+	font-family:Verdana, Geneva, sans-serif;
+	font-weight:bold;
+	color:#000000;	
+}
+.TextoTitulosLogin{
+	font-style:normal;
+	font-weight:bold;
+	font-size:18px;
+	font-family:Verdana, Geneva, sans-serif;
+	color:#0B3779;
+}
+.TextoTitulosSeccion{
+	font-style:normal;
+	font-size:38px;
+	font-family: "Trebuchet MS", Verdana, sans-serif;
+	color:#273B71;
+}
+.TextoTitulosSecciondivClic{
+	font-style:normal;
+	font-size:18px;
+	font-weight:bold;
+	font-family: "Trebuchet MS", Verdana, sans-serif;
+	color:#273B71;
+	text-decoration:none;
+}
+.LinkSecciondivClic{
+	font-style:normal;
+	font-size:12px;
+	font-weight:bold;
+	font-family: "Trebuchet MS", Verdana, sans-serif;
+	color:#000000;
+	text-decoration:none;
+}
+.TextoGeneralNegro{
+	font-style:normal;
+	font-size:12px;
+	font-family:Verdana, Geneva, sans-serif;
+	color:#000000;
+}
+.TextoGeneralAzul{
+	font-style:normal;
+	font-size:12px;
+	font-family:Verdana, Geneva, sans-serif;
+	color:#0B3779;
+}
+dl#circuloBase{
+	margin: 0;
+	padding: 0;
+	width: 664px;
+	height: 664px;
+	position: relative;
+	left: 0;
+	top: 0;
+	background-image: url(img/botonesInicio.png);
+	background-repeat:no-repeat;
+	background-position:center;
+}
+/* ---------- inicio ---------- */
+dd#inicio{
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	font-size: 100%;
+	left: 256px;
+	top: -6px;
+	width: 106px;
+}
+/* ---------- miInfo ---------- */
+dd#miInfo{
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	font-size: 100%;
+	left: 415px;
+	top: 59px;
+	width: 106px;
+}
+/* ---------- directorio ---------- */
+dd#directorio{
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	font-size: 100%;
+	left: 502px;
+	top: 212px;
+	width: 106px;
+}
+/* ---------- reportes ---------- */
+dd#reportes{
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	font-size: 100%;
+	left: 473px;
+	top: 380px;
+	width: 106px;
+}
+/* ---------- tienda ---------- */
+dd#tienda{
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	font-size: 100%;
+	left: 338px;
+	top: 489px;
+	width: 106px;
+}
+/* ---------- mailMasivo ---------- */
+dd#mailMasivo{
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	font-size: 100%;
+	left: 177px;
+	top: 489px;
+	width: 106px;
+}
+/* ---------- capacita ---------- */
+dd#capacita{
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	font-size: 100%;
+	left: 37px;
+	top: 380px;
+	width: 106px;
+}
+dd#calendario{
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	font-size: 100%;
+	left: 8px;
+	top: 212px;
+	width: 106px;
+}
+dd#actividades{
+	margin: 0;
+	padding: 0;
+	position: absolute;
+	font-size: 100%;
+	left: 99px;
+	top: 59px;
+	width: 106px;
+}
+
+.systemTex{
+	font-style:normal;
+	font-family:Verdana, Geneva, sans-serif;
+	color:#333333;
+	text-decoration:none;
+}
+.system{
+	background-image:url(../img/glyphicons-halflings.png); 
+    width: 20px; 
+    height: 15px;
+} 
+.system.logout {background-position: -381px 2px;} 
+.system.enviarCorreo {background-position: -71px 2px;} 
+.system.documentos {background-position: -161px -22px;} 
+.system.editar {background-position: -1px -70px;} 
+.system.agregar {background-position: -401px -95px;} 
+.system.archivo {background-position: -23px -22px;}
+.system.carrito {background-position: -360px -118px;}
+.system.eliminar {background-position: -450px 0px;}
+.system.descargar {background-position: -97px -25px;}
+.system.LlamadaCita {background-position: -305px -22px;}
+
+.system.recotizar {background-position: -214px -22px;}
+.system.quitar {background-position: -310px 0px;}
+
+.semaforo{
+	background-image:url(../img/semaforos.png); 
+    width: 12px; 
+    height: 13px;
+} 
+.semaforo.rojo {background-position: -1px -1px;} 
+.semaforo.amarillo {background-position: -1px -18px;} 
+.semaforo.verde {background-position: -1px -34px;} 
+.semaforo.neutro{background-position: -1px -48px;}
+
+.systemGuardar{
+	padding:0;
+	margin:0;
+	border:none;
+	background:none;
+	background-image:url(../img/glyphicons-halflings.png);
+	background-repeat:no-repeat;
+    width: 20px; 
+    height: 18px;
+	background-position: -285px 2px;
+}
+.systemCancelar{
+	padding:0;
+	margin:0;
+	border:none;
+	background:none;
+	background-image:url(../img/glyphicons-halflings.png);
+	background-repeat:no-repeat;
+    width: 20px; 
+    height: 18px;
+	background-position: -309px 2px;
+}
+.systemBorrar{
+	padding:0;
+	margin:0;
+	border:none;
+	background:none;
+	background-image:url(../img/glyphicons-halflings.png);
+	background-repeat:no-repeat;
+    width: 20px; 
+    height: 18px;
+	background-position: -450px 0px;
+}
+.divClic{
+	-webkit-border-radius: 10px 10px;
+	-moz-border-radius: 10px 10px;
+	border:#CCCCCC 1px solid;
+	background-image:url(../img/fondoTablaDegradadoGris.png);
+}
+.TextoTitulosHeaderCarrito{
+	font-style:normal;
+	font-weight:bold;
+	font-size:28px;
+	font-family:Verdana, Geneva, sans-serif;
+	color:#000000;
+}
+blockquote{
+	margin-top: 0px; 
+	margin-bottom: 0px; 
+	margin-left: 20px; 
+	padding-left: 15px;
+}
+
+.semaforoNubeCotizaciones{
+	background-image:url(../img/semaforosNube.png); 
+    width: 12px; 
+    height: 13px;
+}
+.semaforoNubeCotizaciones.naranja {background-position: -1px -1px;} 
+.semaforoNubeCotizaciones.amarillo {background-position: -1px -18px;} 
+.semaforoNubeCotizaciones.azul {background-position: -1px -34px;} 
+.semaforoNubeCotizaciones.gris{background-position: -1px -48px;}

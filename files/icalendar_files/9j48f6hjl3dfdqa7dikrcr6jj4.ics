@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:REQUEST
+BEGIN:VEVENT
+ORGANIZER;CN=MARKETING@AGENTECAPITAL.COM:mailto:MARKETING@AGENTECAPITAL.COM
+UID:9j48f6hjl3dfdqa7dikrcr6jj4@google.com
+CLASS:PUBLIC
+DTSTAMP:20201102T190258Z
+DTSTART:2020-11-03T12:00Z
+DTEND:2020-11-03T13:00Z
+LOCATION:https://us02web.zoom.us/j/87089584584
+STATUS:CONFIRMED
+SUMMARY:Detalles de Módulo de Telemarketing  (Seguimiento de  prospectos de campañas ) y Módulo de Prospección de Negocios
+ACTION:EMAIL
+DESCRIPTION:  ->  Acceso al evento: https://capsys.com.mx/V3/accesoAEvento/habilitaEvento?q=9j48f6hjl3dfdqa7dikrcr6jj4&r=personalInterno&p=interno
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,11 @@
+tipo = cotizacion, lo sabre por el hipervinculo
+primera Mayuscula, 
+ramo = vehiculo,
+subramo = idSubramo 17 -> ir a la tabla para buscar el ramo
+
+subramos
+
+Existe = 
+
+cliente = idCli - idCont "IDDocto"
+idPoliza | idDocumento = 

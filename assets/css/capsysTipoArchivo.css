@@ -1,0 +1,42 @@
+.digitalSicas{list-style: none;}
+
+.digitalSicas[href$=".carpeta"]
+{
+	color:black;
+	background-color: white;
+	list-style-image: url(../images/iconocarpeta.png);
+
+}
+.btn-carpeta::after
+{
+	color:black;
+	background-color: white;
+	content: url(../images/iconocarpeta.png);
+
+}
+.digitalSicas>a{color:black;background-color: white;}
+.digitalSicas>a[href$=".pdf" i]::before{content: url(../images/iconopdf.png);}
+.digitalSicas>a[href$=".xml" i]::before{content: url(../images/iconoxml.png);}
+.digitalSicas>a[href$=".msg" i]::before{content: url(../images/iconomsg.png);}
+.digitalSicas>a[href$=".doc" i]::before{content: url(../images/iconoword.png);}
+.digitalSicas>a[href$=".docx" i]::before{content: url(../images/iconoword.png);}
+.digitalSicas>a[href$=".xls" i]::before{content: url(../images/iconoxls.png);}
+.digitalSicas>a[href$=".xlsx" i]::before{content: url(../images/iconoxls.png);}
+.digitalSicas>a[href$=".xlsm" i]::before{content: url(../images/iconoxls.png);}
+.digitalSicas>a[href$=".jpg" i]::before{content: url(../images/iconojpj.png);}
+.digitalSicas>a[href$=".png" i]::before{content: url(../images/iconojpj.png);}
+.digitalSicas>a[href$=".jpeg" i]::before{content: url(../images/iconojpj.png);}
+.digitalSicas>a[href$=".txt" i]::before{content: url(../images/iconotxt.png);}
+.digitalSicas>a:hover{color: #88b7fd;background-color: #ded8e9}
+.btn-despliegue{height:30px;border:none;background-color:white;color: #858282;font-size: 20px}
+/*.btn-despliegue:hover{color: #88b7fd;background-color: #ded8e9}
+.btn-despliegue+div:hover{color: #88b7fd;background-color: #ded8e9}*/
+.ocultarHijos>ul{display:none;color:red;}
+.divContenedorCarpeta{display:flex;flex-direction:column;margin-bottom:10px}
+.divContenedorBotonTitulo{display:flex;}
+.divContenedorBotonTitulo:hover>button{color: #88b7fd;background-color: #ded8e9}
+.divContenedorBotonTitulo:hover{color: #88b7fd;background-color: #ded8e9}
+.verVisorArchivos{display: block;width: 100%;height: 100%}
+.ocultarVisorArchivos{display: none}
+#cargaArchivosDiv > img{width: 10%;position: relative;top:-50%;left: 40%;z-index: 2}
+

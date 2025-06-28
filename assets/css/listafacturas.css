@@ -1,0 +1,350 @@
+/*PARTE 1*/
+.modalProveedoor{
+  background-color: rgba(0,0,0,.8);
+  position:fixed;
+  display:none;
+  height: 100vh;
+  width: 100vw;
+  transition: all .5s;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  overflow: hidden;
+  outline: 0;
+}
+.modalGastos{
+  background-color:rgba(0,0,0,0.8);
+  position:fixed;
+  display:none;
+  height:100vh;
+  width:100vw;
+  transition:all .5s;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:1040;
+  overflow:hidden;
+  outline:0;
+}
+
+.contenedor-modProve{
+  background-color: rgb(221, 241, 241);   
+  align-items: center;   
+  width: 700px;
+  margin-left: auto;
+  margin-right:auto;
+  margin-top: 0px;
+  height: 800px;
+}
+.cabeceramodal{
+  text-align:center;
+  border-bottom: 1px solid #fe4918;
+  margin-top:0px;
+}
+.cabeceramodal h2 {
+  padding: 1px 0;
+}
+.contenidomodal{
+  display:flex;
+  justify-content:space-between;
+  height:7rem;
+  padding: 1rem 1rem;
+  width :100%;
+  align-items:center;
+  text-align:center;
+}
+.contenidogastos{
+  width:300px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  align-items:center;
+  text-align:center; 
+}
+.contenidogastos label{
+  margin:20px 20px;
+   
+}
+.contenidogastos label:last-child{
+  margin-right:0px;   
+}
+.contenidogastos input{
+}
+
+.cierra-modalTarea i{
+  font-size:20px;
+  color:red;
+}
+.contenidomodal input{
+  width:30rem;
+  padding:5px 10px;
+  margin-right:5px;
+}
+.contenidomodal select{
+  width:30rem;
+  padding:5px 10px;
+  margin-right:10px;
+}
+.contenidomodal label{
+  padding:5px;
+  
+}
+.cierra-modal{
+   /* margin-left: auto;*/
+   height: 20px;
+   margin-right:36px ;
+}
+
+.btncierra{
+    display: flex;
+    justify-content: flex-end;   
+    padding:5px;
+    margin-right: 20px; 
+}
+.grabaFecha{
+    display: flex;
+    align-items: center; 
+    justify-content: flex-end;    
+    height: 60px;
+    width:10rem;
+    margin-left:80%;
+   
+}
+.btnGrabaproveedor{
+  color:white;
+   text-align:center;
+   margin: 0 auto;
+   align-items:center;
+   background-color:#fe4918;
+   padding:10px 20px;
+}
+.btnGrabaproveedor:hover{
+cursor:pointer;
+background-color:blue;
+}
+.agregasto{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.agregasto i{
+ font-size:20px;
+ color:red;
+ padding-left:3px;
+}
+.agregasto i:hover{
+  cursor:pointer;
+  color:green;
+}
+.contenedor-modalGastos{
+  background-color:rgb(221,241,241);
+  align-items:center;
+  width:700px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top:50px;
+  height:400px;
+}
+.lblgastos{
+   display:flex;
+   justify-content:space-between;   
+   text-align:center;
+   align-items:center;
+}
+.lblgastos input{  
+  height:30px;
+}
+.grabaGastos{
+  display:flex;
+  justify-content:center;
+  text-align:center;
+   align-items:center;
+   margin-top:20px;
+}
+.btnGrabagastos{
+  padding: 10px 20px;
+  background-color:green;
+  color:white;
+}
+.btnGrabagastos:hover{
+  background-color:blue;
+  cursor:pointer;
+  
+}
+.rowSeleccionado{
+  background-color: #9abfdf;
+}
+
+/*PARTE 2*/
+/*.EtiquetaFile{
+  position: relative;
+  top: 30px;
+  width: 150px;
+  border: solid;
+}*/
+.Archivo1{
+  opacity: 0;
+  width: 150px;
+  top: 28px;
+  position: relative;
+}
+.divContenedor{
+  width: 150px;
+}
+/*.divContenedor:hover label{
+  background:#d8d8d8;
+}*/
+.modal-contenido{
+  background-color:white;
+  width:95%;
+  height:100%;
+  padding: 0% 0%;
+  margin: 0% auto;
+  position: relative;
+  z-index: 1000;
+  overflow: auto; 
+}
+.modalCierra{
+  background-color: rgba(0,0,0,.8);
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0px;
+  left:0;
+  opacity:0;
+  transition: all 1s;
+  display:none;
+  z-index: 1000;
+}
+.modalAbre{
+  background-color: rgba(0,0,0,.8);
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0px;
+  left:-100;
+  transition: all 1s;
+  width:100%;
+  height:100%;
+  display:block;relative; /* Indefinido */
+  z-index: 1000;
+}
+
+.background-table {
+  border: 1px solid darkgray;
+  border-radius: 5px;
+  padding-top: 15px;
+  box-shadow: 0px 2px 5px 0px darkgrey;
+}
+
+/* Botones de tabla de facturas */
+.subir-pdf {
+  color: white;
+  background-color: #d9534f;
+  width: 100%;
+  border: 2px solid #d9534f;
+  border-radius: 5px;
+  height: 30px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.subir-xml {
+  color: white;
+  background-color: #2da34c;
+  width: 100%;
+  border: 2px solid #2da34c;
+  border-radius: 5px;
+  height: 30px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-OK {
+  border: 2px solid #545454;
+  border-radius: 5px;
+  background: white;
+  color: #545454;
+}
+.btn-OK:hover {
+  background-color: #545454;
+  color: white;
+}
+.container-downloadFile {
+  padding-left: 0px;
+  padding-right: 0px;
+  display: flex;
+  align-items: center;
+  position: static;
+}
+.dropdownFile {
+  font-size: 13px;
+  width: 105px;
+  margin-right: 6px;
+  margin-top: 25px;
+}
+.swal-modal {
+  width: 28%;
+}
+.swal-button--confirm{
+    background-color:#337ab7!important;
+}
+.swal-text{
+    /*color:#472380 !important;*/
+    font-size: 17px;
+    text-align: center;
+}
+.btn-Editar {
+  border-radius: 5px;
+  font-size: 13px;
+}
+.btn-Eliminar {
+  border-radius: 5px;
+  font-size: 13px;
+  color: white;
+}
+.btn-AcAd {
+  color: black;
+  border-radius: 5px;
+}
+.container-segment {
+  width: auto;
+  height: 50px;
+  display: flex;
+  align-items: center;
+}
+.container-Guardar {
+  display: flex;
+  align-items: flex-end;
+}
+.container-info {
+  text-align: left;
+  font-size: 14px;
+  padding: 10px;
+}
+.alerta-PanelInfo {
+  height: 50px;
+  width: 60px;
+}
+.iconCloseInfo {
+  font-size: 20px;
+  margin-left: 40px;
+  cursor: pointer;
+  color: #004085;
+}
+.btn-Limpiar {
+  color: #3a3c3e;
+  border-radius: 5px;
+  background: #dfdfdf;
+}
+.btn-Limpiar:hover {
+  color: #101010;
+  background: #c5c5c5;
+}
+

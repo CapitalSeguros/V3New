@@ -1,0 +1,569 @@
+<script language='javascript' src='../js/jquery-1.5.1.min.js'></script>
+<script language='javascript' src='../js/jquery-ui-1.8.13.custom.min.js'></script>
+<link rel='stylesheet' type='text/css' href='../css/jquery-ui-1.8.13.custom.css'/>
+<?php
+$UsuarioXML = "03973";
+$ClaveXML = "GAP4534";
+$TipoXML = "1";
+$NegocioXML = "418";
+
+/*Formas Pago Ana*/
+
+$formaPagoArray['Contado'] = "C"; 		//ANUAL
+$formaPagoArray['Semestral'] = "S"; 	//SEMESTRAL
+$formaPagoArray['Trimestral'] = "T"; 	//TRIMESTRAL
+$formaPagoArray['Mensual'] = "C"; 		//MENSUAL
+$formaPagoArray['Cuatrimestral'] = "U";	// CUATRIMESTRAL
+/*---------------*/
+
+// Calculamos Clave Estado
+$sqlCalculamosEstado = "
+	Select * From 
+		`ws_catalogo_estados_ana`
+	Where
+		`Descripcion` Like '%$estado%'		
+					   ";
+$resCalculamosEstado = DreQueryDB($sqlCalculamosEstado);
+$rowCalculamosEstado = mysql_fetch_assoc($resCalculamosEstado);
+
+function calculoCiudad($idEstado, $poblacion){
+	$sqlConsultaDelMunAna = "
+		Select * From 
+			`ws_catalogo_ciudades_ana`
+		Where
+			`ClaveEstado` = '$idEstado'
+		Order By 
+			`Descripcion` Asc
+							";
+	$resConsultaDelMunAna = DreQueryDB($sqlConsultaDelMunAna);
+	
+	$return = '<select id="poblacion" name="poblacion" >';  //onChange="JavaScrip: document.formDelMun.submit();"
+		$return.='<option value="">-- Seleccione --</option>';
+	while($rowConsultaDelMunAna = mysql_fetch_assoc($resConsultaDelMunAna)){
+		if($rowConsultaDelMunAna['Descripcion'] == $poblacion){ $selected = "selected"; } else { $selected = ""; }	
+		$return.= '<option value="'.$rowConsultaDelMunAna['Descripcion'].'" '.$selected.'>'.$rowConsultaDelMunAna['Descripcion'].'</option>';
+	}
+	$return.= "</select>";
+	
+	return
+		print($return);
+}
+
+
+function calculoMarca($marca){
+	$sqlConsultaMarcaAna = "
+		Select * From 
+			`ws_catalogo_marcas_ana`
+		Order By 
+			`Descripcion` Asc
+							";
+	$resConsultaMarcaAna = DreQueryDB($sqlConsultaMarcaAna);
+	
+	$return = '<select id="marca" name="marca" onChange="JavaScrip: document.formDelMun.submit();">';
+		$return.='<option value="">-- Seleccione --</option>';
+	while($rowConsultaMarcaAna = mysql_fetch_assoc($resConsultaMarcaAna)){
+		if($rowConsultaMarcaAna['Clave'] == $marca){ $selected = "selected"; } else { $selected = ""; }	
+		$return.= '<option value="'.$rowConsultaMarcaAna['Clave'].'" '.$selected.'>'.$rowConsultaMarcaAna['Descripcion'].'</option>';
+	}
+	$return.= "</select>";
+	
+	return
+		print($return);
+}
+
+
+function calculoSubMarca($modelo, $marca, $NegocioXML, $UsuarioXML, $ClaveXML, $categoria, $subMarcaAna){
+
+	$xml='
+    	<SubMarca xmlns="http://tempuri.org/">
+	      <Negocio>'.$NegocioXML.'</Negocio>
+	      <Marca>'.$marca.'</Marca>
+	      <Modelo>'.$modelo.'</Modelo>
+	      <Categoria>'.$categoria.'</Categoria>
+	      <Usuario>'.$UsuarioXML.'</Usuario>
+	      <Clave>'.$ClaveXML.'</Clave>
+	    </SubMarca>
+		 ';
+		 
+$urlConeccion = "https://server.anaseguros.com.mx/ananetws/service.asmx?WSDL";
+
+$client = new nusoap_client($urlConeccion, false);
+$client->soap_defencoding = 'UTF-8';
+$client->decode_utf8 = false;
+
+$result = $client->call('SubMarca', $xml, 'http://tempuri.org/', 'http://tempuri.org/SubMarca', false, false, false, false);
+
+	
+	// Proceso para almacenamiento del XML obtenido
+$respuestaXML = htmlspecialchars_decode($client->responseData, ENT_NOQUOTES);
+$cosasQuitaXml = array('<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><SubMarcaResponse xmlns="http://tempuri.org/"><SubMarcaResult>','</SubMarcaResult></SubMarcaResponse></soap:Body></soap:Envelope>');
+$cosasPonerXml = array('','');
+
+$respuestaXmlDepurada = str_replace($cosasQuitaXml, $cosasPonerXml, $respuestaXML);
+$datosSubMarca = simplexml_load_string($respuestaXmlDepurada); 
+	$return = '<select id="subMarcaAna" name="subMarcaAna" onChange="JavaScrip: document.formSubMarcaAna.submit();">';
+	$return.= '<option value="">-- Seleccione --</option>';
+	foreach($datosSubMarca->submarca as $submarca){
+		if($submarca['clave'] == $subMarcaAna){ $selected = "selected"; }else{ $selected = "";}
+		$return.= '<option value="'.$submarca['clave'].'" '.$selected.'>'.$submarca.'</option>';
+	}
+	$return.= '</select>';
+	
+	return
+		print($return);
+}
+
+
+function calculoVehiculo($modelo, $marca, $subMarcaAna, $NegocioXML, $UsuarioXML, $ClaveXML, $categoria){
+
+	$xml='
+	    <Vehiculo xmlns="http://tempuri.org/">
+	      <Negocio>'.$NegocioXML.'</Negocio>
+	      <Marca>'.$marca.'</Marca>
+	      <Submarca>'.$subMarcaAna.'</Submarca>
+	      <Modelo>'.$modelo.'</Modelo>
+	      <Usuario>'.$UsuarioXML.'</Usuario>
+	      <Clave>'.$ClaveXML.'</Clave>
+	    </Vehiculo>
+		 ';
+		 
+$urlConeccion = "https://server.anaseguros.com.mx/ananetws/service.asmx?WSDL";
+
+$client = new nusoap_client($urlConeccion, false);
+$client->soap_defencoding = 'UTF-8';
+$client->decode_utf8 = false;
+
+$result = $client->call('Vehiculo', $xml, 'http://tempuri.org/', 'http://tempuri.org/Vehiculo', false, false, false, false);
+
+	
+	// Proceso para almacenamiento del XML obtenido
+$respuestaXML = htmlspecialchars_decode($client->responseData, ENT_NOQUOTES);
+$cosasQuitaXml = array('<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><VehiculoResponse xmlns="http://tempuri.org/"><VehiculoResult>','</VehiculoResult></VehiculoResponse></soap:Body></soap:Envelope>');
+$cosasPonerXml = array('','');
+
+$respuestaXmlDepurada = str_replace($cosasQuitaXml, $cosasPonerXml, $respuestaXML);
+$datosVehiculo = simplexml_load_string($respuestaXmlDepurada); 
+	$return = '<select id="vehiculoAna" name="vehiculoAna">';
+	$return.= '<option value="">-- Seleccione --</option>';
+	foreach($datosVehiculo->vehiculo as $vehiculo){
+		if($vehiculo['clave'] == $vehiculoAna){ $selected = "selected"; }else{ $selected = "";}
+		$return.= '<option value="'.$vehiculo['clave'].'" '.$selected.'>'.$vehiculo.'</option>';
+	}
+	$return.= '</select>';
+	
+	return
+		print($return);
+}
+	//	echo "bandera:".$wsAplicarComplemento;
+
+// Iniciamos el Complemento para la Aseguradora
+if(!isset($wsAplicarComplemento) && $wsAplicarComplemento != "01"){
+	//	echo "estas en la primera Parte.";
+?>
+<table width="610" cellpadding="5" cellspacing="2" border="0" align="center">
+	<tr>
+    	<td>
+			<?
+				echo "El cat&aacute;logo de la aseguradora ".$wsAseguradoraParticular." SEGUROS no coincide con la descripci&oacute;n proporcionada, ay&uacute;denos a rectificar eligiendo nuevamente los datos:";
+			?>
+        </td>
+    </tr>
+<!-- <form name="formCompleWsHdi" id="formCompleWsHdi" method="post" action="<?php //echo $_SERVER['PHP_SELF']; ?>" target="_self"> -->
+<form name="formDelMun" id="formDelMun" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" target="_self">
+    <tr>
+    	<td>
+		<input type="hidden" name="wsModelo" id="wsModelo" value="<?php echo $wsModelo; ?>" />
+		<input type="hidden" name="estado" id="estado" value="<?php echo $estado; ?>" />
+		<input type="hidden" name="codigo_postal" id="codigo_postal" value="<?php echo $codigo_postal; ?>" />
+		<input type="hidden" name="tipo_uso" id="tipo_uso" value="<?php echo $tipo_uso; ?>" />
+		<input type="hidden" name="cobertura_auto" id="cobertura_auto" value="<?php echo $cobertura_auto; ?>" />
+		<input type="hidden" name="valor_factura" id="valor_factura" value="<?php echo $valor_factura; ?>" />
+		<input type="hidden" name="forma_pago" id="forma_pago" value="<?php echo $forma_pago; ?>" />
+		<input type="hidden" name="idEmpresa" id="idEmpresa" value="<?php echo $idEmpresa; ?>" />
+		<input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo $idUsuario; ?>" />
+		<input type="hidden" name="ramoInterno" id="ramoInterno" value="<?php echo $ramoInterno; ?>" />
+		<input type="hidden" name="idInterno" id="idInterno" value="<?php echo $idInterno; ?>" />
+		<input type="hidden" name="idActividad" id="idActividad" value="<?php echo $idActividad; ?>" />
+		<!-- --><input type="hidden" name="tipoLineaPersonal" id="tipoLineaPersonal" value="<?php echo $tipoLineaPersonal; ?>" />
+		<!-- --><input type="hidden" name="recId" id="recId" value="<?php echo $recId; ?>" />
+		<input type="hidden" name="ver" id="ver" value="<?php echo $ver; ?>" />
+		<input type="hidden" name="tipoForm" id="tipoForm" value="<?php echo $tipoForm; ?>" />
+		<input type="hidden" name="wsMarca" id="wsMarca" value="<?php echo $wsMarca; ?>" />
+		<input type="hidden" name="wsYear" id="wsYear" value="<?php echo $wsYear; ?>" />
+		<!-- <input type="text" name="wsModelo_Aba" id="wsModelo_Aba" /> -->
+		<input type="hidden" name="wsAseguradoraParticular" id="wsAseguradoraParticular" value="ANA" />
+<!--		<input type="hidden" name="wsAplicarComplemento" id="wsAplicarComplemento" value="00" /> -->
+		<input type="hidden" name="muestra" id="muestra" value="Formularios" />
+        
+    	</td>
+    </tr>
+    <tr>
+    	<td>
+        	<strong>Modelo:</strong>
+            <font style="font-size:14px;">
+        	<?php echo "&nbsp;&nbsp;&nbsp;".$wsModelo."&nbsp;&nbsp;&nbsp;"; ?>
+            </font>
+        </td>
+    </tr>
+    <tr>
+    	<td>
+        	<strong>Seleccione Ciudad:</strong>
+			<?php calculoCiudad($rowCalculamosEstado['Clave'], $poblacion); ?>
+        </td>
+    </tr>
+    <tr>
+    	<td>
+        	<strong>Seleccione Marca:</strong>
+			<?php if(!isset($marca)){ calculoMarca($wsMarca); }else{ calculoMarca($marca); }?>
+        </td>
+    </tr>
+</form>
+<?php
+if(isset($poblacion) && isset($marca)){
+?>
+<form name="formSubMarcaAna" id="formSubMarcaAna" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" target="_self">
+        <input type="hidden" name="idVersion" id="idVersion" value="<?php echo $idVersion; ?>" />
+        <input type="hidden" name="ciudad" id="ciudad" value="<?php echo $ciudad; ?>" />
+		<input type="hidden" name="wsModelo" id="wsModelo" value="<?php echo $wsModelo; ?>" />
+		<input type="hidden" name="estado" id="estado" value="<?php echo $estado; ?>" />
+		<input type="hidden" name="codigo_postal" id="codigo_postal" value="<?php echo $codigo_postal; ?>" />
+		<input type="hidden" name="tipo_uso" id="tipo_uso" value="<?php echo $tipo_uso; ?>" />
+		<input type="hidden" name="cobertura_auto" id="cobertura_auto" value="<?php echo $cobertura_auto; ?>" />
+		<input type="hidden" name="valor_factura" id="valor_factura" value="<?php echo $valor_factura; ?>" />
+		<input type="hidden" name="forma_pago" id="forma_pago" value="<?php echo $forma_pago; ?>" />
+		<input type="hidden" name="idEmpresa" id="idEmpresa" value="<?php echo $idEmpresa; ?>" />
+		<input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo $idUsuario; ?>" />
+		<input type="hidden" name="ramoInterno" id="ramoInterno" value="<?php echo $ramoInterno; ?>" />
+		<input type="hidden" name="idInterno" id="idInterno" value="<?php echo $idInterno; ?>" />
+		<input type="hidden" name="idActividad" id="idActividad" value="<?php echo $idActividad; ?>" />
+		<!-- --><input type="hidden" name="tipoLineaPersonal" id="tipoLineaPersonal" value="<?php echo $tipoLineaPersonal; ?>" />
+		<!-- --><input type="hidden" name="recId" id="recId" value="<?php echo $recId; ?>" />
+		<input type="hidden" name="ver" id="ver" value="<?php echo $ver; ?>" />
+		<input type="hidden" name="tipoForm" id="tipoForm" value="<?php echo $tipoForm; ?>" />
+		<input type="hidden" name="wsMarca" id="wsMarca" value="<?php echo $wsMarca; ?>" />
+		<input type="hidden" name="wsYear" id="wsYear" value="<?php echo $wsYear; ?>" />
+		<input type="hidden" name="muestra" id="muestra" value="Formularios" />
+		<input type="hidden" name="poblacion" id="poblacion" value="<?php echo $poblacion; ?>" />
+		<input type="hidden" name="marca" id="marca" value="<?php echo $marca; ?>" />
+        
+		<input type="hidden" name="wsAseguradoraParticular" id="wsAseguradoraParticular" value="ANA" />
+
+    <tr>
+    	<td>
+        	<strong>Seleccione SubMarca:</strong>
+			<?php calculoSubMarca($wsYear, $marca, $NegocioXML, $UsuarioXML, $ClaveXML, '100', $subMarcaAna); ?>
+        </td>
+    </tr>
+</form>
+<?php 
+}
+
+if(isset($subMarcaAna)){
+?>
+<form name="formVehiculoAna" id="formVehiculoAna" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" target="_self">
+        <input type="hidden" name="idVersion" id="idVersion" value="<?php echo $idVersion; ?>" />
+        <input type="hidden" name="ciudad" id="ciudad" value="<?php echo $ciudad; ?>" />
+		<input type="hidden" name="wsModelo" id="wsModelo" value="<?php echo $wsModelo; ?>" />
+		<input type="hidden" name="estado" id="estado" value="<?php echo $estado; ?>" />
+		<input type="hidden" name="codigo_postal" id="codigo_postal" value="<?php echo $codigo_postal; ?>" />
+		<input type="hidden" name="tipo_uso" id="tipo_uso" value="<?php echo $tipo_uso; ?>" />
+		<input type="hidden" name="cobertura_auto" id="cobertura_auto" value="<?php echo $cobertura_auto; ?>" />
+		<input type="hidden" name="valor_factura" id="valor_factura" value="<?php echo $valor_factura; ?>" />
+		<input type="hidden" name="forma_pago" id="forma_pago" value="<?php echo $forma_pago; ?>" />
+		<input type="hidden" name="idEmpresa" id="idEmpresa" value="<?php echo $idEmpresa; ?>" />
+		<input type="hidden" name="idUsuario" id="idUsuario" value="<?php echo $idUsuario; ?>" />
+		<input type="hidden" name="ramoInterno" id="ramoInterno" value="<?php echo $ramoInterno; ?>" />
+		<input type="hidden" name="idInterno" id="idInterno" value="<?php echo $idInterno; ?>" />
+		<input type="hidden" name="idActividad" id="idActividad" value="<?php echo $idActividad; ?>" />
+		<!-- --><input type="hidden" name="tipoLineaPersonal" id="tipoLineaPersonal" value="<?php echo $tipoLineaPersonal; ?>" />
+		<!-- --><input type="hidden" name="recId" id="recId" value="<?php echo $recId; ?>" />
+		<input type="hidden" name="ver" id="ver" value="<?php echo $ver; ?>" />
+		<input type="hidden" name="tipoForm" id="tipoForm" value="<?php echo $tipoForm; ?>" />
+		<input type="hidden" name="wsMarca" id="wsMarca" value="<?php echo $wsMarca; ?>" />
+		<input type="hidden" name="wsYear" id="wsYear" value="<?php echo $wsYear; ?>" />
+		<!-- <input type="text" name="wsModelo_Aba" id="wsModelo_Aba" /> -->
+		<input type="hidden" name="muestra" id="muestra" value="Formularios" />
+		<input type="hidden" name="poblacion" id="poblacion" value="<?php echo $poblacion; ?>" />
+		<input type="hidden" name="marca" id="marca" value="<?php echo $marca; ?>" />
+		<input type="hidden" name="subMarcaAna" id="subMarcaAna" value="<?php echo $subMarcaAna; ?>" />
+        
+		<input type="hidden" name="wsAseguradoraParticular" id="wsAseguradoraParticular" value="ANA" />
+ 		<input type="hidden" name="wsAplicarComplemento" id="wsAplicarComplemento" value="01" />
+    <tr>
+    	<td>
+        	<strong>Seleccione Vehiculo:</strong>
+			<?php calculoVehiculo($wsYear, $marca, $subMarcaAna, $NegocioXML, $UsuarioXML, $ClaveXML, '100'); ?>
+        </td>
+    </tr>
+    <tr>
+    	<td align="right">
+			<input type="submit" value="Continuar" />
+        </td>
+    </tr>
+</form>
+<?php 
+}
+?>
+</table>
+<?php
+}// Fin Complemento para la Aseguradora
+
+// Iniciamos Aplicacion de Complemento Aseguradora
+if($wsAplicarComplemento == "01"){
+//		echo "estas en la segunda Parte.";
+//- Inicio Calculamos la Cotizacion Por El Ws
+
+	$amisXML = $vehiculoAna; //"B0230030";
+	$modeloXML = $wsYear; // "2010"; 
+	$estadoXML = $rowCalculamosEstado['Clave']."0".$rowCalculamosEstado['Clave']; //"31031";
+	$poblacionXML = $poblacion; //"MERIDA";
+	$nombreXML = "";
+	$paternoXML = "";
+	$maternoXML = "";
+	
+	$fecemisionXML = date('d/m/Y'); //"21/03/2014";
+	$feciniciovigXML = date('d/m/Y'); //"21/03/2014";
+		$fecterminovigArray = explode('/',date('m/d/Y', strtotime(date('m/d/Y').' +1 year'))); //"21/03/2015";		
+	$fecterminovigXML = $fecterminovigArray[1]."/".$fecterminovigArray[0]."/".$fecterminovigArray[2]; 
+	$bonificacionXML = "0";
+	$formapagoXML = $formaPagoArray[$forma_pago];
+	
+
+$xml='&lt;?xml version="1.0" encoding="utf-8"?&gt;
+&lt;transacciones xmlns=""&gt;
+	&lt;transaccion version="1" tipotransaccion="C" cotizacion="" negocio="'.$NegocioXML.'" tiponegocio=""&gt;
+		&lt;vehiculo id="1" amis="'.$amisXML.'" modelo="'.$modeloXML.'" descripcion="" uso="1" servicio="1" plan="1" motor="" serie="" repuve="" placas="" conductor="" conductorliciencia="" conductorfecnac="" conductorocupacion="" estado="'.$estadoXML.'" poblacion="'.$poblacionXMLs.'" color="01" dispositivo="" fecdispositivo="" tipocarga="" tipocargadescripcion=""&gt;
+			&lt;cobertura id="02" desc="" sa="" tipo="3" ded="5" pma=""/&gt; 
+			&lt;cobertura id="04" desc="" sa="" tipo="3" ded="10" pma=""/&gt;
+			&lt;cobertura id="06" desc="" sa="300000" tipo="" ded="" pma=""/&gt;
+			&lt;cobertura id="07" desc="" sa="" tipo="" ded="" pma=""/&gt;
+			&lt;cobertura id="10" desc="" sa="" tipo="B" ded="" pma=""/&gt;
+			&lt;cobertura id="13" desc="" sa="2" tipo="" ded="" pma=""/&gt;
+			&lt;cobertura id="25" desc="" sa="500000" tipo="" ded="" pma=""/&gt;
+			&lt;cobertura id="26" desc="" sa="500000" tipo="" ded="" pma=""/&gt;
+			&lt;cobertura id="34" desc="" sa="2000000" tipo="" ded="" pma=""/&gt;
+		&lt;/vehiculo&gt;
+		&lt;asegurado id="" nombre="'.$nombreXML.'" paterno="'.$paternoXML.'" materno="'.$maternoXML.'" calle="" numerointerior="" numeroexterior="" colonia="" poblacion="" estado="'.$estadoXML.'" cp="" pais="" tipopersona=""/&gt;
+		&lt;poliza id="" tipo="A" endoso="" fecemision="'.$fecemisionXML.'" feciniciovig="'.$feciniciovigXML.'" fecterminovig="'.$fecterminovigXML.'" moneda="0" bonificacion="'.$bonificacionXML.'" formapago="'.$formapagoXML.'" agente="03973" tarifacuotas="1303" tarifavalores="1303" tarifaderechos="1303" beneficiario="" politicacancelacion="1"/&gt;
+		&lt;prima primaneta="" derecho="" recargo="" impuesto="" primatotal="" comision=""/&gt;
+		&lt;recibo id="" feciniciovig="" fecterminovig="" primaneta="" derecho="" recargo="" impuesto="" primatotal="" comision="" cadenaoriginal="" sellodigital="" fecemision="" serie="" folio="" horaemision="" numeroaprobacion="" anoaprobacion="" numseriecertificado=""/&gt;
+		&lt;error/&gt;
+	&lt;/transaccion&gt;
+&lt;/transacciones&gt;';
+	 
+
+$urlConeccion = "https://server.anaseguros.com.mx/ananetws/servicetext.asmx?WSDL";
+
+$client = new nusoap_client($urlConeccion, false);
+
+$err = $client->getError();
+if ($err) { echo '<h2>Constructor error</h2><pre>' . $err . '</pre>'; }
+
+$xml2 = '<TransaccionText2 xmlns="http://tempuri.org/">
+			<XML>'.$xml.'</XML>
+			<Tipo>'.$TipoXML.'</Tipo>
+			<Usuario>'.$UsuarioXML.'</Usuario>
+			<Clave>'.$ClaveXML.'</Clave>
+		</TransaccionText2>';
+
+$client->soap_defencoding = 'utf-8';
+$client->decode_utf8 = false;
+
+$result = $client->call('transaccionText2', $xml2, 'http://tempuri.org/', 'http://tempuri.org/TransaccionText2', false, false, false, false);
+//- Fin Calculamos la Cotizacion Por El Ws	
+
+// Proceso para almacenamiento del XML obtenido
+$respuestaXML = htmlspecialchars_decode($client->responseData, ENT_NOQUOTES);
+
+
+$cosasQuitaXml = array('<?xml version="1.0" encoding="utf-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><soap:Body><TransaccionText2Response xmlns="http://tempuri.org/"><TransaccionText2Result>','</TransaccionText2Result></TransaccionText2Response></soap:Body></soap:Envelope>');
+$cosasPonerXml = array('','');
+
+$respuestaXmlDepurada = str_replace($cosasQuitaXml, $cosasPonerXml, $respuestaXML);
+$fileXML = "xmlTodos/ana/".$recId."_".date('dmY_Gis').'.xml';
+file_put_contents($fileXML, $respuestaXmlDepurada);
+/*
+// Check for a fault
+if ($client->fault) {
+	echo '<h2>Fault</h2><pre>';
+	print_r($result);
+	echo '</pre>';
+} else {
+	// Check for errors
+	$err = $client->getError();
+	if ($err) {
+		// Display the error
+		echo '<h2>Error</h2><pre>' . $err . '</pre>';
+	} else {
+		// Display the result
+		echo '<h2>Result</h2><pre>';
+		print_r($result);
+		echo '</pre>';
+	}
+}
+*/
+//--> echo '<h2>Request</h2><pre>' . htmlspecialchars($client->request, ENT_QUOTES) . '</pre>';
+//--> echo '<h2>Response</h2><pre>' . htmlspecialchars($client->response, ENT_QUOTES) . '</pre>';
+
+ /* Proceso Para Cuadro Comparativo */
+ if(file_exists($fileXML)){ // el archivo es necesario que se depuere hasta dejarlo lo mas limpio en Formato XML
+	//echo "<br>Si Existe el Archivo<br>";
+	
+	 $datosCotizacion  =  simplexml_load_file($fileXML); 
+	if($datosCotizacion){
+		//echo "Si Cargamos el XML";
+
+		foreach($datosCotizacion->transaccion as $cotizacion){
+//--> Guardamos Info en la Tabla Comparativa
+
+//echo "<pre>";
+	//print_r($cotizacion);
+//echo "</pre>";
+
+$idActividad = $idActividad;
+$idCliente = $idEmpresa;
+$idUsuario = $idUsuario;
+$descripcion = $cotizacion->vehiculo['descripcion'];
+$modelo = $wsYear;
+$uso = $tipo_uso;
+$aseguradora = "ANA"; //
+
+$prima_danosMateriales = "VCMS";//$cotizacion->InformacionPaquetes->ListaPaquetes->PaqueteCoberturas->CoberturasObligatorias->Cobertura[0]->Deducible; // "VCMS";
+$prima_roboTotal = "VCMS";//$cotizacion->InformacionPaquetes->ListaPaquetes->PaqueteCoberturas->CoberturasObligatorias->Cobertura[1]->Deducible;//"VCMS";
+$prima_rc = str_replace('.00','',str_replace(',','',$cotizacion->vehiculo->cobertura[3]['sa'])) + str_replace('.00','',str_replace(',','',$cotizacion->vehiculo->cobertura[4]['sa']));//"3000000";
+$prima_gastosMedicos = str_replace('.00','',str_replace(',','',$cotizacion->vehiculo->cobertura[9]['sa'])); //"200000";
+$prima_asesoriaJuridica = $cotizacion->vehiculo->cobertura[10]['sa']; // "AMPARADA";
+$prima_asistenciaVial = $cotizacion->vehiculo->cobertura[11]['sa']; // "AMPARADA";
+$prima_extensionRc = "EXCLUIDO";
+$prima_muertaAccConducto = str_replace('.00','',str_replace(',','',$cotizacion->vehiculo->cobertura[12]['sa'])); //"100000";
+$prima_rcMuerteTerceros = str_replace('.00 POR EVENTO','',str_replace(',','',$cotizacion->vehiculo->cobertura[8]['sa']));  //"2000000";
+
+	$arrayPagosAna['C'] = "CONTADO";
+	$arrayPagosAna['U'] = "CUATRIMESTRAL";
+	$arrayPagosAna['S'] = "SEMESTRAL";
+	$arrayPagosAna['T'] = "TRIMESTRAL";
+	$formaPagoAna = (string) $cotizacion->poliza['formapago'];
+
+$formaPago = $arrayPagosAna[$formaPagoAna];
+$total = $primaTotal = $cotizacion->prima['primatotal'];
+$primerRecibo = $cotizacion->recibo['0']['primatotal'];
+$subSecuenteRecibo = $cotizacion->recibo['1']['primatotal'];
+
+$sqlComparativaInsert = "
+	Insert Into 
+		`ws_comparativo`
+			(
+				`idActividad`
+				,`idCliente`
+				,`idUsuario`
+				,`marca`
+				,`descripcion`
+				,`modelo`
+				,`estadoCirculacion`
+				,`codigoPostal`
+				,`uso`
+				,`cobertura`
+				,`aseguradora`
+				,`prima_danosMateriales`
+				,`prima_roboTotal`
+				,`prima_rc`
+				,`prima_gastosMedicos`
+				,`prima_asesoriaJuridica`
+				,`prima_asistenciaVial`
+				,`prima_extensionRc`
+				,`prima_muertaAccConducto`
+				,`prima_rcMuerteTerceros`
+				,`formaPago`
+				,`total`
+				,`primerRecibo`
+				,`subSecuenteRecibo`
+			)
+			Values
+			(
+				'$idActividad'
+				,'$idCliente'
+				,'$idUsuario'
+				,'$wsMarca'
+				,'$descripcion'
+				,'$modelo'
+				,'$estado'
+				,'$codigo_postal'
+				,'$uso'
+				,'$cobertura_auto'
+				,'$aseguradora'
+				,'$prima_danosMateriales'
+				,'$prima_roboTotal'
+				,'$prima_rc'
+				,'$prima_gastosMedicos'
+				,'$prima_asesoriaJuridica'
+				,'$prima_asistenciaVial'
+				,'$prima_extensionRc'
+				,'$prima_muertaAccConducto'
+				,'$prima_rcMuerteTerceros'
+				,'$formaPago'
+				,'$total'
+				,'$primerRecibo'
+				,'$subSecuenteRecibo'
+			)
+						";
+
+DreQueryDB($sqlComparativaInsert);
+
+		}// foreach $marcas
+	}// if $vehiculos
+}// if file_exists
+
+// Aqui reenviamos a la sig. aseguradora.
+$wsModelo = $_REQUEST['wsModelo'];
+$estado = $_REQUEST['estado'];
+$codigo_postal = $_REQUEST['codigo_postal'];
+$tipo_uso = $_REQUEST['tipo_uso'];
+$cobertura_auto = $_REQUEST['cobertura_auto'];
+$valor_factura = $_REQUEST['valor_factura'];
+$forma_pago = $_REQUEST['forma_pago'];
+$idEmpresa = $_REQUEST['idEmpresa'];
+$idUsuario = $_REQUEST['idUsuario'];
+$ramoInterno = $_REQUEST['ramoInterno'];
+$idInterno = $_REQUEST['idInterno'];
+$idActividad = $_REQUEST['idActividad'];
+$tipoLineaPersonal = $_REQUEST[''];
+$recId = $_REQUEST['recId'];
+$ver = $_REQUEST['ver'];
+$tipoForm = $_REQUEST['tipoForm'];
+$wsMarca = $_REQUEST['wsMarca'];
+$wsYear = $_REQUEST['wsYear'];
+$wsAseguradoraParticular = "FIN";  //ANA  FIN
+
+$urlReturnActividad = $_SERVER['PHP_SELF'];
+$urlReturnActividad .= "?wsModelo=".$wsModelo;
+$urlReturnActividad .= "&estado=".$estado;
+$urlReturnActividad .= "&codigo_postal=".$codigo_postal;
+$urlReturnActividad .= "&tipo_uso=".$tipo_uso;
+$urlReturnActividad .= "&cobertura_auto=".$cobertura_auto;
+$urlReturnActividad .= "&valor_factura=".$valor_factura;
+$urlReturnActividad .= "&forma_pago=".$forma_pago;
+$urlReturnActividad .= "&idEmpresa=".$idEmpresa;
+$urlReturnActividad .= "&idUsuario=".$idUsuario;
+$urlReturnActividad .= "&ramoInterno=".$ramoInterno;
+$urlReturnActividad .= "&idInterno=".$idInterno;
+$urlReturnActividad .= "&idActividad=".$idActividad;
+$urlReturnActividad .= "&tipoLineaPersonal=".$tipoLineaPersonal;
+$urlReturnActividad .= "&recId=".$recId;
+$urlReturnActividad .= "&ver=".$ver;
+$urlReturnActividad .= "&tipoForm=".$tipoForm;
+$urlReturnActividad .= "&wsMarca=".$wsMarca;
+$urlReturnActividad .= "&wsYear=".$wsYear;
+$urlReturnActividad .= "&wsAseguradoraParticular=".$wsAseguradoraParticular;
+$urlReturnActividad .= "&muestra=Formularios";
+
+//echo "<pre>";
+	//echo $urlReturnActividad;
+//echo "</pre>";
+//header("Location: $urlReturnActividad");
+?>
+<script>
+	window.open('<?php echo $urlReturnActividad; ?>', '_self');
+</script>
+<?php
+}// Fin Aplicacion de Complemento Aseguradora
+?>

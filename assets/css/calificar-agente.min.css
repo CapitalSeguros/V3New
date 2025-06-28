@@ -1,0 +1,81 @@
+body {font-family: 'Raleway', sans-sherif;background: #133b78;color: #123283;}
+/*body > section {padding: 30px 60px;}*/
+h1, h2, h3 { color: #123283; }
+hr {border-color: #9cacd5;}
+footer {padding: 20px; background: #2a2a2a;}
+/* ID */
+	#btnGuardar {font-size: 0.9rem;border-radius: 4px;}
+/* Containers */
+	.card {border-radius: 0.3rem;}
+	.segment-info-agent {/*padding: 1% 25%;*/max-width: 60%;max-height: 10%;object-fit: contain;}
+	.cont-text-start {padding: 15px 0px;}
+	.cont-photo-profile {text-align: center;max-height: 200px;max-width: 150px;padding-right: 15px;}
+    .segment-questions {padding: 30px;border: 1px solid #cfe3eb;border-radius: 8px;background: #f2f7f9;}
+    .container-question {margin-bottom: 10px;padding: 5px;border-radius: 5px;transition: 0.5s;}
+    .alert-primary {background: #ddebff;border-color: #ddebff;}
+    .container-stars {width: 100%;height: 50px;position: relative;overflow: hidden;margin: 0;display: flex;align-items: center;justify-content: space-evenly;flex-direction: row-reverse;}
+    .content-stars {width: 30%;}
+    .content-opinion {width: 80%;}
+    .container-client-info {padding: 15px;background: #fdfff5;border: 1px solid #E3F7A3;border-radius: 8px;}
+	/*.form-check {padding-left: 1.0rem;}*/
+	.items-quiz {justify-items: start;align-items: start;}
+/* Bottons */
+	.check-btn {padding: 6px 10px;background: white;margin-bottom: 5px;border: 1px solid #ddd;border-radius: 5px;cursor: pointer;transition: 0.3s;width: -webkit-fill-available;height: -webkit-fill-available;}
+	.check-btn:hover {background: #528DA5;color: white;border-color: #528DA5;transition: 0.3s;}
+	.check-btn.active-op {background: #515081;color: white;border-color: #515081;}
+/* Texts */
+	.text-sub-info {font-size: 0.8rem;color: #5a6a95;}
+/* Icons */
+    .icon-star {font-size: 30px;}
+    p.container-stars label {margin: 0;float: right;color: #286090;cursor: pointer;transition: 0.3s;}
+/* Inputs */
+    input, select, textarea {font-size: 0.9rem;}
+    input.form-control, textarea.form-control, select.form-control {color: #2c5799;font-size: 0.9rem;}
+    .container-stars input {/*position: absolute;top: -100px;*/display: none;}
+    p.container-stars label:hover,
+    p.container-stars label:hover ~ label,
+    p.container-stars input:checked ~ label {color: #f4e105;-webkit-transform:scale(1.3);-webkit-transition:all .2s ease-in-out;}
+    .check-btn > input {display: none;}
+/* Images */
+	.segment-info-agent img {width: 100%;height: calc(100% - 60px);object-fit: contain;border-radius: 4px; }
+/* Others */
+	.shadow-b {box-shadow: 0px 0px 3px 3px #ddd;}
+    .not-response {background: #ffc8c8;transition: 0.5s;}
+    .pd-left-add {padding-left: 15px;}
+    .pd-right-add {padding-right: 15px;}
+/*Media Query*/	
+@media screen and (max-width: 990px) {
+	.content-stars {width: 50%;}
+	.items-quiz {flex-wrap: wrap;}
+	.items-quiz > .form-check {min-width: 50%;justify-content: flex-start;}
+	/*.col-grid-4 {grid-template-columns: repeat(3, 1fr);}*/
+}
+
+@media screen and (max-width: 768px) {
+	h5 {font-size: 0.9rem;}
+	.segment-info-agent {max-width: 75%;max-height: 100px;}
+	.segment-info-agent img {width: 80%;}
+	.segment-questions {padding: 15px;}
+	.cont-photo-profile {width: 100%;text-align: right;}
+	.cont-text-start {padding-left: 0px;}
+	.content-stars {width: 100%;}
+	.content-opinion {width: 100%;}
+	.items-quiz {flex-direction: column;align-items: flex-start;}
+	.container-other-opinion {padding: 0px 30px;}
+	.container-client-info > .col-md-12:nth-child(2) {flex-direction: column;align-items: flex-start;}
+	.container-client-info > .col-md-12:nth-child(2) > .col-md-6 {padding: 0px;width: 100%;}
+	.col-grid-4 {grid-template-columns: repeat(3, 1fr);}
+	/*.check-btn {margin: 0px 7px 5px;}*/
+	.swal2-popup {width: 26rem;}
+}
+
+@media screen and (max-width: 420px) {
+	.segment-info-agent {max-width: 100%;}
+	.segment-info-agent img {width: 50%;}
+	.cont-text-start {padding: 10px;}
+	.cont-text-start {padding-left: 0px;}
+	.content-stars {width: 90%;}
+	.col-grid-4 {grid-template-columns: repeat(1, 1fr);}
+	/*.check-btn {width: 100%;}*/
+	.swal2-popup {width: 20rem;}
+}

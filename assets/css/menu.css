@@ -1,0 +1,274 @@
+/*..::::::::::::::::::::================ CSS MENU PRINCIPAL ================::::::::::::::::::::..*/
+.navbar {
+    border: 0px;
+    border-radius: 0px;
+    margin-bottom: 0px;
+}
+.navbar-default {
+    background-color: #361866;
+    z-index: 1;
+}
+.navbar-fixed-top {
+    border-width: 0px 0px 0px;
+}
+
+}
+.menu-navbar > .navbar-collapse.menu-navbar {
+    margin-right: -15px!important;
+    margin-left: -15px!important;
+}
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+    font-size: 14px;
+}
+/*.navbar-default .navbar-nav > li > a:after {
+    content: "";
+    background:#8ed60d;
+    left: 0;
+    bottom: 0;
+    height: 0;
+    position: absolute;
+    width: 100%;
+    display: block;
+    
+}*/
+.navbar {
+  min-height: 40px;
+  margin-bottom: 0px;
+  z-index: 1000;
+}
+.navbar-default .navbar-nav > li > a:after,
+.navbar-toggle:after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    -webkit-transition: 0.3s all;
+       -moz-transition: 0.3s all;
+         -o-transition: 0.3s all;
+        -ms-transition: 0.3s all;
+            transition: 0.3s all;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus,
+.navbar-default .navbar-nav > li > a.active {
+    color: #fff;
+    background: transparent;
+}
+.navbar-default .navbar-nav > li > a:after,
+.navbar-default .navbar-toggle:after {
+    width: 100%;
+    height: 0;
+    bottom: 0;
+    left: 0;
+    background: #563091;
+}
+.navbar-default .navbar-nav > li > a:hover:after,
+.navbar-default .navbar-nav > li > a:active:after,
+.navbar-default .navbar-toggle:hover:after,
+.navbar-default .navbar-toggle:active:after {
+    height: 100%;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #fff;
+    background: #563091;
+}
+.navbar-nav {
+    margin: 0px -15px;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #2e125a;
+}
+.navbar-toggle {
+  position: relative;
+  float: right;
+  padding: 13px 9px;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  background-color: transparent;
+  /*background-color: #270d4f;*/
+  border: 0px;
+  border-radius: 0px;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: transparent;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #fff;
+}
+.navbar-toggle .icon-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 0px;
+}
+
+.submenu-secciones {
+    width: 28px;
+    height: 28px;
+    font-size: 26px;
+    text-align: center;
+    color: #fff;
+	float: left;
+    /*background: #8ed60d;*/
+    position: relative;
+/*	margin-top:-10%;
+    left: 76px;*/
+    /* margin-top: -64px; */
+    border-radius: 50%;
+	margin-top: 20px;
+	margin-right: 10px;
+}
+.submenu-secciones:hover,
+.submenu-secciones:focus {
+    color: #fff;
+    /* background: #472380; */
+    outline: 0;
+}
+.submenu-secciones-front,
+.submenu-secciones-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+}
+.submenu-secciones-front,
+.submenu-secciones-back {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transition: -webkit-transform 0.3s;
+          transition: transform 0.3s;
+}
+.submenu-secciones-front {
+    background: #472380;   
+}
+.submenu-secciones-back {
+    background: #472380;
+    -webkit-transform: rotateY(-180deg);
+          transform: rotateY(-180deg);
+}
+.submenu-secciones.flipped .submenu-secciones-front {
+  -webkit-transform: rotateY(-180deg);
+          transform: rotateY(-180deg);
+}
+
+.submenu-secciones.flipped .submenu-secciones-back {
+  -webkit-transform: rotateY(0);
+          transform: rotateY(0);
+}
+.submenu-secciones i.fa-angle-right,
+.submenu-secciones i.fa-angle-left {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -13px;
+    margin-left: -4px;
+}
+.submenu-secciones i.fa-angle-left {
+    margin-left: -5px;
+}
+/*..::::::::::::::::::::================ CSS MENU SIDEBAR ================::::::::::::::::::::..*/
+.menu-sidebar {
+  width: 220px;
+  height: 100%;
+  background: none;
+  position: fixed;
+  padding-top: 137px;
+  top: 0;
+  left: 0;
+  margin-left: -240px;
+  z-index: 2;
+  -webkit-transition: 0.3s all;
+       -moz-transition: 0.3s all;
+         -o-transition: 0.3s all;
+        -ms-transition: 0.3s all;
+            transition: 0.3s all;
+}
+
+/* .menu-sidebar .list-group {
+	margin-top: 136px;
+} */
+.menu-sidebar .list-group {
+    width: 200px;
+    height: 100%; 
+    float:left;
+    overflow-y: auto;
+	overflow-x: hidden;
+}
+.menu-sidebar .list-group .list-group-item {
+	border: 0px;
+}
+.menu-sidebar .list-group .list-group-item:first-child {
+    border-top-left-radius: 0px!important;
+    border-top-right-radius: 0px!important;
+}
+.menu-sidebar .list-group .list-group-item:last-child {
+    border-bottom-right-radius: 0px!important;
+    border-bottom-left-radius: 0px!important;
+}
+.menu-sidebar-close {
+    margin-left: -240px;
+}
+.menu-sidebar-open {
+    margin-left: 0px;
+}
+.menus-open {
+	overflow: hidden;
+}
+.main-page-open {
+	margin-left: 215px;
+}
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    background: #333;
+    left: 0;
+    top: 137px;
+	opacity: 0;
+    height: 100%;
+	width: 100%;
+	margin-left: 0px;
+	-webkit-transition: 0.3s all;
+       -moz-transition: 0.3s all;
+         -o-transition: 0.3s all;
+        -ms-transition: 0.3s all;
+            transition: 0.3s all;
+}
+.menus-open .sidebar-overlay {
+	left: 200px;
+    z-index: 3;
+    display: block;
+	opacity: .1;
+}
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav > li > a:after {
+        width: 0;
+        height: 100%;
+        bottom: 0;
+        left: 0;
+        background: #563091;
+    }
+    .navbar-default .navbar-nav > li > a:hover:after {
+        width: 100%;
+    }
+	.menu-sidebar {
+		padding-top: 125px;
+	}
+	.sidebar-overlay {
+		top: 125px;
+	}
+}
+@media (min-width: 768px) and (max-width: 991px) {
+	.navbar-default .navbar-nav > li > a {
+		font-size: 13px;
+	}
+}

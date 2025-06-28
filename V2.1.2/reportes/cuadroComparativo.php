@@ -1,0 +1,257 @@
+<?php
+session_start();
+extract($_REQUEST);
+include('../config/funcionesDre.php');
+require('../fdpf/fpdf.php');
+$conexion = DreConectarDB();
+
+$sqlInfoCompaGeneral = "
+	Select 
+		* 
+		,`usuarios`.`NOMBRE` As `vendedor`
+		,`empresas`.`RAZON_SOCIAL` As `cliente`
+	From 
+		`usuarios` Inner Join `ws_comparativo`
+		On
+		`usuarios`.`VALOR` = `ws_comparativo`.`idUsuario` Inner Join `empresas`
+		On
+		`ws_comparativo`.`idCliente` =   `empresas`.`CLAVE`
+	Where 
+		`ws_comparativo`.`idActividad` = '$idActividad'
+		And
+		`ws_comparativo`.`idCliente` = '$idCliente'
+					   ";
+$resInfoCompaGeneral = DreQueryDB($sqlInfoCompaGeneral);
+$resInfoCompaGeneralEncabezado = DreQueryDB($sqlInfoCompaGeneral);
+$rowInfoCompaGeneralEncabezado = mysql_fetch_assoc($resInfoCompaGeneralEncabezado);
+
+/*
+$sqlInfoCompaAseguradoras = "
+	Select * From 
+		`ws_comparativo`
+	Where
+		`idActividad` = '$idActividad'
+		And
+		`idCliente` = '$idCliente'
+	Order By
+		`aseguradora` Asc
+							";
+$resInfoCompaAseguradoras = DreQueryDB($sqlInfoCompaAseguradoras);
+
+
+//echo "<pre>";
+	//echo $sqlInfoCompaGeneral;
+//echo "</pre>";
+
+while($rowInfoCompaAseguradoras = mysql_fetch_assoc($resInfoCompaAseguradoras)){
+	$infoPorAseguradora[] = array(
+	    "aseguradora" => $rowInfoCompaAseguradoras['aseguradora']
+	    ,"contado" => $rowInfoCompaAseguradoras['total_contado']
+	    ,"semestral" => $rowInfoCompaAseguradoras['total_semestral']
+	    ,"trimestral" => $rowInfoCompaAseguradoras['total_trimestral']
+	    ,"mensual" => $rowInfoCompaAseguradoras['total_mensual']
+	);
+}
+*/
+
+//echo "<pre>";
+	//print_r($rowInfoCompaGeneral);
+	//print_r($infoPorAseguradora);
+	//echo $sqlInfoCompaGeneral;	
+//echo "</pre>";
+
+
+
+class PDF extends FPDF
+{
+//Cabecera de página
+function Header()
+{
+
+    //Logo
+    $this->Image('../img/capsys.jpg',5,5,50);
+    $this->Image('../img/logo_agenteCapital.jpg',235,9,50);
+	//Título
+    $this->SetFont('Arial','B',20);
+    $this->Cell(285,30,'Cotizacion Cuadro Comparativo',0,0,'C');
+    $this->SetFont('Arial','',6);
+    $this->Cell(-14,42,'CEDULA:CEOC4710318AA',0,0,'R');
+
+}
+//Pie de página
+function Footer()
+{
+    //Posición: a 1,5 cm del final
+    $this->SetY(-21);
+    //Arial italic 8
+    $this->SetFont('Arial','I',10);
+//--> 'Fecha de Impresi'.utf8_decode('ó').'n: '.date('d-m-Y')
+$leyendaVigencia = "La presente cotizacion tiene una vigencia de 15 dias naturales a partir de su fecha de entrega. Cotizacion sujeta a cambios de tarifa sin previo aviso.";
+$leyendaDefinicion = "VCMS: Valor Comercial al Momento del Siniestro.";
+	$this->MultiCell(0,5,$leyendaVigencia,0,'J',0);
+	$this->Ln(-1);
+	$this->MultiCell(0,5,$leyendaDefinicion,0,'J',0);
+	$this->Ln();
+    //Arial italic 8
+    $this->SetFont('Arial','I',8);
+    //Número de página
+    $this->Cell(0,5,'Page '.$this->PageNo().'/{nb}',0,0,'C');
+}
+}
+#Creamos el objeto pdf (con medidas en milímetros): 
+$pdf=new PDF('L', 'mm', 'A4');
+
+#Establecemos los márgenes izquierda, arriba y derecha: 
+$pdf->SetMargins(5, 5 , 5); 
+
+#Establecemos el margen inferior: 
+//$pdf->SetAutoPageBreak(true,25);  
+
+$pdf->AddPage();
+
+/* Inicio de Encabezado */
+$pdf->SetFillColor(2,56,113);
+$pdf->SetDrawColor(185,185,185);
+$pdf->SetFont('Arial','B',8);
+$pdf->Ln();
+$pdf->Cell(270,5,'Feha de Cotizaci'.utf8_decode('ó').'n: '.date('d-m-Y h:i:s a'),0,0,0,0);
+$pdf->Ln();
+	$pdf->SetFont('Arial','B',8);
+	$pdf->SetTextColor(255,255,255);
+	$pdf->Cell(22,5,'PROSPECTO:',1,0,1,1);	
+	$pdf->SetTextColor(000,000,000);		
+	$pdf->Cell(263,5,$rowInfoCompaGeneralEncabezado['cliente'],1,0,1,0);	
+$pdf->Ln();
+	$pdf->SetTextColor(255,255,255);
+	$pdf->Cell(22,5,'VENDEDOR:',1,0,1,1);	
+	$pdf->SetTextColor(000,000,000);		
+	$pdf->Cell(263,5,$rowInfoCompaGeneralEncabezado['vendedor'],1,0,1,0);
+$pdf->Ln();
+	$pdf->SetTextColor(255,255,255);
+	$pdf->Cell(22,5,'DESCRIPCION:',1,0,1,1);	
+	$pdf->SetTextColor(000,000,000);
+	$pdf->MultiCell(263,5,$rowInfoCompaGeneralEncabezado['descripcion'],1,'L',0);
+$y = $pdf->GetY();				
+$pdf->Ln();
+$pdf->SetXY(5,$y);
+	$pdf->SetTextColor(255,255,255);
+	$pdf->Cell(22,5,'MODELO:',1,0,1,1);	
+	$pdf->SetTextColor(000,000,000);		
+	$pdf->Cell(121,5,$rowInfoCompaGeneralEncabezado['modelo'],1,0,1,0);
+	$pdf->SetTextColor(255,255,255);
+	$pdf->Cell(22,5,'USO:',1,0,1,1);	
+	$pdf->SetTextColor(000,000,000);		
+	$pdf->Cell(120,5,$rowInfoCompaGeneralEncabezado['uso'],1,0,1,0);
+$pdf->Ln(9);
+
+/* Fin de Encabezado */
+$pdf->SetFont('Arial','B',7);
+$pdf->SetTextColor(255,255,255);
+$pdf->SetDrawColor(255,255,255);
+$y = $pdf->GetY();
+$pdf->MultiCell(50,6,'Cobertura Amplia',1,'C',1);
+$pdf->SetXY(55,$y);
+$pdf->MultiCell(24,6,'Danos Materiales',1,'C',1);
+$pdf->SetXY(79,$y);
+$pdf->MultiCell(16,6,'Robo Total',1,'C',1);
+$pdf->SetXY(95,$y);
+$pdf->MultiCell(29,6,'Responsabilidad Civil',1,'C',1);
+$pdf->SetXY(124,$y);
+$pdf->MultiCell(37,6,'Gastos Medicos Ocupantes',1,'C',1);
+$pdf->SetXY(161,$y);
+$pdf->MultiCell(24,6,'Asesoria Juridica',1,'C',1);
+$pdf->SetXY(185,$y);
+$pdf->MultiCell(21,6,'Asistencia Vial',1,'C',1);
+$pdf->SetXY(206,$y);
+$pdf->MultiCell(20,6,'Extension RC',1,'C',1);
+$pdf->SetXY(226,$y);
+$pdf->MultiCell(31,6,'Muerte Acc Conductor',1,'C',1);
+$pdf->SetXY(257,$y);
+$pdf->MultiCell(33,6,'RC Exceso Muerte Ter.',1,'C',1);
+
+$pdf->SetTextColor(000,000,000);
+$pdf->SetDrawColor(185,185,185);
+$y = $pdf->GetY();
+$pdf->MultiCell(50,6,'Deducibles',1,'C',0);
+$pdf->SetXY(55,$y);
+$pdf->MultiCell(24,6,'5%',1,'C',0);
+$pdf->SetXY(79,$y);
+$pdf->MultiCell(16,6,'10%',1,'C',0);
+$pdf->SetXY(95,$y);
+$pdf->MultiCell(29,6,'S/D',1,'C',0);
+$pdf->SetXY(124,$y);
+$pdf->MultiCell(37,6,'S/D',1,'C',0);
+$pdf->SetXY(161,$y);
+$pdf->MultiCell(24,6,'S/D',1,'C',0);
+$pdf->SetXY(185,$y);
+$pdf->MultiCell(21,6,'S/D',1,'C',0);
+$pdf->SetXY(206,$y);
+$pdf->MultiCell(20,6,'S/D',1,'C',0);
+$pdf->SetXY(226,$y);
+$pdf->MultiCell(31,6,'S/D',1,'C',0);
+$pdf->SetXY(257,$y);
+$pdf->MultiCell(33,6,'S/D',1,'C',0);
+
+while($rowInfoCompaGeneral = mysql_fetch_assoc($resInfoCompaGeneral)){
+	extract($rowInfoCompaGeneral);
+// Ciclo
+$pdf->ln();
+$pdf->SetTextColor(111,111,111);
+$pdf->SetDrawColor(185,185,185);
+$pdf->SetFillColor(185,185,185);
+$y = $pdf->GetY();
+$pdf->MultiCell(285,1,'--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------',1,'C',1);
+$pdf->SetTextColor(000,000,000);
+$pdf->SetDrawColor(185,185,185);
+$y = $pdf->GetY();
+$pdf->MultiCell(50,6,'- '.$aseguradora.' ['.$NoCotizacion.']',1,'L',0);
+$pdf->SetXY(55,$y);
+$pdf->MultiCell(24,6,$prima_danosMateriales,1,'C',0);
+$pdf->SetXY(79,$y);
+$pdf->MultiCell(16,6,$prima_roboTotal,1,'C',0);
+$pdf->SetXY(95,$y);
+$pdf->MultiCell(29,6,$prima_rc,1,'C',0);  //--> number_format($prima_rc,2,'.',',')
+$pdf->SetXY(124,$y);
+$pdf->MultiCell(37,6,$prima_gastosMedicos,1,'C',0);
+$pdf->SetXY(161,$y);
+$pdf->MultiCell(24,6,$prima_asesoriaJuridica,1,'C',0);
+$pdf->SetXY(185,$y);
+$pdf->MultiCell(21,6,$prima_asistenciaVial,1,'C',0);
+$pdf->SetXY(206,$y);
+$pdf->MultiCell(20,6,$prima_extensionRc,1,'C',0);
+$pdf->SetXY(226,$y);
+$pdf->MultiCell(31,6,$prima_muertaAccConducto,1,'C',0);
+$pdf->SetXY(257,$y);
+$pdf->MultiCell(33,6,$prima_rcMuerteTerceros,1,'C',0);
+
+$pdf->SetFont('Arial','',5);
+$y = $pdf->GetY();
+$pdf->MultiCell(285,4,$descripcion." Cp: ".$codigoPostal,1,'L',0);
+$pdf->SetFont('Arial','B',7);
+if(true){
+$y = $pdf->GetY();
+$pdf->MultiCell(50,5,'',0,'L',0);
+$pdf->SetXY(55,$y);
+$pdf->MultiCell(15,5,$formaPago.':',1,'R',0);
+$pdf->SetXY(70,$y);
+$pdf->MultiCell(25,5,'$'.number_format($total,2,'.',','),1,'R',0);
+$pdf->SetXY(95,$y);
+$pdf->MultiCell(20,5,'Primer Pago:',1,'C',0);
+$pdf->SetXY(115,$y);
+$pdf->MultiCell(25,5,'$'.number_format($primerRecibo,2,'.',','),1,'R',0);
+if($formaPago != "Contado"){
+$pdf->SetXY(140,$y);
+$pdf->MultiCell(30,5,'Pago SubSecuente:',1,'C',0);
+$pdf->SetXY(170,$y);
+$pdf->MultiCell(25,5,'$'.number_format($subSecuenteRecibo,2,'.',','),1,'R',0);
+}
+}
+//
+}
+// Imprecion y Cierre de Pie de Pagina 
+$pdf->AliasNbPages();
+$pdf->SetFont('Times','',12);
+$pdf->Output();
+
+DreDesconectarDB($conexion);
+?>

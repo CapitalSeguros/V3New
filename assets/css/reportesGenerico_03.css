@@ -1,0 +1,200 @@
+  input {
+  height: 20px;
+}
+html,body { 
+ overflow-x: hidden;
+  overflow-y: hidden;
+}
+.mostar{display:block; visibility:visible;}
+.ocultar{display:none;visibility:hidden}
+#ventana-flotante 
+{
+ width: 400px;  /*  */
+ height: 600px;  /* Alto de la ventana */
+ background: rgba(255, 255, 255, 1);/* Color de fondo */
+ position: absolute;
+ top: 25%;
+ left: 50%;
+ margin-left: -180px;
+ border: 0px solid #adffad;  /* Borde de la ventana */
+ box-shadow: 0 5px 25px rgba(0,0,0,.1);  /* Sombra */
+ z-index:9000;
+ overflow:scroll;
+ padding-bottom:50px;
+ padding-top: 50px;
+ bottom: 200px;
+}
+.ver{visibility:visible;}
+#ventana-flotante .cerrar {
+float: right;
+border-bottom: 1px solid #bbb;
+border-left: 1px solid #bbb;
+color: #999;
+background: white;
+line-height: 17px;
+text-decoration: none;
+padding: 0px 14px;
+font-family: Arial;
+border-radius: 0 0 0 5px;
+box-shadow: -1px 1px white;
+font-size: 18px;
+-webkit-transition: .3s;
+-moz-transition: .3s;
+-o-transition: .3s;
+-ms-transition: .3s;
+}
+#ventana-flotante .cerrar:hover {
+background: #ff6868;
+color: white;
+text-decoration: none;
+text-shadow: -1px -1px red;
+border-bottom: 1px solid red;
+border-left: 1px solid red;
+}
+
+.ocultoInicio {
+visibility:hidden;}
+.oculto {
+  -webkit-transition:1s;-moz-transition:1s;-o-transition:1s;-ms-transition:1s;opacity:0;-ms-opacity:0;-moz-opacity:0;visibility:hidden;}
+
+/*======================HOJAS DE ESTILO PARA REPORTE DE PRODUCCION,=================================================*/
+
+ #tabla{
+	 	 background-color:white;
+	     border-collapse: collapse;
+         border-spacing: 0;
+	     border: 1;
+	     height:280px;
+	     width:2400px;
+	     direction:rtl;
+	  
+ }
+ #thCabecera{ 
+     background-color:#472380;
+	 direction:rtl;
+	 height:20%;	 
+	 text-align:center;
+	 width:150px; 
+	 cursor: pointer;
+ }
+
+
+#tdDato{
+		 column-fill:balance;
+		 column-gap:normal;
+		 text-align:center;
+		 width:150px;
+}
+#tbodyReporte{
+	background-color:#f5f5f5;
+display: block;
+height:80%;
+overflow-y: auto;
+overflow-x: none; 
+width:2400px;
+direction:rtl;	
+color:#472380;
+}
+#cabeceraTabla{
+	display: block;
+	background-color:#472380;
+	width:2400px;direction:rtl;
+	color:white;	
+}
+#trReporte{
+	background-color:#f5f5f5;
+	width:2400px;
+}
+#divReporte
+{
+background-color:#f5f5f5;
+width:100%;	
+overflow:scroll;height:50%;
+
+}
+
+
+/*==================================================================================================================*/
+
+/*======================PARA LA ETIQUETA QUE IDENTIFICA EL REPORTE======================*/
+.EtiquetaIdentifica
+{
+	margin-left: 85%;height: 90% ;	
+	background-color:#361866;
+	color: #361866;
+	width: 150px;font-size: 18px;background-size: 30px;color: white;
+}
+/*=======================================================================================*/
+
+/*=======================CSS PARA MOSTRAR DETALLE DE OPERACIONES EN REPORTES=============*/
+
+.caja2 {
+position: relative;
+width: 120px;
+margin: 10px auto;
+background-color:
+}
+.caja2 img {
+background-color:#036;
+position: relative;
+z-index:2; /*Imagen apilada en segunda posición*/
+border: 1px solid #333;
+box-shadow: 1px 1px 4px #333;
+width:0px;
+height:0px;
+opacity:0px;
+visibility:hidden
+}
+
+.caja2 div {
+background-color:white;
+position: relative;
+z-index:2; /*Imagen apilada en segunda posición*/
+border: 1px solid #333;
+box-shadow: 1px 1px 4px #333;
+width:0px;
+height:0px;
+opacity:0px;
+visibility:hidden
+}
+.disco {
+position: absolute;
+top:0;
+left:0px;
+z-index:1;
+display:block;
+width: 150px;
+height:15px;
+background:url("") no-repeat scroll center center transparent;
+-moz-transition:all linear 0.5s 0s;
+-webkit-transition:all linear 0.5s 0s;
+transition:all ease 0.5s 0s;
+opacity:0px
+}
+
+.caja2:hover .disco {
+    visibility:visible
+left:100px; /*Para hacer "salir" parcialmente el disco*/
+-moz-transform:rotate(0deg); /*Y además lo hace girando*/
+-webkit-transform:rotate(0deg);
+transform:rotate(0deg);
+width:400px;
+height:30px;
+visibility:visible
+}
+.cajaDiv{
+
+}
+
+/*=======================================================================================*/
+/*========================PAA LAS PARTIDAS DEL REPORTE======================*/
+.tdPartidas{
+  width: 140px;
+
+}
+.tdPartidasScroll{
+ width: 50px;
+
+
+}
+/*==========================================================================*/

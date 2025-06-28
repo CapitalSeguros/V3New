@@ -1,0 +1,11 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?>
+
+ERROR - 2025-02-22 00:04:30 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/admin/domains/v3prod.capsys.site/public_html/V3/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2025-02-22 00:04:30 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/admin/domains/v3prod.capsys.site/public_html/V3/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2025-02-22 00:04:30 --> 404 Page Not Found --> actividades/getActivitiesKpi
+ERROR - 2025-02-22 03:57:07 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/admin/domains/v3prod.capsys.site/public_html/V3/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2025-02-22 03:57:08 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/admin/domains/v3prod.capsys.site/public_html/V3/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2025-02-22 04:29:08 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/admin/domains/v3prod.capsys.site/public_html/V3/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2025-02-22 04:29:09 --> Severity: 8192  --> mysql_pconnect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /home/admin/domains/v3prod.capsys.site/public_html/V3/system/database/drivers/mysql/mysql_driver.php 91
+ERROR - 2025-02-22 19:52:47 --> 404 Page Not Found --> 
+ERROR - 2025-02-22 19:52:47 --> 404 Page Not Found --> 
