@@ -112,7 +112,9 @@ class Ws_sicas
                 $decoded_response = json_decode($response);
                 return $decoded_response;
             }
-            $returnedResponse = $this->convertResponseXML($response);
+            //$returnedResponse = $this->convertResponseXML($response);
+            $decoded_response2 = json_decode($response, true);
+            $returnedResponse = $this->convertResponseV2($decoded_response2);
             return $returnedResponse;
         }
     }
@@ -526,8 +528,14 @@ class Ws_sicas
                         array_push($result_c, $value);
                     }
                     //$test=$result->Datos;MAPLE
-                    //$test = $this->CrearArbol($result_c, 0);
-                    $test = $this->CrearArbol2($result_c);
+                    if(isset($data["VersionTree"])){
+                        //echo 'version1';
+                        $test = $this->CrearArbol($result_c, 0);
+                    }else{
+                         //echo 'version2';
+                        $test = $this->CrearArbol2($result_c);
+                    }
+                    //$test = $this->CrearArbol2($result_c);
                     //$test["all"]=$result_c;
 
                 } else {

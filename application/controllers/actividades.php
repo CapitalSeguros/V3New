@@ -5887,7 +5887,7 @@ function digitalAct()
 	$data['RECEIPT']=1;
     $info=array();
 	$info['documentos']=$this->ws_sicas->GetCDDigitalCliente($data,1);*/
-
+	$data['VersionTree']=1;
 	$consulta='select a.idCliente,a.idInterno,a.folioActividad,a.IDDocto,a.tipoActividad,a.folioActividadSiniestros from actividades a where tipoActividad="Endoso" and a.idColaboradorArea=6 and a.idCliente='.$_POST['IDValuePK'];
 	
 	$carpetasEndoso=$this->db->query($consulta)->result();
@@ -6014,6 +6014,7 @@ function devolverDocumentoPromotoria()
 	$respuesta['verDocumentosActividad']=array();
 	$respuesta['verDocumentosEndoso']=array();
 	$cliente['IDValuePK']=$_POST['IDCli'];
+	$cliente['VersionTree']=1;
 	
 	  $folio=$this->comprobarActividadClienteNuevo($_POST['folioActividad']);
 	  if($folio->bandera)

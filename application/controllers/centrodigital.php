@@ -100,11 +100,25 @@ class centrodigital extends CI_Controller
 			//** $result	= $this->CI->ws_sicas->GetCDDigital($data);
 			//	var_dump($data);
 			//$result	= $this->getDatos($data);
-			(array)$result	= $this->ws_sicas->getDatosSICAS($data);
+			//$result	= $this->ws_sicas->getDatosSICAS($data);
+			$result    =$this->ws_sicas->getDatosSICASDoc($data);
 			/* return 
 			$result; */
+			if ($result->Datos && count($result->Datos) > 0) {
+				$Level = 0;
+				$result_c=array();
+				foreach ($result->Datos as $value) {
+					array_push($result_c, $value);
+				}
+				//$test = $this->CrearArbol($result_c, 0);
+				$test = $this->CrearArbol($result_c);
+				return $test;
+				//$test["all"]=$result_c;
 
-			if (isset($result['Datos']) && count($result['Datos']) > 0) {
+			} else {
+				return array('text' => 'No cuenta con documentos');
+			}
+			/* if (isset($result['Datos']) && count($result['Datos']) > 0) {
 				$result_c = array();
 				if ($result['Datos']) {
 					$Level = 0;
