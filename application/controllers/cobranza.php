@@ -313,71 +313,64 @@ function renovacion()
 
 }
 //----------------------------------------------------------------------
-function aplicarPago(){
- 
+	function aplicarPago()
+	{
+		//296721
+		$respuesta = array();
+		$recibo = $this->ws_sicas->buscarReciboPorID($_POST['IDRecibo']);
 
-   //296721
-   $respuesta=array();
-   $recibo=$this->ws_sicas->buscarReciboPorID($_POST['IDRecibo']); 
-    
-    
-    if($_POST['Fpago']!=''){$_POST['Fpago']=$this->libreriav3->convierteFecha($_POST['Fpago']);}
-    if($_POST['FDocto']!=''){$_POST['FDocto']=$this->libreriav3->convierteFecha($_POST['FDocto']);}
-   
-  if(isset($recibo->TableInfo))
-  {      
-    if((int)$recibo->TableInfo->Status==3)
-     //if((int)$recibo->TableInfo->Status==3)
-     {
+		if ($_POST['Fpago'] != '') {
+		  $_POST['Fpago'] = $this->libreriav3->convierteFecha($_POST['Fpago']);
+		}
+		if ($_POST['FDocto'] != '') {
+		  $_POST['FDocto'] = $this->libreriav3->convierteFecha($_POST['FDocto']);
+		}
 
-	$pago['IDPagoRec']=-1;
-	$pago['IDRecibo']=$_POST['IDRecibo'];
-	$pago['FPago']=$_POST['Fpago'];
-	$pago['FolioCh']=$_POST['FolioCh'];
-	$pago['TipoDocto']=$_POST['TipoDocto'];
-	$pago['Banco']=$_POST['Banco'];
-	$pago['FolioDocto']=$_POST['FolioDocto'];
-	$pago['FDocto']=$_POST['FDocto'];
-	$pago['TPago']=$_POST['TPago'];
-	$pago['ImporteP']=$_POST['ImporteP'];
-	$pago['IDMonPago']=$_POST['IDMonPago'];
-	$pago['TCPago']=$_POST['TCPago'];
-	$pago['Importe']=$_POST['Importe'];
-	$pago['TCDocto']=$_POST['TCDocto'];
-	$pago['IDTarjeta']=-1;
-	    $respuesta=$this->ws_sicas->aplicarPagoRecibo($pago);//TODO: no olvidar descomentar al finalizar el desarrollo
-      //$respuesta['Sucess']=true;//TODO: no olvidar comentar al finalizar el desarrollo
-      $insert['IDRecibo']=$_POST['IDRecibo'];
-      $insert['idcli']=$_POST['idcli'];
-      $insert['periodo']=$_POST['periodo'];
-      $insert['documento']=$_POST['documento'];
-      $insert['serie']=$_POST['serie'];
-      $insert['nombre']=$_POST['nombre'];
-      $insert['idPersonaAplica']=$this->tank_auth->get_idPersona();     
-      $insert['metodoPago']=$_POST['MetodoPago'];
-    
-	  if(isset($respuesta['Sucess']))
-     {
-       $this->db->insert('cobranza_aplicada',$insert);
-      $respuesta['idRecibo']=$_POST['IDRecibo'];
-      $respuesta['mensaje']='El recibo se pago con exito';
-      $respuesta['bandera']='1';
+		if (isset($recibo->TableInfo)) {
+		  if ((int)$recibo->TableInfo->Status == 0) {
+			$pago['IDPagoRec'] = -1;
+			$pago['IDRecibo'] = $_POST['IDRecibo'];
+			$pago['FPago'] = $_POST['Fpago'];
+			$pago['FolioCh'] = $_POST['FolioCh'];
+			$pago['TipoDocto'] = $_POST['TipoDocto'];
+			$pago['Banco'] = $_POST['Banco'];
+			$pago['FolioDocto'] = $_POST['FolioDocto'];
+			$pago['FDocto'] = $_POST['FDocto'];
+			$pago['TPago'] = $_POST['TPago'];
+			$pago['ImporteP'] = $_POST['ImporteP'];
+			$pago['IDMonPago'] = $_POST['IDMonPago'];
+			$pago['TCPago'] = $_POST['TCPago'];
+			$pago['Importe'] = $_POST['Importe'];
+			$pago['TCDocto'] = $_POST['TCDocto'];
+			$pago['IDTarjeta'] = -1;
+			$respuesta = $this->ws_sicas->aplicarPagoRecibo($pago); //TODO: no olvidar descomentar al finalizar el desarrollo
+			//$respuesta['Sucess']=true;//TODO: no olvidar comentar al finalizar el desarrollo
+			$insert['IDRecibo'] = $_POST['IDRecibo'];
+			$insert['idcli'] = $_POST['idcli'];
+			$insert['periodo'] = $_POST['periodo'];
+			$insert['documento'] = $_POST['documento'];
+			$insert['serie'] = $_POST['serie'];
+			$insert['nombre'] = $_POST['nombre'];
+			$insert['idPersonaAplica'] = $this->tank_auth->get_idPersona();
+			$insert['metodoPago'] = $_POST['MetodoPago'];
+
+			if (isset($respuesta['Sucess'])) {
+			  $this->db->insert('cobranza_aplicada', $insert);
+			  $respuesta['idRecibo'] = $_POST['IDRecibo'];
+			  $respuesta['mensaje'] = 'El recibo se pago con exito';
+			  $respuesta['bandera'] = '1';
+			} else {
+			  $respuesta['mensaje'] = 'Error al momento de pagar el recibo reportar a sistemas';
+			  $respuesta['bandera'] = '0';
+			}
+		  } else {
+			$respuesta['mensaje'] = 'El recibo ya esta aplicado';
+			$respuesta['bandera'] = '1';
+		  }
+		}
+
+		echo json_encode($respuesta);
 	}
-	  else
-    {
-    $respuesta['mensaje']='Error al momento de pagar el recibo reportar a sistemas';
-    $respuesta['bandera']='0';
-   }
-   }
-   else
-   {
-      $respuesta['mensaje']='El recibo ya esta aplicado';
-      $respuesta['bandera']='1';
-   }
-  }
-
-    echo json_encode($respuesta);
-}
 //----------------------------------------------------------------------------------------------------------------------
 function mostrarHistorial()
 {
