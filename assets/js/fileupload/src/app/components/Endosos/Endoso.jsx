@@ -1772,8 +1772,10 @@ export default function Endoso(props) {
 
   function NewReloadPrices(field, value) {
 
-    if (value.includes(',')) {
-      value = value.replace(/,/g, '');
+    if (typeof value == "string") {
+      if (value.includes(',')) {
+        value = value.replace(/,/g, '');
+      }
     }
 
     let _OT = formikRef.current.values;

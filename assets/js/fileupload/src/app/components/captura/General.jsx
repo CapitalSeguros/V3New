@@ -1969,8 +1969,10 @@ export default function General(props) {
 
     async function NewReloadPrices(field, value) {
 
-        if (value.includes(',')) {
-            value = value.replace(/,/g, '');
+        if (typeof value == "string") {
+            if (value.includes(',')) {
+                value = value.replace(/,/g, '');
+            }
         }
 
         // values.PrimaNeta
@@ -2320,9 +2322,6 @@ export default function General(props) {
             }
         }
     }
-
-
-
 
     return (
         <Formik
@@ -3194,7 +3193,6 @@ export default function General(props) {
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                 </div>
                                             </div>
