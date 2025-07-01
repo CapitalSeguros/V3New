@@ -4099,7 +4099,7 @@ function registerAsistencia($login){
 		if(!$encontrado){
 			$fecha=date('Y-m-d h:i:s');
 			//determinar minutos de retraso;
-			if( ( (date('h')==08) && (date('i')<=59) ) || ((date('h')==8) && (date('i')<=59)) ){
+			if(((date('h')=='08') && (date('i')<=59)) || ((date('h')=='09') && (date('i')<=59))){
 					$sql="INSERT INTO fastfile(idPersona,descripcion,fecha,valor)VALUES('$idPersona','puntualidad','$fecha','1')";
 					$this->db->query($sql);
 			}

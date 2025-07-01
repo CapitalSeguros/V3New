@@ -53,3 +53,4 @@ bootstrap/cache/*
 
 #otros
 assets/js/fileupload/node_modules
+*.bak
