@@ -358,4 +358,46 @@ class Documentsmodel extends CI_Model
       $query = $this->db->get();
       return $query->result_array();
    }
+
+   function getFilesUserByUsuario($usuario_id)
+   {
+
+      $rows = array();
+      $documento_id = 0;
+      $SQLP = null;
+      $SQLR = null;
+      $SQLRID = null;
+      $usuario = -1;
+
+      $SQL_RESULT = "SELECT * FROM capsysV3.documentos WHERE referencia_id=$usuario_id AND TypeDoc='DOCUMENT' AND referencia='CLIENT' and file_id is not null ORDER BY id";
+
+      $query = $this->db->query($SQL_RESULT);
+
+      if ($query->num_rows()  > 0) {
+         $rows = $query->result();
+      }
+
+      return $rows;
+   }
+
+   function getFilesDocumentsByParent($parent_id, $referencia = null, $referenciaId = null, $parentId = null)
+   {
+
+      $rows = array();
+      $documento_id = 0;
+      $SQLP = null;
+      $SQLR = null;
+      $SQLRID = null;
+      $usuario = -1;
+
+      $SQL_RESULT = "SELECT * FROM capsysV3.documentos where parent_id = '{$parent_id}' AND TypeDoc='DOCUMENT' AND referencia='CLIENT' and file_id is not null ORDER BY id";
+
+      $query = $this->db->query($SQL_RESULT);
+
+      if ($query->num_rows()  > 0) {
+         $rows = $query->result();
+      }
+
+      return $rows;
+   }
 }

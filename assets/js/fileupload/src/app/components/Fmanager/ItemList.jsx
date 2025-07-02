@@ -13,24 +13,14 @@ const ItemList = ({
   handleRestore,
   handleShare,
   handleAccion,
-  tree
+  tree,
+  handleDownload,
 }) => {
   const Puestousuario = window.jQuery("#Puesto").attr("data-id");
   const Idusuario = window.jQuery("#Empleado_id").attr("data-id");
   const IdSelect = window.jQuery("#buscarIdPuesto").val();
   const PuestosAgregar = [9, 7];
 
-
-  function OpenClick(item) {
-    var ruta = "";
-    //console.log("Item",item);
-    if (item.id != null && item.iconLink != null) {
-      ruta = `https://docs.google.com/viewer?srcid=${item.id}&pid=explorer&efh=false&a=v&chrome=false&embedded=true`;
-    } else {
-      ruta = item.ruta_completa;
-    }
-    window.open(ruta, '_blank');
-  }
 
 
   return (
@@ -44,7 +34,7 @@ const ItemList = ({
       </td>
       <td className="issue-info">
         <div style={{ width: '200px', overflow: 'hidden' }}>
-          <a style={{ cursor: 'pointer' }} onClick={() => { OpenClick(item) }}>{item.name_complete}</a>
+          <a>{item.name_complete}</a>
           <small>{item.description}</small>
         </div>
       </td>
@@ -84,11 +74,19 @@ const ItemList = ({
                       Copiar
                     </a>
                   </li>
-                  {/* <li>
+                  <li>
                     <a onClick={() => handlePreview(item)} style={{ cursor: "pointer" }} >
                       Vista previa
                     </a>
-                  </li> */}
+                  </li>
+                  {
+                    handleDownload &&
+                    <li>
+                      <a onClick={() => handleDownload(item)} style={{ cursor: "pointer" }} >
+                        Descargar
+                      </a>
+                    </li>
+                  }
                 </>
               )}
               <li>

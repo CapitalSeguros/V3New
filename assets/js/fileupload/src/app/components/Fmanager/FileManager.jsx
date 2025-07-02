@@ -9,6 +9,7 @@ import FileShare from "./FileShare.jsx";
 import FileAccion from "./FileAccion.jsx";
 import { CallApiPost } from "../../Helpers/Calls.js";
 import "react-checkbox-tree/lib/react-checkbox-tree.css";
+import { ShowLoading } from "../../Helpers/FGeneral.js";
 
 const FileManager = forwardRef(({
   selectorAction,
@@ -18,6 +19,7 @@ const FileManager = forwardRef(({
   callBack,
   isTrash,
   Documento,
+  UrlServicio = null
 }, ref) => {
 
   useImperativeHandle(ref, () => {
@@ -47,13 +49,12 @@ const FileManager = forwardRef(({
   const [puestos, setPuestos] = useState([]);
   const [breadItems, setBread] = useState([]);
   const [childs, setChild] = useState([]);
+  const [documents, setDocuments] = useState([]);
   const [childsFilter, setChildFilter] = useState([]);
   const [preview, setPreview] = useState({
     description: "",
     webContentLink: "",
     id: "",
-    ruta_completa: "",
-    iconLink: ""
   });
   const [share, setShare] = useState({
     description: "",
@@ -65,20 +66,19 @@ const FileManager = forwardRef(({
   const [ItemSelected, setItemSelected] = useState([]);
   const ModalAcc = useRef(null);
 
+  let headerBread = null;
+
 
   useEffect(() => {
-    //console.log('test');
     //getLoad();
   }, []);
 
   function getPreview(item) {
-    console.log(item);
     setPreview(item);
     window.jQuery("#modal-file-manager-preview").modal("show");
   }
 
   function getShare(item) {
-    console.log(item);
     setShare(item);
     window.jQuery("#modal-file-share").modal("show");
   }
@@ -104,6 +104,16 @@ const FileManager = forwardRef(({
   }
 
   function getData() {
+    let documentsTree = [];
+    let documents = [];
+    let documentsParent = {};
+
+    //breadItems = [];
+
+    setBread([]);
+    setChild([]);
+    headerBread = null;
+    
     axios
       .get(`${path}filemanager/getV2`, {
         //params: { referencia: ref, referencia_id: refId },
@@ -113,12 +123,23 @@ const FileManager = forwardRef(({
         if (response.data.code == "200") {
           setChild(response.data.data.child);
           setChildFilter(response.data.data.child);
+
+          documentsTree = response.data.data.documentstree || [];
+          documents = response.data.data.documents || [];
+          documentsParent = response.data.data.documentsparent || {};
+          setDocuments(documentsTree);
+
         }
         const fil = breadItems.filter(
           (it) => it.id == response.data.data.parent.id
         );
         if (fil.length == 0) {
-          setBread([...breadItems, response.data.data.parent]);
+          setBread([]);
+          let _breadItems = [];
+          _breadItems.push(response.data.data.parent);
+          setBread(_breadItems);
+          //setBread([...breadItems, response.data.data.parent]);
+
           var tnodes = response.data.data.tree;
           if (isTrash != undefined) {
             tnodes.push({
@@ -189,6 +210,7 @@ const FileManager = forwardRef(({
           //referencia_id: refId,
           referencia: referencia,
           referencia_id: referenciaId,
+          type: "DOCUMENT",
         },
       })
       .then((response) => {
@@ -225,7 +247,7 @@ const FileManager = forwardRef(({
         setNodes(tnodes);
       })
       .catch((error) => {
-        //console.log(error);
+        //console.error(error);
       });
   }
 
@@ -235,7 +257,6 @@ const FileManager = forwardRef(({
     axios
       .post(`${path}filemanager/restoreFile`, data)
       .then((response) => {
-        //console.log("respuesta",response);
         getFilesByParent();
       })
       .catch((error) => {
@@ -243,7 +264,19 @@ const FileManager = forwardRef(({
       });
   }
 
-  function getFiles(file, index = -1, level = -1) {
+  function getFiles(file, index = -1, level = -1, type = "DOCUMENT") {
+
+    setBread([]);
+    setChild([]);
+    headerBread = null;
+
+    if(type == "CLIENT") {
+      headerBread = file.label;
+    }
+    else {
+      headerBread = Documento;
+    }
+
     if (file.mimeType == "application/vnd.google-apps.folder") {
       axios
         .get(`${path}filemanager/getByParent`, {
@@ -253,6 +286,7 @@ const FileManager = forwardRef(({
             //referencia_id: refId,
             referencia: referencia,
             referencia_id: referenciaId,
+            type: type,
           },
         })
         .then((response) => {
@@ -278,7 +312,7 @@ const FileManager = forwardRef(({
           setChildFilter(response.data.data.childs);
         })
         .catch((error) => {
-          //console.log(error);
+          //console.error(error);
         });
     } else if (file.value != undefined) {
       if (file.value == "MAIN-PEPELERA") {
@@ -306,7 +340,7 @@ const FileManager = forwardRef(({
             setChild(response.data.data.files);
           })
           .catch((error) => {
-            //console.log(error);
+            //console.error(error);
           });
       } else {
         axios
@@ -317,9 +351,10 @@ const FileManager = forwardRef(({
               //referencia_id: refId,
               referencia: referencia,
               referencia_id: referenciaId,
+              type: type,
             },
           })
-          .then((response) => {
+          .then((response) => {            
             setBread([
               {
                 id: file.value,
@@ -331,7 +366,7 @@ const FileManager = forwardRef(({
             setChildFilter(response.data.data.childs);
           })
           .catch((error) => {
-            //console.log(error);
+            //console.error(error);
           });
       }
     }
@@ -358,7 +393,6 @@ const FileManager = forwardRef(({
     if (breadItems.length > 0) {
       current = breadItems[breadItems.length - 1].id;
     }
-    //console.log(state.isFolder, "teststst")
     if (state.isFolder) {
       if (model.archivos.length == 0) {
         toastr.error("Error, seleccione uno o más artículos.");
@@ -462,7 +496,6 @@ const FileManager = forwardRef(({
   }
 
   function handleDropdown(e) {
-    // console.log(e.currentTarget.attr);
     if (!state.showD) {
       $(e.currentTarget).closest(".input-group-btn").addClass("open");
     } else {
@@ -485,7 +518,6 @@ const FileManager = forwardRef(({
       }
 
     });
-    //console.log("AnyFIlies",vacio);
     return vacio;
   }
 
@@ -528,10 +560,51 @@ const FileManager = forwardRef(({
 
   const ItemsNull = AnyFile();
 
+  async function generarDocumentos(referenciaId, IDCli) {
+    ShowLoading();
+    let URL = `${UrlServicio}documents/getdocumentsfromxml/${referenciaId}`;
+    axios
+      .get(URL, {
+        //params: { referencia_id: referenciaId },
+      })
+      .then(function (response) {
+        if (response.status == "200") {
+          getData();
+          response.data.mensajes && response.data.mensajes.length > 0 ? toastr.success(response.data.mensajes[0]) : toastr.success("Documentos generados correctamente.");
+          ShowLoading(false);
+        }
+        else {
+          response.data.mensajes && response.data.mensajes.length > 0 ? toastr.error(response.data.mensajes[0]) : toastr.error("Error, agregar el mensaje que devuelve.");
+          ShowLoading(false);
+        }
+      })
+      .catch((error) => { 
+        toastr.error("Error al generar los documentos, " + error.toString());
+        ShowLoading(false);
+      });
+  }
+
+  function handleDownload(item) {
+    if (!item?.ruta_completa) {
+        toastr.error("Error, no se ha encontrado el archivo para descargar.");
+        return;
+    }
+    const downloadUrl = item.ruta_completa;
+    window.open(downloadUrl, '_blank');
+}
+
   return (
     <>
       <div className="vicious_library row">
         <div className="col-sm-12">
+          {/* <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+            <a type="button" className="btn btn-primary"
+              onClick={() => generarDocumentos(referenciaId, IDCli)}>
+              <i class="fa fa-cloud-download mr-3" aria-hidden="true"></i>
+              Descargar Documentos
+            </a>
+          </div> */}
+
           <div className="row background">
             {full != undefined && (
               <div className="col-md-3 tree-view">
@@ -544,9 +617,31 @@ const FileManager = forwardRef(({
                           const file = target.parent.children.find(
                             (i) => i.id == target.value
                           );
-                          getFiles(file, -1, target.treeDepth);
+                          getFiles(file, -1, target.treeDepth, "DOCUMENT");
                         } else {
-                          getFiles(target, -1, target.treeDepth);
+                          getFiles(target, -1, target.treeDepth, "DOCUMENT");
+                        }
+                      }}
+                      showCheckbox={false}
+                      checked={state.checked}
+                      expanded={expanded}
+                      onCheck={(checked) => setState({ ...state, checked })}
+                      onExpand={(expanded) => setExpanded(expanded)}
+                    />
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col-md-12" style={{ fontSize: '12px' }}>
+                    <CheckboxTree
+                      nodes={documents}
+                      onClick={(target) => {                        
+                        if (target.treeDepth > 0) {
+                          const file = target.parent.children.find(
+                            (i) => i.id == target.value
+                          );                          
+                          getFiles(file, -1, target.treeDepth, "CLIENT");
+                        } else {
+                          getFiles(target, -1, target.treeDepth, "CLIENT");
                         }
                       }}
                       showCheckbox={false}
@@ -567,7 +662,7 @@ const FileManager = forwardRef(({
                 handleDdble={getFiles}
                 handleCreate={createFolder}
                 handleUpload={uploadFile}
-                Documento={Documento}
+                Documento={headerBread}
               />
               <div className="table-list table-wrapper">
                 <table className="table table-striped table-hover">
@@ -594,6 +689,7 @@ const FileManager = forwardRef(({
                         handlePreview={getPreview}
                         handleShare={getShare}
                         handleAccion={handleAccion}
+                        handleDownload={handleDownload}
                       />
                     ))}
                     {childsFilter.length == 0 && (
@@ -623,9 +719,7 @@ const FileManager = forwardRef(({
       <FilePreview
         description={preview.description}
         webContentLink={preview.webContentLink}
-        iconLink={preview.iconLink}
         id={preview.id}
-        ruta_completa={preview.ruta_completa}
       ></FilePreview>
       <FileShare
         show={state.show}

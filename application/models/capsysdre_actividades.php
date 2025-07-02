@@ -1333,7 +1333,6 @@ class Capsysdre_actividades extends CI_Model
 				$IDEjecutin	= "6"; // SE VA ANA FIANZAS
 			}
 		} else {
-
 			$IDEjecutin = $this->input->post('IDEjecut', TRUE);
 		}
 
@@ -1363,6 +1362,7 @@ class Capsysdre_actividades extends CI_Model
 								<FHasta>" . date('d/m/Y', strtotime('+1 year', strtotime(date('Y-m-j')))) . "</FHasta>
 								<Status>0</Status>
 								<Referencia3>" . $this->input->post('tarjetaVerde', TRUE) . "</Referencia3>
+								<Referencia4>" . "{$this->input->post('tipoActividad', TRUE)}-{$this->input->post('tipoSubRamo', TRUE)}" . "</Referencia4>
 								<StatusUser>5</StatusUser>
 								<PrimaNeta>0</PrimaNeta>
 								<STotal>0</STotal>

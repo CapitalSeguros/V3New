@@ -154,6 +154,7 @@ class filemanager extends TIC_Controller
     {
         $referencia = $this->input->get("referencia");
         $referencia_id = $this->input->get("referencia_id");
+        $usuario_id = 0;
         $puesto_id = $this->tank_auth->get_idPersonaPuesto();
         $persona_id = $this->tank_auth->get_idPersona();
         if ($referencia == "Polizas" || $referencia == "Fianzas") {
@@ -162,6 +163,7 @@ class filemanager extends TIC_Controller
         //$document = $this->documento->getDocument($referencia, $referencia_id);
         $document = $this->documento->getDocumentV2($referencia, $referencia_id);
         if ($document != null) {
+            $usuario_id = $document->IDCli;
             $arr = $this->documento->getFileByPuesto($puesto_id, array("tipo" => "application/vnd.google-apps.folder", "usuario" => $persona_id), $referencia, $referencia_id, null);
             $carr = array();
             foreach ($arr as $key => $value) {
@@ -245,6 +247,70 @@ class filemanager extends TIC_Controller
                 }
             }
 
+            $filesUser = $this->documento->getFilesUserByUsuario($usuario_id);
+            $documentsChilds = array();
+
+            foreach ($filesUser as $value) {
+                $isFolder = ($value->tipo === 'application/vnd.google-apps.folder') 
+                            || ($value->nombre_completo == 15);
+                
+                $documentData = array(
+                    "id" => $value->file_id,
+                    "name" => $value->nombre,
+                    "name_complete" => $value->nombre_completo,
+                    "description" => $value->descripcion,
+                    "employee" => $value->empleado,
+                    "canDelete" => $value->usuario_alta_id == $persona_id ? true : false,
+                    "iconLink" => $value->url_icono,
+                    "thumbnailLink" => $value->thumbnail_link,
+                    "mimeType" => $value->tipo,
+                    "size" => $value->tamanio,
+                    "parent_id" => $value->parent_id,
+                    "permisos" => [],
+                    "employee_id" => $value->usuario_alta_id,
+                    "ruta_completa" => $value->ruta_completa,
+                    "children" => array() // Array para almacenar hijos si es una carpeta
+                );
+                
+                if ($isFolder) {
+                    $documentsParent = $value;
+                    $documentsTree[] = array(
+                        "label"=> "CLIENTE: " . $value->nombre_completo,
+                        "name_complete"=> "CLIENTE: " . $value->nombre_completo,
+                        "value"=> $value->file_id,
+                        "showCheckbox"=> false,
+                        "employee"=> "",
+                        "id"=> $value->file_id,
+                        "canDelete"=> false,
+                        "name"=> "CLIENTE: " . $value->nombre_completo,
+                        "description"=> null,
+                        "iconLink"=> null,
+                        "thumbnailLink"=> null,
+                        "mimeType"=> $value->tipo,
+                        "size"=> null,
+                        "parent_id"=> $value->parent_id,
+                        "children"=> [],
+                        "permisos"=> [],
+                        "employee_id"=> null,
+                        "ruta_completa"=> null,
+                    );
+                    // Es una carpeta, la añadimos al array principal
+                    //$documents[$value->file_id] = $documentData;
+                } else {
+                    // Es un documento, lo añadimos como hijo de su carpeta padre
+                    if ($value->parent_id && isset($documentsChilds[$value->parent_id])) {
+                        $documentsChilds[$value->parent_id]['children'][] = $documentData;
+                    } else {
+                        // Documento sin padre conocido, lo añadimos al nivel principal
+                        $documentsChilds[] = $documentData;
+                    }
+                }
+            }
+
+            // Convertir el array asociativo en indexado si es necesario
+            $documentsChilds = array_values($documentsChilds);
+
+
             $this->responseJSON("200", "Éxito", array(
                 "parent" => array(
                     "id" => $document->file_id,
@@ -252,7 +318,14 @@ class filemanager extends TIC_Controller
                     "mimeType" => "application/vnd.google-apps.folder"
                 ),
                 "child" => $childs,
-                "tree" => $tree
+                "tree" => $tree,
+                "documentsparent" => array(
+                    "id" => $documentsParent->file_id,
+                    "name" => "CLIENTE: " . $documentsParent->nombre_completo,
+                    "mimeType" => "application/vnd.google-apps.folder"
+                ),
+                "documentstree" => $documentsTree,
+                "documentschild" => $documentsChilds
             ));
         } else {
             $RefeFoldID = $this->createReferenciaFolderV2($referencia, $referencia_id);
@@ -518,7 +591,7 @@ class filemanager extends TIC_Controller
 
                 $folder = $this->googledrive->createFolder($nombre, $padre);
                 if ($folder->exito) {
-                    $this->saveDoc($folder->data, $privado, $referencia, $referencia_id, $puestos, $IDCli);
+                    $this->saveDoc($folder->data, $privado, $referencia, $referencia_id, $puestos, null, $IDCli);
                     $this->responseJSON("200", "Se cargo con exito el documento", array());
                 } else {
                     $this->responseJSON("400", $folder->mensaje, null);
@@ -581,36 +654,66 @@ class filemanager extends TIC_Controller
 
     function getByParent()
     {
+        $type = $this->input->get("type");
         $parent = $this->input->get("parent");
         $referencia = $this->input->get("referencia");
         $referencia_id = $this->input->get("referencia_id");
         $puesto_id = $this->tank_auth->get_idPersonaPuesto();
         $persona_id = $this->tank_auth->get_idPersona();
-        $files = $this->documento->getFileByPuesto($puesto_id, array("usuario" => $persona_id), $referencia, $referencia_id, $parent);
         $childs = array();
         $exist = array();
-        foreach ($files as $key => $value) {
-            if ($value->file_id == null) {
-                $value->file_id = $value->id;
+
+        if ($type == "DOCUMENT") {
+            $files = $this->documento->getFileByPuesto($puesto_id, array("usuario" => $persona_id), $referencia, $referencia_id, $parent);
+            foreach ($files as $key => $value) {
+                if ($value->file_id == null) {
+                    $value->file_id = $value->id;
+                }
+                if (!in_array($value->file_id, $exist)) {
+                    array_push($exist, $value->file_id);
+                    array_push($childs, array(
+                        "id" => $value->file_id,
+                        "name" => $value->nombre_completo,
+                        "name_complete" => $value->nombre_completo,
+                        "employee" => $value->empleado,
+                        "description" => $value->descripcion,
+                        "canDelete" => $value->usuario_alta_id == $persona_id ? true : false,
+                        "iconLink" => $value->url_icono,
+                        "thumbnailLink" => $value->thumbnail_link,
+                        "mimeType" => $value->tipo,
+                        "size" => $value->tamanio,
+                        "parent_id" => $value->parent_id,
+                        "permisos" => $this->documento->getPuestosDocument($value->id),
+                        "employee_id" => $value->usuario_alta_id,
+                        "ruta_completa" => $value->ruta_completa,
+                    ));
+                }
             }
-            if (!in_array($value->file_id, $exist)) {
-                array_push($exist, $value->file_id);
-                array_push($childs, array(
-                    "id" => $value->file_id,
-                    "name" => $value->nombre_completo,
-                    "name_complete" => $value->nombre_completo,
-                    "employee" => $value->empleado,
-                    "description" => $value->descripcion,
-                    "canDelete" => $value->usuario_alta_id == $persona_id ? true : false,
-                    "iconLink" => $value->url_icono,
-                    "thumbnailLink" => $value->thumbnail_link,
-                    "mimeType" => $value->tipo,
-                    "size" => $value->tamanio,
-                    "parent_id" => $value->parent_id,
-                    "permisos" => $this->documento->getPuestosDocument($value->id),
-                    "employee_id" => $value->usuario_alta_id,
-                    "ruta_completa" => $value->ruta_completa,
-                ));
+        } else {
+            $filesDocuments = $this->documento->getFilesDocumentsByParent($parent);
+            foreach ($filesDocuments as $key => $value) {
+                if ($value->file_id == null) {
+                    $value->file_id = $value->id;
+                }
+                if (!in_array($value->file_id, $exist)) {
+                    array_push($exist, $value->file_id);
+                    array_push($childs, array(
+                        "id" => $value->file_id,
+                        "name" => $value->nombre_completo,
+                        "name_complete" => $value->nombre_completo,
+                        "employee" => $value->empleado,
+                        "description" => $value->descripcion,
+                        "canDelete" => $value->usuario_alta_id == $persona_id ? true : false,
+                        "iconLink" => $value->url_icono,
+                        "thumbnailLink" => $value->thumbnail_link,
+                        "mimeType" => $value->tipo,
+                        "size" => $value->tamanio,
+                        "parent_id" => $value->parent_id,
+                        "permisos" => $this->documento->getPuestosDocument($value->id),
+                        "employee_id" => $value->usuario_alta_id,
+                        "ruta_completa" => $value->ruta_completa,
+                    ));
+                }
             }
         }
 
