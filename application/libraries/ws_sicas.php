@@ -112,9 +112,9 @@ class Ws_sicas
                 $decoded_response = json_decode($response);
                 return $decoded_response;
             }
-            //$returnedResponse = $this->convertResponseXML($response);
-            $decoded_response2 = json_decode($response, true);
-            $returnedResponse = $this->convertResponseV2($decoded_response2);
+            $returnedResponse = $this->convertResponseXML($response);
+            //$decoded_response2 = json_decode($response, true);
+            //$returnedResponse = $this->convertResponseV2($decoded_response2);
             return $returnedResponse;
         }
     }
@@ -153,8 +153,9 @@ class Ws_sicas
             if ($format === "JSON") {
                 return $decoded_response;
             }
-            $decoded_response2 = json_decode($response, true);
-            $returnedResponse = $this->convertResponseV2($decoded_response2);
+            $returnedResponse = $this->convertResponseXML($response);
+            //$decoded_response2 = json_decode($response, true);
+            //$returnedResponse = $this->convertResponseV2($decoded_response2);
             //$returnedResponse = $this->convertResponse($decoded_response2);
             return $returnedResponse;
         }
@@ -245,9 +246,10 @@ class Ws_sicas
                     return $decoded_response;
                 }
             }
-            $decoded_response2 = json_decode($response, true);
+            $returnedResponse = $this->convertResponseXML($response);
+            //$decoded_response2 = json_decode($response, true);
             //$returnedResponse = $this->convertResponse($decoded_response2);
-            $returnedResponse = $this->convertResponseV2($decoded_response2);
+            //$returnedResponse = $this->convertResponseV2($decoded_response2);
             return $returnedResponse;
         }
     }/*! consumowssicas */
