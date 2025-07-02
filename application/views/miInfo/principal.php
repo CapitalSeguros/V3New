@@ -80,6 +80,11 @@ $foto = $fotoPersonal;
     /*if(count($imagenPersona)>0){$foto="archivosPersona/".$imagenPersona[0]->idPersona."/miFoto/".$imagenPersona[0]->idPersonaImagen.$imagenPersona[0]->extensionPersonaImagen;
        }else{  $foto = $path_foto . "noPhoto.png";}*/
 //************************
+
+$hor1 = "Zona horaria configurada: " . date_default_timezone_get() . "\n";
+$hor2 = "Diferencia con UTC: " . date('P') . "\n";
+$hor3 = date('Y-m-d H:i:s');
+
 ?>
 <!-- Navbar -->
 <?php
@@ -145,6 +150,9 @@ $this->load->view('headers/menu');
 	<div class="row">
 		<div class="col-md-6 col-sm-5 col-xs-5">
 			<h3 class="titulo-secciones">Mi Info</h3>
+			<h3 style="display:none"><?php echo @$hor1; ?></h3>
+			<h3 style="display:none"><?php echo @$hor2; ?></h3>
+			<h3 style="display:none"><?php echo @$hor3; ?></h3>
 		</div>
 		<div class="col-md-6 col-sm-7 col-xs-7">
 			<ol class="breadcrumb text-right">
@@ -1983,11 +1991,11 @@ function imprimirProspectos($prospectos)
 				</select>
             </td>
         </tr>
-		<tr>
+		<tr class="hidden">
 			<td>
 				<i class="fa fa-upload" aria-hidden="true"></i>&nbsp; Carga de formato de solicitud
 			</td>
-			<td><input type="file" name="uploadFormatVacation" id="upload-format-vacations" required></td>
+			<td><input type="file" name="uploadFormatVacation" id="upload-format-vacations"></td>
 		</tr>
         <tr><td colspan="4">&nbsp;</td></tr>
             <tr><td colspan="4"><hr></td></tr>
