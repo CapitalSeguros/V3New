@@ -402,7 +402,7 @@ background-color:blue;
          <button class ="cierra-modalTarea" onclick="cierraModalfecha()"><i class="fas fa-times"></i></button>             
         </div>
         <div class="cabeceramodal">
-          <h2>Proveedor</h2>
+          <h2>Proveedor___________</h2>
         </div> 
         <div class="contenidomodal">
           <label for="">Proveeedor
@@ -893,6 +893,11 @@ $version = filemtime(FCPATH . 'assets/js/presupuestosJS/tablaFacturas.js');
 $respuesta = isset($Respuesta) ? $Respuesta : '';
 ?>
 <script>
+   $(function() {
+    $("#1fNacimiento").datepicker({
+      dateFormat: "yy-mm-dd" // Formato: 2025-07-01
+    });
+  });
   var respuesta = "<?= $respuesta ?>";
   const FINAL_URL = "presupuestos/obtenerFacturasJson";
   const URL_MODIFICA_ARCHIVO = "<?= base_url('presupuestos/modificaArchivo/') ?>"; //  PASAR LA URL AL JS //es la ruta en donde se encuentra la función en el controlador 
