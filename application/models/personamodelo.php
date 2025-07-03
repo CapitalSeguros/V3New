@@ -4773,17 +4773,17 @@ function devolvercelOficina($idPersona){
 		$query = "";
 		switch ($month) {
 			case "3":
-				$monthS = 03;
+				$monthS = '03';
 				$quarterly = "Primer";
 				$query = $this->db->query('SELECT * FROM cal_events_json WHERE YEAR(fecha_inicio) = '.$year.' AND MONTH(fecha_inicio) BETWEEN 01 AND 03')->result();
 				break;
 			case "6":
-				$monthS = 06;
+				$monthS = '06';
 				$quarterly = "Segundo";
 				$query = $this->db->query('SELECT * FROM cal_events_json WHERE YEAR(fecha_inicio) = '.$year.' AND MONTH(fecha_inicio) BETWEEN 04 AND 06')->result();
 				break;
 			case "9":
-				$monthS = 09;
+				$monthS = '09';
 				$quarterly = "Tercero";
 				$query = $this->db->query('SELECT * FROM cal_events_json WHERE YEAR(fecha_inicio) = '.$year.' AND MONTH(fecha_inicio) BETWEEN 07 AND 09')->result();
 				break;

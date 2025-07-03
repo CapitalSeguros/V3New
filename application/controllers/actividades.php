@@ -1930,16 +1930,16 @@ class Actividades extends CI_Controller
 			$folio = $this->comprobarActividadClienteNuevo($this->uri->segment(3));
 			if ($folio->bandera) {
 				$xmlstr = <<<XML
-				<?xml version='1.0' standalone='yes'?>
-				<cliente>
-				<IDCli>7</IDCli>
-				</cliente>
-				XML;
+<?xml version='1.0' standalone='yes'?>
+<cliente>
+<IDCli>7</IDCli>
+</cliente>
+XML;
 
 				$data['ClienteContact']['cliente'] = new SimpleXMLElement($xmlstr);
 				$xmlVerDoxumentosActividad = <<<XML
-				<?xml version='1.0' standalone='yes'?>
-				XML;
+<?xml version='1.0' standalone='yes'?>
+XML;
 
 
 				$data['verDocumentosActividad']	= array();
@@ -2823,16 +2823,16 @@ class Actividades extends CI_Controller
 			if ($folio->bandera) {
 				$data['ocultarParaClienteNuevo'] = 'display:none';
 				$xmlstr = <<<XML
-				<?xml version='1.0' standalone='yes'?>
-				<cliente>
-				<IDCli>7</IDCli>
-				</cliente>
-				XML;
+<?xml version='1.0' standalone='yes'?>
+<cliente>
+<IDCli>7</IDCli>
+</cliente>
+XML;
 
-								$data['ClienteContact']['cliente'] = new SimpleXMLElement($xmlstr);
-								$xmlVerDoxumentosActividad = <<<XML
-				<?xml version='1.0' standalone='yes'?>
-				XML;
+				$data['ClienteContact']['cliente'] = new SimpleXMLElement($xmlstr);
+				$xmlVerDoxumentosActividad = <<<XML
+<?xml version='1.0' standalone='yes'?>
+XML;
 
 
 				$data['verDocumentosActividad']	= array();
