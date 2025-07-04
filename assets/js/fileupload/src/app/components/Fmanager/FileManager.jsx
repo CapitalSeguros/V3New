@@ -65,9 +65,7 @@ const FileManager = forwardRef(({
   const [Accion, setAction] = useState('');
   const [ItemSelected, setItemSelected] = useState([]);
   const ModalAcc = useRef(null);
-
-  let headerBread = null;
-
+  const [headerBread, setHeaderBread] = useState(null);
 
   useEffect(() => {
     //getLoad();
@@ -112,12 +110,12 @@ const FileManager = forwardRef(({
 
     setBread([]);
     setChild([]);
-    headerBread = null;
-    
+    setHeaderBread(null);
+
     axios
       .get(`${path}filemanager/getV2`, {
         //params: { referencia: ref, referencia_id: refId },
-        params: { referencia: referencia, referencia_id: referenciaId },
+        params: { referencia: referencia, referencia_id: referenciaId, cliente_id: IDCli },
       })
       .then(function (response) {
         if (response.data.code == "200") {
@@ -136,7 +134,12 @@ const FileManager = forwardRef(({
         if (fil.length == 0) {
           setBread([]);
           let _breadItems = [];
-          _breadItems.push(response.data.data.parent);
+          let _parent = {
+            id: response.data.data.parent.id,
+            name: Documento,
+            mimeType: response.data.data.parent.mimeType,
+          }
+          _breadItems.push(_parent);
           setBread(_breadItems);
           //setBread([...breadItems, response.data.data.parent]);
 
@@ -169,6 +172,16 @@ const FileManager = forwardRef(({
 
           setNodes(tnodes);
         } else {
+
+          setBread([]);
+          let _breadItems = [];
+          let _parent = {
+            id: response.data.data.parent.id,
+            name: Documento,
+            mimeType: response.data.data.parent.mimeType,
+          }
+          _breadItems.push(_parent);
+          setBread(_breadItems);
 
           var tnodes = response.data.data.tree;
           if (tnodes.length > 0) {
@@ -268,13 +281,12 @@ const FileManager = forwardRef(({
 
     setBread([]);
     setChild([]);
-    headerBread = null;
 
-    if(type == "CLIENT") {
-      headerBread = file.label;
+    if (type == "CLIENT") {
+      setHeaderBread(file.label);
     }
     else {
-      headerBread = Documento;
+      setHeaderBread(Documento);
     }
 
     if (file.mimeType == "application/vnd.google-apps.folder") {
@@ -354,7 +366,7 @@ const FileManager = forwardRef(({
               type: type,
             },
           })
-          .then((response) => {            
+          .then((response) => {
             setBread([
               {
                 id: file.value,
@@ -578,7 +590,7 @@ const FileManager = forwardRef(({
           ShowLoading(false);
         }
       })
-      .catch((error) => { 
+      .catch((error) => {
         toastr.error("Error al generar los documentos, " + error.toString());
         ShowLoading(false);
       });
@@ -586,12 +598,12 @@ const FileManager = forwardRef(({
 
   function handleDownload(item) {
     if (!item?.ruta_completa) {
-        toastr.error("Error, no se ha encontrado el archivo para descargar.");
-        return;
+      toastr.error("Error, no se ha encontrado el archivo para descargar.");
+      return;
     }
     const downloadUrl = item.ruta_completa;
     window.open(downloadUrl, '_blank');
-}
+  }
 
   return (
     <>
@@ -604,7 +616,6 @@ const FileManager = forwardRef(({
               Descargar Documentos
             </a>
           </div> */}
-
           <div className="row background">
             {full != undefined && (
               <div className="col-md-3 tree-view">
@@ -634,11 +645,11 @@ const FileManager = forwardRef(({
                   <div className="col-md-12" style={{ fontSize: '12px' }}>
                     <CheckboxTree
                       nodes={documents}
-                      onClick={(target) => {                        
+                      onClick={(target) => {
                         if (target.treeDepth > 0) {
                           const file = target.parent.children.find(
                             (i) => i.id == target.value
-                          );                          
+                          );
                           getFiles(file, -1, target.treeDepth, "CLIENT");
                         } else {
                           getFiles(target, -1, target.treeDepth, "CLIENT");
@@ -690,6 +701,7 @@ const FileManager = forwardRef(({
                         handleShare={getShare}
                         handleAccion={handleAccion}
                         handleDownload={handleDownload}
+                        Documento={headerBread}
                       />
                     ))}
                     {childsFilter.length == 0 && (

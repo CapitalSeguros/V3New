@@ -970,8 +970,8 @@ class Actividades extends CI_Controller
 					$Titulo		.= "-" . $this->input->post('tipoSubRamo', TRUE);
 					$IDUserR	= $this->input->post('IDUserR', TRUE);
 					$IDTTarea	= $this->input->post('IDTTarea', TRUE);
-					$CrearTarea = $this->capsysdre_actividades->CrearTarea($folioActividad, $idContacto, $Titulo, $Descripcion, $IDUserR, $IDTTarea); //++
 					$poliza		= $this->input->post('poliza', TRUE);
+					$CrearTarea = $this->capsysdre_actividades->CrearTarea($folioActividad, $idContacto, $Titulo, $Descripcion, $IDUserR, $IDTTarea, $poliza); //++
 					$idSicas		= $CrearTarea[0]->NewIDValue;
 					$ClaveBit		= $CrearTarea[0]->ClaveBit;
 					$NumSolicitud	=  $CrearTarea[0]->NewIDValue;
@@ -1946,7 +1946,7 @@ XML;
 				$data['cliente'] = array(); //BUSCAR LOS DATOS EN LA TABLA DE CRM
 				//$_GET['IDCli']=1;
 				$bitacora = $this->db->query("select ac.folioActividad,(concat(ac.comentario,' [',ac.username,']')) as Comentario,(ac.fechaInsercion) as FechaHora,'5' as IDUser,'' as Procedencia from actividadescomentarios 
-				ac where ac.folioActividad='" . $this->uri->segment(3) . "' order by ac.idComentario desc")->result();
+ac where ac.folioActividad='" . $this->uri->segment(3) . "' order by ac.idComentario desc")->result();
 				$data['verBitacoraActividad'] = $bitacora;
 				$cliente = 'select (cc.IDCli) as IDCli,0 as PUNTOS,(concat(cc.Nombre," ",cc.ApellidoP," ",cc.ApellidoM)) as NombreCompleto,"" as idPersonaAgente,((concat(cc.Nombre," ",cc.ApellidoP," ",cc.ApellidoM))) as nombreCliente,cc.preferenciaComunicacion,cc.horarioComunicacion,cc.diaComunicacion,cc.Telefono1,"" as idContacto,cc.EMail1,cc.ApellidoP,cc.ApellidoM,cc.Nombre,cc.RFC,"" as CURP,cc.tipoEntidad,"" as Calidad,"" as Expediente,"" as TipoEnt,"" as FechaNac,"" as FechaConst,"" as Edad,"" as ClaveTKM,cc.Sexo,"" as RazonSocial,"" as IDCont from clientes_actualiza cc where cc.IDCli=' . $folio->IDCliClienteActualiza;
 
@@ -2600,6 +2600,7 @@ XML;
 			if ($_POST['tipoActividadSicas'] == 'tarea') {
 				$update['IDTarea'] = $_POST['IDDocto'];
 				$update['Status'] = $_POST['Status'];
+				$update['Captura'] = isset($_POST['cambioPropietario']) ? 1 : 0;
 				//$update['IDUSERR']=20;
 				$respuesta = $this->ws_sicas->actualizaTarea($update);
 			} else {
@@ -2673,7 +2674,7 @@ XML;
 		$respuesta['success'] = true;
 
 		$bitacora = $this->db->query("select ac.folioActividad,(concat(ac.comentario,' [',ac.username,']')) as Comentario,(ac.fechaInsercion) as FechaHora,'5' as IDUser,'' as Procedencia from actividadescomentarios 
-		ac where ac.folioActividad='" . $_POST['folioActividad'] . "' order by ac.idComentario desc")->result();
+ac where ac.folioActividad='" . $_POST['folioActividad'] . "' order by ac.idComentario desc")->result();
 
 		$respuesta['verBitacoraActividadCotizacion'] = array();
 		$respuesta['verBitacoraActividad'] = array();
@@ -2839,7 +2840,7 @@ XML;
 				$data['cliente'] = array(); //BUSCAR LOS DATOS EN LA TABLA DE CRM
 				//$_GET['IDCli']=1;
 				$bitacora = $this->db->query("select ac.folioActividad,(concat(ac.comentario,' [',ac.username,']')) as Comentario,(ac.fechaInsercion) as FechaHora,'5' as IDUser,'' as Procedencia from actividadescomentarios 
-				ac where ac.folioActividad='" . $this->uri->segment(3) . "' order by ac.idComentario desc")->result();
+ac where ac.folioActividad='" . $this->uri->segment(3) . "' order by ac.idComentario desc")->result();
 				#$data['verBitacoraActividad']=$bitacora;
 				$cliente = 'select (cc.IDCli) as IDCli,0 as PUNTOS,(concat(cc.Nombre," ",cc.ApellidoP," ",cc.ApellidoM)) as NombreCompleto,"" as idPersonaAgente,((concat(cc.Nombre," ",cc.ApellidoP," ",cc.ApellidoM))) as nombreCliente,cc.preferenciaComunicacion,cc.horarioComunicacion,cc.diaComunicacion,cc.Telefono1,"" as idContacto,cc.EMail1,cc.ApellidoP,cc.ApellidoM,cc.Nombre,cc.RFC,"" as CURP,cc.tipoEntidad,"" as Calidad,"" as Expediente,"" as TipoEnt,(cc.fecha_nacimiento) as FechaNac,(cc.fecha_constitucion) as FechaConst,(TIMESTAMPDIFF(year,cc.fecha_nacimiento,curdate())) as Edad,"" as ClaveTKM,cc.Sexo as Sexo,cc.RazonSocial,"" as IDCont,if(cc.CP is null,"SIN CP",cc.CP) as codigoPostal,(TIMESTAMPDIFF(year,cc.fecha_nacimiento,curdate())) as edad from clientes_actualiza cc where cc.IDCli=' . $folio->IDCliClienteActualiza;
 
@@ -2874,7 +2875,7 @@ XML;
 			} else {
 
 				$bitacora = $this->db->query("select ac.folioActividad,(concat(ac.comentario,' [',ac.username,']')) as Comentario,(ac.fechaInsercion) as FechaHora,'5' as IDUser,'' as Procedencia from actividadescomentarios 
-				ac where ac.folioActividad='" . $this->uri->segment(3) . "' order by ac.idComentario desc")->result();
+ac where ac.folioActividad='" . $this->uri->segment(3) . "' order by ac.idComentario desc")->result();
 				#$data['verBitacoraActividadCotizacion']=$bitacora;
 				$data['infoCliente']			= $this->ws_sicas->obtenerClientePorID($idCliente)->TableInfo; //$this->capsysdre_actividades->DetalleCliente($idCliente.'-'.$idContacto);
 				$data['cliente']				= $this->clientemodelo->obtenerDatosCliente($idCliente);
@@ -3338,11 +3339,11 @@ XML;
 
 		$fecha = date("d-m-Y");
 		$consulta = "select * from `actividades` act
-		left join users us on act.usuarioVendedor =us.email
-		where act.usuarioVendedor='" . $correoProcedente . "'
-		or
-		act.usuarioCreacion='" . $correoProcedente . "'
-		";
+	left join users us on act.usuarioVendedor =us.email
+	where act.usuarioVendedor='" . $correoProcedente . "'
+	or
+	act.usuarioCreacion='" . $correoProcedente . "'
+   	";
 
 		$resultado = $mysqli->query($consulta);
 
@@ -6001,10 +6002,19 @@ ac where ac.folioActividad='" . $this->uri->segment(3) . "' order by ac.idComent
 				}
 			}
 		} else {
+			//log_message("error", "=============================>");
+			$data['VersionTree'] = 1;
 			$data['IDValuePK'] = $_POST['IDValuePK'];
 			$data['IDDocto'] = 6936;
 			$data['RECEIPT'] = 1;
+
+			//log_message("error", json_encode($data));
+			//var_dump($data);
+			$cliente['VersionTree'] = 1;
 			$info['documentos'] = $this->ws_sicas->GetCDDigitalCliente($data, 1);
+
+			//log_message("error", json_encode($info));	 
+			//log_message("error", "<============================");
 		}
 
 		echo json_encode($info);
@@ -6123,7 +6133,31 @@ ac where ac.folioActividad='" . $this->uri->segment(3) . "' order by ac.idComent
 
 				} else {
 
-					$respuesta['verDocumentosActividad']	= $this->ws_sicas->GetCDDigitalCliente($cliente, 1);
+					$cliente['IDValuePK'] = $_POST['folioActividad'];
+					$EndososoDocs = $this->ws_sicas->GetCDDigitalEndosos($cliente, 0);
+					$cliente['IDValuePK'] =  $_POST['IDCli'];
+					$DocActividad	= $this->ws_sicas->GetCDDigitalCliente($cliente, 1);
+					if (isset($EndososoDocs["children"]) && is_array($EndososoDocs["children"])) {
+						foreach ($EndososoDocs["children"] as $key => $ItemEndoso) {
+							if ($ItemEndoso["Tipo"] == 1) {
+								$respuesta['verDocumentosEndoso'][] = $ItemEndoso;
+							}
+						}
+					} else {
+						$respuesta['verDocumentosEndoso'] = array();
+					}
+
+					if (!isset($DocActividad["children"]) || !is_array($DocActividad["children"])) {
+						foreach ($DocActividad["children"] as $key => $ItemAct) {
+							if ($ItemAct["Tipo"] == 1) {
+								$respuesta['verDocumentosActividad'][] = $ItemAct;
+							}
+						}
+					} else {
+						$respuesta['verDocumentosActividad'] = array();
+					}
+
+					/* $respuesta['verDocumentosActividad']	= $this->ws_sicas->GetCDDigitalCliente($cliente, 1);
 					$borrar = array();
 					foreach ($respuesta['verDocumentosActividad']['children'] as $key => $value) {
 						if ($value['Tipo'] == '0') {
@@ -6139,10 +6173,9 @@ ac where ac.folioActividad='" . $this->uri->segment(3) . "' order by ac.idComent
 						}
 					}
 
-
 					foreach ($borrar as  $value) {
 						unset($respuesta['verDocumentosActividad']['children'][$value]);
-					}
+					} */
 				}
 			}
 			$respuesta['verDocumentosClientes']	= $this->ws_sicas->GetCDDigitalCliente($cliente, 0);

@@ -1755,6 +1755,7 @@ function polizaNoRenovada()
       $update['IDDocto']=(string)$documento->TableInfo->IDDocto;
       $update['Status']=4;
       $update['Concepto']='NO RENOVADA';
+      $update['Status_TXT']="No Renovada";
       $respuesta=$this->ws_sicas->actualizaOT($update);
             
      $datos=array();

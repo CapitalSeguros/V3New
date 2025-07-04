@@ -308,16 +308,18 @@ function vacaciones($person = null){
     $data["downloadList"] = !empty($vacationPermission);
     $data['nuevasVacaciones']=$this->db->query('SELECT * FROM tabla_vacaciones_nueva')->result();
     $data["vacacionessolicitadas"]=$this->getDiasVacacionesSolicitadas($this->tank_auth->get_idPersona());
-
+    $data["reporteAniversario"]= $this->PersonaModelo->getReporteAniversario($this->tank_auth->get_username());
+    $data["reporteSolicitadas"]=$this->PersonaModelo->getReporteSolicitados($this->tank_auth->get_username());
     $this->load->view('persona/vacaciones', $data);
 }
 //--------------------
     function getDiasVacacionesSolicitadas($idPersona){
       //determinar los dias solicitados en por año por Usuario
         $period = $this->PersonaModelo->getWorkStartPeriod($idPersona);
-
+        $vacacionxanio = [];
       $i=1;
-      $cont=intval($period->anio);
+      if(isset($period->anio)){
+        $cont=intval($period->anio);
         while($cont>0){
              $sqlX="SELECT SUM(cantidad_dias) as dias FROM vacaciones WHERE  antiguedad = ".$cont." AND estado='aprobado' and idPersona = $idPersona"; //aprobado<>-1
              $dias= $this->db->query($sqlX)->result()[0];
@@ -325,10 +327,33 @@ function vacaciones($person = null){
              $cont--;
              $i++;
         }
+      }
+      
        
         return $vacacionxanio;
     }
-     
+//-------------------- //Edwin Marin [2025-04-23]
+function busquedaVacaciones(){
+    $tipo=$_POST['tipo'];
+    $idColaborador=$_POST['colaborador'];
+    $fecha=$_POST['fecha'];
+    $data=[];
+    switch ($tipo){
+        case 1: //busqueda por colaborador
+            $data["reporteAniversario"]= $this->PersonaModelo->searchReporteAniversario($tipo, $this->tank_auth->get_username(), $idColaborador);
+            $data["reporteSolicitadas"]=$this->PersonaModelo->searchReporteSolicitados($tipo, $idColaborador);
+            break;
+        case 2: //busqueda por fecha
+            $data["reporteAniversario"]= $this->PersonaModelo->searchReporteAniversario($tipo, $this->tank_auth->get_username(), $fecha);
+            $data["reporteSolicitadas"]=$this->PersonaModelo->searchReporteSolicitados($tipo, $fecha);
+            break;
+        case 3: //busqueda por ambos
+            $data["reporteAniversario"]= $this->PersonaModelo->searchReporteAniversario($tipo, $this->tank_auth->get_username(), $idColaborador, $fecha);
+            $data["reporteSolicitadas"]=$this->PersonaModelo->searchReporteSolicitados($tipo, $idColaborador, $fecha);
+            break;
+        }
+        echo json_encode($data);
+}
 function vacaciones_(){ //Obsoleto Dennis Castillo [2022-06-26]
 
     if(isset($_REQUEST['id'])){
@@ -2176,7 +2201,7 @@ function genereateVacationRequest($data, $file){
                     );
                 }
 
-                $response["message"][] = !in_array(false, $validUpload) ? "Archivo cargado correctamente" : "Ocurrió un problema con la carga de archivo. Favor de contactar al depto de sistemas.";
+                //$response["message"][] = !in_array(false, $validUpload) ? "Archivo cargado correctamente" : "Ocurrió un problema con la carga de archivo. Favor de contactar al depto de sistemas.";
             }
         
         } else{

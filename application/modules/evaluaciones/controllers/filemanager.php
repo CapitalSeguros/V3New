@@ -154,7 +154,7 @@ class filemanager extends TIC_Controller
     {
         $referencia = $this->input->get("referencia");
         $referencia_id = $this->input->get("referencia_id");
-        $usuario_id = 0;
+        $cliente_id = $this->input->get("cliente_id");
         $puesto_id = $this->tank_auth->get_idPersonaPuesto();
         $persona_id = $this->tank_auth->get_idPersona();
         if ($referencia == "Polizas" || $referencia == "Fianzas") {
@@ -163,7 +163,6 @@ class filemanager extends TIC_Controller
         //$document = $this->documento->getDocument($referencia, $referencia_id);
         $document = $this->documento->getDocumentV2($referencia, $referencia_id);
         if ($document != null) {
-            $usuario_id = $document->IDCli;
             $arr = $this->documento->getFileByPuesto($puesto_id, array("tipo" => "application/vnd.google-apps.folder", "usuario" => $persona_id), $referencia, $referencia_id, null);
             $carr = array();
             foreach ($arr as $key => $value) {
@@ -247,88 +246,107 @@ class filemanager extends TIC_Controller
                 }
             }
 
-            $filesUser = $this->documento->getFilesUserByUsuario($usuario_id);
-            $documentsChilds = array();
+            //Esta parte se agregó para obtener los documentos del cliente
+            if (!empty($cliente_id) && $cliente_id > 0) {
+                $filesUser = $this->documento->getFilesUserByUsuario($cliente_id);
+                $documentsChilds = array();
 
-            foreach ($filesUser as $value) {
-                $isFolder = ($value->tipo === 'application/vnd.google-apps.folder') 
-                            || ($value->nombre_completo == 15);
-                
-                $documentData = array(
-                    "id" => $value->file_id,
-                    "name" => $value->nombre,
-                    "name_complete" => $value->nombre_completo,
-                    "description" => $value->descripcion,
-                    "employee" => $value->empleado,
-                    "canDelete" => $value->usuario_alta_id == $persona_id ? true : false,
-                    "iconLink" => $value->url_icono,
-                    "thumbnailLink" => $value->thumbnail_link,
-                    "mimeType" => $value->tipo,
-                    "size" => $value->tamanio,
-                    "parent_id" => $value->parent_id,
-                    "permisos" => [],
-                    "employee_id" => $value->usuario_alta_id,
-                    "ruta_completa" => $value->ruta_completa,
-                    "children" => array() // Array para almacenar hijos si es una carpeta
-                );
-                
-                if ($isFolder) {
-                    $documentsParent = $value;
-                    $documentsTree[] = array(
-                        "label"=> "CLIENTE: " . $value->nombre_completo,
-                        "name_complete"=> "CLIENTE: " . $value->nombre_completo,
-                        "value"=> $value->file_id,
-                        "showCheckbox"=> false,
-                        "employee"=> "",
-                        "id"=> $value->file_id,
-                        "canDelete"=> false,
-                        "name"=> "CLIENTE: " . $value->nombre_completo,
-                        "description"=> null,
-                        "iconLink"=> null,
-                        "thumbnailLink"=> null,
-                        "mimeType"=> $value->tipo,
-                        "size"=> null,
-                        "parent_id"=> $value->parent_id,
-                        "children"=> [],
-                        "permisos"=> [],
-                        "employee_id"=> null,
-                        "ruta_completa"=> null,
+                foreach ($filesUser as $value) {
+                    $isFolder = ($value->tipo === 'application/vnd.google-apps.folder') || ($value->nombre_completo == $cliente_id);
+
+                    $documentData = array(
+                        "id" => $value->file_id,
+                        "name" => $value->nombre,
+                        "name_complete" => $value->nombre_completo,
+                        "description" => $value->descripcion,
+                        "employee" => $value->empleado,
+                        "canDelete" => $value->usuario_alta_id == $persona_id ? true : false,
+                        "iconLink" => $value->url_icono,
+                        "thumbnailLink" => $value->thumbnail_link,
+                        "mimeType" => $value->tipo,
+                        "size" => $value->tamanio,
+                        "parent_id" => $value->parent_id,
+                        "permisos" => [],
+                        "employee_id" => $value->usuario_alta_id,
+                        "ruta_completa" => $value->ruta_completa,
+                        "children" => array() // Array para almacenar hijos si es una carpeta
                     );
-                    // Es una carpeta, la añadimos al array principal
-                    //$documents[$value->file_id] = $documentData;
-                } else {
-                    // Es un documento, lo añadimos como hijo de su carpeta padre
-                    if ($value->parent_id && isset($documentsChilds[$value->parent_id])) {
-                        $documentsChilds[$value->parent_id]['children'][] = $documentData;
+
+                    if ($isFolder) {
+                        $documentsParent = $value;
+                        $documentsTree[] = array(
+                            "label" => "CLIENTE: " . $value->nombre_completo,
+                            "name_complete" => "CLIENTE: " . $value->nombre_completo,
+                            "value" => $value->file_id,
+                            "showCheckbox" => false,
+                            "employee" => "",
+                            "id" => $value->file_id,
+                            "canDelete" => false,
+                            "name" => "CLIENTE: " . $value->nombre_completo,
+                            "description" => null,
+                            "iconLink" => null,
+                            "thumbnailLink" => null,
+                            "mimeType" => $value->tipo,
+                            "size" => null,
+                            "parent_id" => $value->parent_id,
+                            "children" => [],
+                            "permisos" => [],
+                            "employee_id" => null,
+                            "ruta_completa" => null,
+                        );
                     } else {
-                        // Documento sin padre conocido, lo añadimos al nivel principal
-                        $documentsChilds[] = $documentData;
+                        if ($value->parent_id && isset($documentsChilds[$value->parent_id])) {
+                            $documentsChilds[$value->parent_id]['children'][] = $documentData;
+                        } else {
+                            $documentsChilds[] = $documentData;
+                        }
                     }
                 }
+
+                $documentsChilds = array_values($documentsChilds);
+
+                $this->responseJSON("200", "Éxito", array(
+                    "parent" => array(
+                        "id" => $document->file_id,
+                        "name" => $document->nombre,
+                        "mimeType" => "application/vnd.google-apps.folder",
+                        "all_permisos" => true,
+                    ),
+                    "child" => $childs,
+                    "tree" => $tree,
+                    "documentsparent" => array(
+                        "id" => $documentsParent->file_id,
+                        "name" => "CLIENTE: " . $documentsParent->nombre_completo,
+                        "mimeType" => "application/vnd.google-apps.folder",
+                        "all_permisos" => false,
+                    ),
+                    "documentstree" => $documentsTree,
+                    "documentschild" => $documentsChilds
+                ));
+            } else {
+                $this->responseJSON("200", "Éxito", array(
+                    "parent" => array(
+                        "id" => $document->file_id,
+                        "name" => $document->nombre,
+                        "mimeType" => "application/vnd.google-apps.folder"
+                    ),
+                    "child" => $childs,
+                    "tree" => $tree
+                ));
             }
 
-            // Convertir el array asociativo en indexado si es necesario
-            $documentsChilds = array_values($documentsChilds);
-
-
-            $this->responseJSON("200", "Éxito", array(
+            /* $this->responseJSON("200", "Éxito", array(
                 "parent" => array(
                     "id" => $document->file_id,
                     "name" => $document->nombre,
                     "mimeType" => "application/vnd.google-apps.folder"
                 ),
                 "child" => $childs,
-                "tree" => $tree,
-                "documentsparent" => array(
-                    "id" => $documentsParent->file_id,
-                    "name" => "CLIENTE: " . $documentsParent->nombre_completo,
-                    "mimeType" => "application/vnd.google-apps.folder"
-                ),
-                "documentstree" => $documentsTree,
-                "documentschild" => $documentsChilds
-            ));
+                "tree" => $tree
+            )); */
+
         } else {
-            $RefeFoldID = $this->createReferenciaFolderV2($referencia, $referencia_id);
+            $RefeFoldID = $this->createReferenciaFolderV2($referencia, $referencia_id, !empty($cliente_id) && $cliente_id > 0 ? $cliente_id : null);
             //Se actualiza todo los documentos que no tengan id del padre
             $this->documento->updateAllParent($RefeFoldID->id, $referencia, $referencia_id);
             $document = $this->documento->getDocument($referencia, $referencia_id);
@@ -388,7 +406,96 @@ class filemanager extends TIC_Controller
                 }
             }
 
-            $this->responseJSON("200", "Éxito", array(
+            //Esta parte se agregó para obtener los documentos del cliente
+            if (!empty($cliente_id) && $cliente_id > 0) {
+                $filesUser = $this->documento->getFilesUserByUsuario($cliente_id);
+                $documentsChilds = array();
+
+                foreach ($filesUser as $value) {
+                    $isFolder = ($value->tipo === 'application/vnd.google-apps.folder') || ($value->nombre_completo == $cliente_id);
+
+                    $documentData = array(
+                        "id" => $value->file_id,
+                        "name" => $value->nombre,
+                        "name_complete" => $value->nombre_completo,
+                        "description" => $value->descripcion,
+                        "employee" => $value->empleado,
+                        "canDelete" => $value->usuario_alta_id == $persona_id ? true : false,
+                        "iconLink" => $value->url_icono,
+                        "thumbnailLink" => $value->thumbnail_link,
+                        "mimeType" => $value->tipo,
+                        "size" => $value->tamanio,
+                        "parent_id" => $value->parent_id,
+                        "permisos" => [],
+                        "employee_id" => $value->usuario_alta_id,
+                        "ruta_completa" => $value->ruta_completa,
+                        "children" => array() // Array para almacenar hijos si es una carpeta
+                    );
+
+                    if ($isFolder) {
+                        $documentsParent = $value;
+                        $documentsTree[] = array(
+                            "label" => "CLIENTE: " . $value->nombre_completo,
+                            "name_complete" => "CLIENTE: " . $value->nombre_completo,
+                            "value" => $value->file_id,
+                            "showCheckbox" => false,
+                            "employee" => "",
+                            "id" => $value->file_id,
+                            "canDelete" => false,
+                            "name" => "CLIENTE: " . $value->nombre_completo,
+                            "description" => null,
+                            "iconLink" => null,
+                            "thumbnailLink" => null,
+                            "mimeType" => $value->tipo,
+                            "size" => null,
+                            "parent_id" => $value->parent_id,
+                            "children" => [],
+                            "permisos" => [],
+                            "employee_id" => null,
+                            "ruta_completa" => null,
+                        );
+                    } else {
+                        if ($value->parent_id && isset($documentsChilds[$value->parent_id])) {
+                            $documentsChilds[$value->parent_id]['children'][] = $documentData;
+                        } else {
+                            $documentsChilds[] = $documentData;
+                        }
+                    }
+                }
+
+                $documentsChilds = array_values($documentsChilds);
+
+                $this->responseJSON("200", "Éxito", array(
+                    "parent" => array(
+                        "id" => $document->file_id,
+                        "name" => $document->nombre,
+                        "mimeType" => "application/vnd.google-apps.folder",
+                        "all_permisos" => true,
+                    ),
+                    "child" => $childs,
+                    "tree" => $tree,
+                    "documentsparent" => array(
+                        "id" => $documentsParent->file_id,
+                        "name" => "CLIENTE: " . $documentsParent->nombre_completo,
+                        "mimeType" => "application/vnd.google-apps.folder",
+                        "all_permisos" => false,
+                    ),
+                    "documentstree" => $documentsTree,
+                    "documentschild" => $documentsChilds
+                ));
+            } else {
+                $this->responseJSON("200", "Éxito", array(
+                    "parent" => array(
+                        "id" => $document->file_id,
+                        "name" => $document->nombre,
+                        "mimeType" => "application/vnd.google-apps.folder"
+                    ),
+                    "child" => $childs,
+                    "tree" => $tree
+                ));
+            }
+
+            /* $this->responseJSON("200", "Éxito", array(
                 "parent" => array(
                     "id" => $document->file_id,
                     "name" => $document->nombre,
@@ -396,7 +503,7 @@ class filemanager extends TIC_Controller
                 ),
                 "child" => $childs,
                 "tree" => $tree
-            ));
+            )); */
         }
         /*  $this->responseJSON("400", "Éxito", array(
             "parent" => array(
@@ -506,8 +613,9 @@ class filemanager extends TIC_Controller
         return $finalReference;
     }
 
-    private function createReferenciaFolderV2($referencia, $referencia_id)
+    private function createReferenciaFolderV2($referencia, $referencia_id, $IDCli = null)
     {
+        //private function saveDoc($file, $privado, $referencia, $referencia_id = 0, $puestos = [], $revision = 0, $IDCli = null)
         $finalReference = null;
         $folReferencia = null;
         $folReferenciaId = null;
@@ -516,7 +624,7 @@ class filemanager extends TIC_Controller
         if (count($exist_ref->data) == 0) {
             $folReferencia = $this->googledrive->createFolder($referencia);
             if ($folReferencia->exito) {
-                $this->saveDoc($folReferencia->data, false, $referencia);
+                $this->saveDoc($folReferencia->data, false, $referencia, $referencia_id, [], 0, $IDCli);
                 $folReferencia = $folReferencia->data;
             } else {
                 $this->responseJSON("400", $folReferencia->mensaje, null);
@@ -525,7 +633,7 @@ class filemanager extends TIC_Controller
         } else {
             $docFind = $this->documento->getFileByID($exist_ref->data[0]->id);
             if ($docFind == null) {
-                $this->saveDoc($exist_ref->data[0], false, $referencia, '');
+                $this->saveDoc($exist_ref->data[0], false, $referencia, $referencia_id, [], 0, $IDCli);
             }
             $folReferencia = $exist_ref->data[0];
         }
@@ -535,13 +643,13 @@ class filemanager extends TIC_Controller
             if (count($exist_ref_id->data) == 0) {
                 $folReferenciaId = $this->googledrive->createFolder($referencia_id, $folReferencia->getId());
                 if ($folReferenciaId->exito) {
-                    $this->saveDoc($folReferenciaId->data, false, $referencia, $referencia_id);
+                    $this->saveDoc($folReferenciaId->data, false, $referencia, $referencia_id, [], 0, $IDCli);
                     $folReferenciaId = $folReferenciaId->data;
                 }
             } else {
                 $Find = $this->documento->getFileByID($exist_ref_id->data[0]->id);
                 if ($Find == null) {
-                    $this->saveDoc($exist_ref_id->data[0], false, $referencia, $referencia_id);
+                    $this->saveDoc($exist_ref_id->data[0], false, $referencia, $referencia_id, [], 0, $IDCli);
                 }
                 $folReferenciaId = $exist_ref_id->data[0];
             }
@@ -738,6 +846,7 @@ class filemanager extends TIC_Controller
                 "permisos" => $this->documento->getPuestosDocument($value->id),
                 "ruta_completa" => $value->ruta_completa,
                 "employee_id" => $value->usuario_alta_id,
+                "all_permisos" => $type == "DOCUMENT" ? true : false,
             ));
         }
         $new = array();

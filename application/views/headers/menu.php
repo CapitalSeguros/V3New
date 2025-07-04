@@ -1417,7 +1417,9 @@ $usuarios_servicios_sicas = array(
             <?php } ?>
             <!-------------------------------------------------------- FIN cambios TIC CONSULTORES / 26-04-2021 ------------------------------------>
         <?php } ?>
-            
+                          <li class="nav-item">
+                    <a class="nav-link" href="https://v3consultas.capsys.com.mx/V3/auth/login" style="color: #fff;" target="_blank"><i class="fa"></i> Consulta</a>
+                </li>  
         </ul>
         </div>
             </nav>

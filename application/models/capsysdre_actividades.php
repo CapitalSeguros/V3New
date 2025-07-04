@@ -1387,7 +1387,7 @@ class Capsysdre_actividades extends CI_Model
 	/*	Crear Tarea SICAS
 	*	
 	*/
-	function CrearTarea($FolioNo, $IDCont, $Titulo, $Descripcion, $IDUserR, $IDTTarea)
+	function CrearTarea($FolioNo, $IDCont, $Titulo, $Descripcion, $IDUserR, $IDTTarea, $Poliza = null)
 	{
 		$quitar	= array(
 			'<p>',
@@ -1469,6 +1469,7 @@ class Capsysdre_actividades extends CI_Model
 								<Status>5</Status>
 								<IDUserR>" . $IDUserR . "</IDUserR>
 								<IDTTarea>" . $IDTTarea . "</IDTTarea>
+								<Poliza>" . $Poliza . "</Poliza>
 							</DatTareas>					
 						</InfoData>";
 		$wsNodoExtrae = "DATAINFO";

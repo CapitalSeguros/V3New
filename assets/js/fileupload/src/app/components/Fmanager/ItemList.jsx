@@ -15,6 +15,7 @@ const ItemList = ({
   handleAccion,
   tree,
   handleDownload,
+  Documento = null,
 }) => {
   const Puestousuario = window.jQuery("#Puesto").attr("data-id");
   const Idusuario = window.jQuery("#Empleado_id").attr("data-id");
@@ -62,40 +63,53 @@ const ItemList = ({
             >
               <i className="fa fa-ellipsis-v" aria-hidden="true"></i>
             </a>
-            <ul
-              className="dropdown-menu"
-              aria-labelledby={item.id}
-              style={{ zIndex: "1000" }}
-            >
-              {item.mimeType !== "application/vnd.google-apps.folder" && (
-                <>
+            {
+              Documento && Documento != null && Documento != undefined && Documento.includes("CLIENTE:") ?
+                <ul className="dropdown-menu" aria-labelledby={item.id} style={{ zIndex: "1000" }}>
+                  {item.mimeType !== "application/vnd.google-apps.folder" && (
+                    <>
+                      {
+                        handleDownload &&
+                        <li>
+                          <a onClick={() => handleDownload(item)} style={{ cursor: "pointer" }} >
+                            Descargar
+                          </a>
+                        </li>
+                      }
+                    </>
+                  )}
+                </ul>
+                :
+                <ul className="dropdown-menu" aria-labelledby={item.id} style={{ zIndex: "1000" }}>
+                  {item.mimeType !== "application/vnd.google-apps.folder" && (
+                    <>
+                      <li>
+                        <a onClick={() => handleAccion("COPY", item)} style={{ cursor: "pointer" }} >
+                          Copiar
+                        </a>
+                      </li>
+                      <li>
+                        <a onClick={() => handlePreview(item)} style={{ cursor: "pointer" }} >
+                          Vista previa
+                        </a>
+                      </li>
+                      {
+                        handleDownload &&
+                        <li>
+                          <a onClick={() => handleDownload(item)} style={{ cursor: "pointer" }} >
+                            Descargar
+                          </a>
+                        </li>
+                      }
+                    </>
+                  )}
                   <li>
-                    <a onClick={() => handleAccion("COPY", item)} style={{ cursor: "pointer" }} >
-                      Copiar
+                    <a onClick={() => handleAccion("MOVE", item)} style={{ cursor: "pointer" }} >
+                      Mover
                     </a>
                   </li>
-                  <li>
-                    <a onClick={() => handlePreview(item)} style={{ cursor: "pointer" }} >
-                      Vista previa
-                    </a>
-                  </li>
-                  {
-                    handleDownload &&
-                    <li>
-                      <a onClick={() => handleDownload(item)} style={{ cursor: "pointer" }} >
-                        Descargar
-                      </a>
-                    </li>
-                  }
-                </>
-              )}
-              <li>
-                <a onClick={() => handleAccion("MOVE", item)} style={{ cursor: "pointer" }} >
-                  Mover
-                </a>
-              </li>
 
-              {/* {item.trashed == true && (
+                  {/* {item.trashed == true && (
                 <>
                   <li>
                     <a onClick={() => handleRestore(item)} style={{ cursor: "pointer" }} >
@@ -109,16 +123,17 @@ const ItemList = ({
                   </li>
                 </>
               )} */}
-              {full != undefined &&
-                item.trashed == undefined && (
-                  <li>
-                    <a onClick={() => handleTrash(item)} style={{ cursor: "pointer" }} >
-                      Eliminar
-                    </a>
-                  </li>
-                )}
+                  {full != undefined &&
+                    item.trashed == undefined && (
+                      <li>
+                        <a onClick={() => handleTrash(item)} style={{ cursor: "pointer" }} >
+                          Eliminar
+                        </a>
+                      </li>
+                    )}
 
-            </ul>
+                </ul>
+            }
           </div>
         </div>
       </td>

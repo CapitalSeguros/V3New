@@ -113,8 +113,56 @@ class Ws_sicas
                 return $decoded_response;
             }
             $returnedResponse = $this->convertResponseXML($response);
-            //$decoded_response2 = json_decode($response, true);
-            //$returnedResponse = $this->convertResponseV2($decoded_response2);
+            return $returnedResponse;
+        }
+    }
+
+    function getDatosSICASDoc($body, $header = null, $url = "", $format = "XML") //esto es el nuevo metodo optimizado
+    {
+        $start_time = microtime(true);
+        $xml = '<ProcesarWS><oDataWS>';
+        foreach ($body as $key => $value) {
+            $xml = $xml . '<' . $key . '>' . $value . '</' . $key . '>';
+        }
+        $xml = $xml . '</oDataWS></ProcesarWS>';
+
+
+
+        $urlSite = URL_TICC_SICAS . 'sicas/addData';
+        //$urlSite = 'http://tic.sicasapi.capsys.site/sicas/addData';
+        $Fiedls = array("data" => $xml, "formato" => $format);
+        $httpHeader = array();
+        $headers = array("Content-Type: application/json; charset=utf-8");
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $urlSite,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 120,
+            CURLOPT_CONNECTTIMEOUT => 120,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => json_encode($Fiedls),
+            CURLOPT_HTTPHEADER => $headers
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+        if ($err) {
+            $obj["code"] = 400;
+            $obj["error"] = $err;
+            return json_encode($obj);
+        } else {
+            //echo $response;
+
+            if ($format === "JSON") {
+                $decoded_response = json_decode($response);
+                return $decoded_response;
+            }
+            $decoded_response2 = json_decode($response, true);
+            $returnedResponse = $this->convertResponseV2($decoded_response2);
             return $returnedResponse;
         }
     }
@@ -153,9 +201,8 @@ class Ws_sicas
             if ($format === "JSON") {
                 return $decoded_response;
             }
-            $returnedResponse = $this->convertResponseXML($response);
-            //$decoded_response2 = json_decode($response, true);
-            //$returnedResponse = $this->convertResponseV2($decoded_response2);
+            $decoded_response2 = json_decode($response, true);
+            $returnedResponse = $this->convertResponseV2($decoded_response2);
             //$returnedResponse = $this->convertResponse($decoded_response2);
             return $returnedResponse;
         }
@@ -246,10 +293,9 @@ class Ws_sicas
                     return $decoded_response;
                 }
             }
-            $returnedResponse = $this->convertResponseXML($response);
-            //$decoded_response2 = json_decode($response, true);
+            $decoded_response2 = json_decode($response, true);
             //$returnedResponse = $this->convertResponse($decoded_response2);
-            //$returnedResponse = $this->convertResponseV2($decoded_response2);
+            $returnedResponse = $this->convertResponseV2($decoded_response2);
             return $returnedResponse;
         }
     }/*! consumowssicas */
@@ -530,6 +576,59 @@ class Ws_sicas
                         array_push($result_c, $value);
                     }
                     //$test=$result->Datos;MAPLE
+                    //$test = $this->CrearArbol($result_c, 0);
+                   if(isset($data["VersionTree"])){
+                        //echo 'version1';
+                        $test = $this->CrearArbol($result_c, 0);
+                    }else{
+                        //echo 'version2';
+                        $test = $this->CrearArbol2($result_c);
+                    }
+                    //$test["all"]=$result_c;
+
+                } else {
+                    return array('text' => 'No cuenta con documentos');
+                }
+                return $test;
+            } else {
+                return array('text' => 'No cuenta con documentos');
+            }
+        }
+    }
+
+    public function GetCDDigitalEndosos($data, $recursivo = 0)
+    {
+
+        if (is_array($data)) {
+            $id = $data["IDValuePK"];
+            $data_body = array(
+                "ConditionsAdd" => "",
+                "InfoSort" => "",
+                "KeyCode" => "",
+                "KeyProcess" => "CDIGITAL",
+                "TypeDestinoCDigital" => "ENDOSO",
+                "ActionCDigital" => "GETFiles"
+            );
+            $datos['TipoEntidad'] = '0';
+            $datos['TypeDestinoCDigital'] = 'ENDOSO';
+            $datos['IDValuePK'] = $id;
+            $datos['ActionCDigital'] = 'GETFiles';
+            $datos['TypeFormat'] = 'XML';
+            $datos['TProct'] = 'Read_Data';
+            $datos['KeyProcess'] = 'CDIGITAL';
+            $datos['Page'] = '1';
+
+            $datos['ItemForPage'] = '10000000';
+            $datos['ReadRecursive'] = $recursivo;
+            $result = $this->getDatosSICAS($datos, null, "", "JSON");
+            if (isset($result->Datos)) {
+                $result_c = array();
+                if ($result->Datos != "" && count($result->Datos) > 0) {
+                    $Level = 0;
+                    foreach ($result->Datos as $value) {
+                        array_push($result_c, $value);
+                    }
+                    //$test=$result->Datos;MAPLE
                     if(isset($data["VersionTree"])){
                         //echo 'version1';
                         $test = $this->CrearArbol($result_c, 0);
@@ -537,8 +636,6 @@ class Ws_sicas
                          //echo 'version2';
                         $test = $this->CrearArbol2($result_c);
                     }
-                    //$test = $this->CrearArbol2($result_c);
-                    //$test["all"]=$result_c;
 
                 } else {
                     return array('text' => 'No cuenta con documentos');
@@ -1817,7 +1914,25 @@ class Ws_sicas
         return $respuesta;
     }
 
+    //Nuevos Metodos
+    public function actualizaTarea($arrayOT){
+        /*ACTUALIZA UNA ORDEN DE TRABAJO(OT) */
+        $respuesta = array();
+        unset($arrayOT['Concepto']);
+        unset($arrayOT['FEmision']);
+        if (isset($arrayOT['IDTarea'])) {
+            $encriptado = '<InfoData><DatTareas>';
+            foreach ($arrayOT as $key => $value) {
+                $encriptado = $encriptado . '<' . $key . '>' . $value . '</' . $key . '>';
+            }
+            $encriptado = $encriptado . '</DatTareas></InfoData>';
+            //$encriptado = $this->encripta($encriptado);
+            $respuesta = $this->grabarActualizasDatos('H04245', $encriptado);
+            //$respuesta = $this->decodificaXML($respuesta);
 
+            return $respuesta;
+        }
+    }
 
     //-------------------------------------------------------------------------------------------------
 
