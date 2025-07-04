@@ -4988,7 +4988,16 @@ function rowTablaCobranza(c,padre,evento,devolverObjeto=false)
         let telefono='';
        if(c.EMail1){email=c.EMail1;}
        if(c.Telefono1){telefono=c.Telefono1;}
-       let flimpago=c.FLimPago.substr(0,10); 
+       let flimpago = "";
+
+       if(c.FLimPago && c.FLimPago != null && c.FLimPago != undefined && c.FLimPago != '' && JSON.stringify(c.FLimPago)!='{}')
+       {
+       	  flimpago=c.FLimPago.substr(0,10);
+       }
+       else
+       {
+       	  c.FLimPago='';
+       }
 
     let tr='';
   	let btnSolCobranza='';
